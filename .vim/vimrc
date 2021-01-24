@@ -1,0 +1,220 @@
+" Stops things breaking
+set nocompatible
+
+"Allow switching from an unsaved buffer
+set hidden
+
+" Set runtime path and (vim)rc path
+let $RTP=split(&runtimepath, ',')[0]
+let $RC="$HOME/.vim/vimrc"
+
+" No swap files
+ set noswapfile
+
+" Line numbering
+set number
+set relativenumber
+
+" Search highlighting
+set hlsearch
+
+" foratting
+set tabstop=4
+set softtabstop=4
+
+" Colour scheme
+" let g:hybrid_custom_term_colors = 1
+set t_Co=256
+set background=dark
+colorscheme molokai
+
+" Search for files anywhere lower in the file tree using fuzzy matching
+set path+=**
+
+" Display all matching files when we tab complete
+set wildmenu
+
+" Easy switching between panes 
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+
+" Create a tags file (need to install ctags first)
+command! MakeTags !ctags -R ./*
+
+" Tweaks for file browsing
+let g:netrw_banner=0		" disable banner
+let g:netrw_browse_split=4	" open in prior window
+let g:netrw_altv=1		" open splits to the right
+let g:netrw_liststyle=3	" tree view
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+
+" Use system clipboard
+set clipboard=unnamed
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+nnoremap <space> za
+
+" Bad whitespace highlighting
+highlight badWhitespace ctermfg=16 ctermbg=253 guifg=#000000 guibg=#F8F8F0
+match BadWhitespace /\s\+$/ | 
+
+" utf-8 encoding
+set encoding=utf-8
+
+""" obvious-resize config
+noremap <silent> <ESC>k :ObviousResizeUp<CR>
+noremap <silent> <ESC>j :ObviousResizeDown<CR>
+noremap <silent> <ESC>h :ObviousResizeLeft<CR>
+noremap <silent> <ESC>l :ObviousResizeRight<CR>
+
+""" vim-airline config
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#ale#enabled = 1
+let g:airline_theme='murmur'
+
+""" ALE config
+let g:ale_linters={'python': ['pylint']}
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+
+""" YCM config
+
+" make YCM compatible with UltiSnips (using supertab)
+" noremap <C-@> <C-Space>
+" set rtp+="$HOME/.vim/pack/ycm-core/start/YouCompleteMe"
+" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+" let g:ycm_filetype_whitelist = {"python":1,}
+" let g:ycm_auto_trigger = 1
+" let g:ycm_min_num_of_chars_for_completion = 2
+" let g:ycm_log_level = 'debug'
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+""" asyncomplete config 
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <CR>    pumvisible() ? asyncomplete#close_popup() : "\<CR>"
+imap <C-space> <Plug>(asyncomplete_force_refresh)
+let g:asyncomplete_auto_popup = 1
+
+""" Ultisnips config
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+" python doc style
+let g:ultisnips_python_style="sphinx"
+
+""" syntastic config
+set statusline+=%#warningmsg#
+set statusline+=%*
+
+""" Black config
+" Run black automatically on save
+autocmd! BufWritePre *.py execute ':Black'
+let g:black_linelength=79
+
+""" asyncrun config
+let g:asyncrun_open=8
+
+" vim-test config
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+let test#strategy="asyncrun"
+
+" WSL yank support
+" let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path
+" if executable(s:clip)
+"     augroup WSLYank
+" 			autocmd!
+" 			autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+" 		augroup END
+" endif
+
+" Quickfix config
+function! QuickFix_toggle()
+    for i in range(1, winnr('$'))
+        let bnum = winbufnr(i)
+        if getbufvar(bnum, '&buftype') == 'quickfix'
+            cclose
+            return
+        endif
+    endfor
+    copen
+endfunction
+nnoremap <silent> coq :call QuickFix_toggle()<cr>
+
+""" Toggle terminal on/off
+function! PutTermPanel(buf, side, size) abort
+	" new term if no buffer
+	if a:buf == 0
+		term
+	else
+		execute "sp" bufname(a:buf)
+	endif
+	" default side if wrong argument
+	if stridx("hjklHJKL", a:side) == -1
+		execute "wincmd" "J"
+	else
+		execute "wincmd" a:side
+	endif
+	" horizontal split resize
+	if stridx("jkJK", a:side) >= 0
+		if ! a:size > 0
+			resize 6
+		else
+			execute "resize" a:size
+		endif
+		return
+	endif
+	" vertical split resize
+	if stridx("hlHL", a:side) >= 0
+		if !  a:size > 0
+			vertical resize 6
+		else
+            execute "vertical resize" a:size
+        endif
+	endif
+endfunction
+
+function! s:ToggleTerminal(side, size) abort
+    let tpbl=[]
+    let closed = 0
+    let tpbl = tabpagebuflist()
+    " hide visible terminals
+    for buf in filter(range(1, bufnr('$')), 'bufexists(bufname(v:val)) && index(tpbl, v:val)>=0')
+        if getbufvar(buf, '&buftype') ==? 'terminal'
+            silent execute bufwinnr(buf) . "hide"
+                let closed += 1
+            endif
+    endfor
+    if closed > 0
+        return
+    endif
+    " open first hidden terminal
+    for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)<0')
+        if getbufvar(buf, '&buftype') ==?  'terminal'
+            call PutTermPanel(buf, a:side, a:size)
+            return
+        endif
+    endfor
+    " open new terminal
+    call PutTermPanel(0, a:side, a:size)
+endfunction
+nnoremap <silent> <leader>t :call <SID>ToggleTerminal('J', 6)<CR>
+
+" Load all plugins now.
+" " Plugins need to be added to runtimepath before helptags can be generated.
+packloadall
+" " Load all of the helptags now, after plugins have been loaded.
+" " All messages and errors will be ignored.
+silent! helptags ALL
