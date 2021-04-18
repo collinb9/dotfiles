@@ -1,0 +1,5 @@
+#!/bin/sh
+echo "$(git log -1 --pretty=%B)"
+if [ "$(git log -1 --pretty=%B)" = "temp commit" ]; then
+		git reset --soft HEAD~
+fi
