@@ -1,7 +1,7 @@
 # Dotfiles
 This repo contains all my dot files. Run 
 ```
-git clone ..... ~/.dotenvfiles
+git clone git@github:collinb9/dotfiles ~/.dotfiles
 chmod +x ~/.dotfiles/setup.sh
 ~/.dotfiles/setup.sh
 ```
