@@ -2,6 +2,9 @@
 This repo contains all my dot files. Run 
 ```
 git clone git@github:collinb9/dotfiles ~/.dotfiles
+cd ~/.dotfiles
+git submodule init
+git submodule update
 chmod +x ~/.dotfiles/setup.sh
 ~/.dotfiles/setup.sh
 ```
