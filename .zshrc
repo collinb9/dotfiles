@@ -102,7 +102,6 @@ source $ZSH/oh-my-zsh.sh
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ctags="/usr/local/bin/ctags"
-eval "$(pyenv init -)"
 eval "$(rbenv init -)"
 if [ -d "$HOME/bin" ] ; then
 	export PATH="$HOME/bin:$PATH"
@@ -110,6 +109,8 @@ fi
 source ~/bin/custom_commands.sh
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
+export PATH="$PYENV_ROOT/shims:$PATH"
+eval "$(pyenv init -)"
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
