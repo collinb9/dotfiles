@@ -1,5 +1,5 @@
-ln -svfn ~/.dotfiles/.bashrc ~
 ln -svfn ~/.dotfiles/.zshrc ~
+ln -svfn ~/.dotfiles/.inputrc ~
 sudo rm -rf ~/.vim
 ln -svfn ~/.dotfiles/.vim ~
 sudo rm -rf ~/.git_template
@@ -15,5 +15,5 @@ ln -svfn ~/.dotfiles/.fzf ~
 chmod +x ~/.fzf/*
 ~/.fzf/install
 chmod +x ~/.fzf/*
-mkdir -p ~/bin
-ln -svfn ~/.dotfiles/bin/custom_commands.sh ~/bin/
+# mkdir -p ~/bin
+ln -svfn ~/.dotfiles/bin/ ~
