@@ -1,0 +1,13 @@
+[init]
+	templatedir = ~/.git_template
+	defaultBranch = master
+[user]
+	email = brendan.m.collins@outlook.com
+	name = collinb9
+[pull]
+	rebase = true
+[core]
+	editor = vim
+	pager = less
+[color]
+	ui = auto

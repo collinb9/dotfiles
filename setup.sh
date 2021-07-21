@@ -1,5 +1,6 @@
 ln -svfn ~/.dotfiles/.zshrc ~
 ln -svfn ~/.dotfiles/.inputrc ~
+ln -svfn ~/.dotfiles/.gitconfig ~
 sudo rm -rf ~/.vim
 ln -svfn ~/.dotfiles/.vim ~
 sudo rm -rf ~/.git_template
