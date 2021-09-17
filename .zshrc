@@ -118,3 +118,4 @@ alias fd="fdfind"
 export FZF_DEFAULT_OPS="--extended"
 export FZF_DEFAULT_COMMAND="$(which fdfind) --type f"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+stty -ixon
