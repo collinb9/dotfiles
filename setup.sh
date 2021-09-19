@@ -11,7 +11,6 @@ ln -svfn ~/.dotfiles/.vim ~
 ln -svfn ~/.dotfiles/.gitconfig ~
 sudo rm -rf ~/.git_template
 ln -svfn ~/.git_template ~
-chmod +x ~/.git_template/*
 git config --global init.templatedir '~/.git_template'
 ln -svfn ~/.dotfiles/.git_template ~
 chmod +x ~/.git_template/hooks/*
@@ -21,6 +20,7 @@ ln -svfn ~/.dotfiles/.zshrc ~
 sudo rm -rf ~/.oh-my-zsh
 ln -svfn ~/.dotfiles/.oh-my-zsh ~
 chmod +x ~/.oh-my-zsh/*
+~/.oh-my-zsh/tools/install.sh
 
 # fzf
 ln -svfn ~/.dotfiles/.fzf ~

@@ -128,3 +128,6 @@ alias fd="fdfind"
 
 ################################## misc
 stty -ixon
+
+# added by travis gem
+[ ! -s /home/brendan/.travis/travis.sh ] || source /home/brendan/.travis/travis.sh
