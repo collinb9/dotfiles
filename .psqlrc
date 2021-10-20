@@ -1,0 +1,19 @@
+-- Configuration for psql client
+
+------------------------------- Format query results
+
+\pset format wrapped
+\x on
+\pset columns 0
+\pset border 1
+\pset linestyle old-ascii
+\pset null '(null)'
+
+------------------------------- Misc
+
+\set COMP_KEYWORD_CASE upper
+\pset pager always
+\timing on
+-- host:database:user=>
+\set PROMPT1 '%m:%~:%n%R%#'
+
