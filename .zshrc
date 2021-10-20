@@ -72,7 +72,7 @@ ZSH_THEME="bco"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode)
+plugins=(git vi-mode aws fzf colored-man-pages docker)
 
 source $ZSH/oh-my-zsh.sh
 
