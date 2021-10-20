@@ -1,0 +1,10 @@
+# Use zsh in a screen session
+defshell -/bin/zsh
+
+# Statusbar
+hardstatus on
+hardstatus alwayslastline
+hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %m/%d %C%a "
+
+# Allow scrolling
+termcapinfo xterm* ti@:te@
