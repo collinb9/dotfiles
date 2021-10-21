@@ -11,6 +11,7 @@
 
 ------------------------------- Misc
 
+\set QUIET ON
 \set COMP_KEYWORD_CASE upper
 \pset pager always
 \timing on

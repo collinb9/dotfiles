@@ -107,15 +107,24 @@ if [ -d "$HOME/bin" ] ; then
 	export PATH="$HOME/bin:$PATH"
 fi
 source ~/bin/custom_commands.sh
+
+################################## pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 export PATH="$PYENV_ROOT/shims:$PATH"
 eval "$(pyenv init -)"
 
+################################## nim
+export NIMBLE_ROOT="$HOME/.nimble"
+export PATH="$NIMBLE_ROOT/bin:$PATH"
 
+################################## fuzzy finding
 alias fd="fdfind"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPS="--extended"
 export FZF_DEFAULT_COMMAND="$(which fdfind) --type f"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+alias fd="fdfind"
+
+################################## misc
 stty -ixon
