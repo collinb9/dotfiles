@@ -37,3 +37,24 @@ function merge(){
   rm tmp$ext
   echo "Files merged into \"$2\"."
 }
+
+function gh_pr_create(){
+  branch="${2:-master}"
+  echo $branch
+  commit_hash=`git log --grep $1 | grep -m 1 commit | awk '{print $2}'`
+  echo $commit_hash
+  pr_title=` git log --format=%s -n 1 $commit_hash`
+  echo title
+  echo $pr_title
+  pr_body=` git log --format=%b -n 1 $commit_hash`
+  # echo body
+  # echo $pr_body
+  # while true; do
+    # read -p "y/n" yn
+  echo y/n
+  echo "Create a pr against branch=$branch with title: \n$pr_title\n and body:\n$pr_body\n?"
+  read answer
+  if [ "$answer" != "${answer#[Yy]}" ] ; then
+    gh pr create --title $pr_title --body $pr_body --base $branch
+  fi
+}

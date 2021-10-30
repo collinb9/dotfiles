@@ -9,7 +9,8 @@ export ZSH="/$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="bco"
+# ZSH_THEME="bco"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -128,6 +129,7 @@ alias fd="fdfind"
 
 ################################## misc
 stty -ixon
+alias git push="git push 2>&1 | grep git | xargs -I {} sh -c {}"
 
 # added by travis gem
 [ ! -s /home/brendan/.travis/travis.sh ] || source /home/brendan/.travis/travis.sh
