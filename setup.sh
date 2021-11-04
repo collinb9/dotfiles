@@ -1,3 +1,7 @@
+# .config setup
+sudo rm -rf ~/.config/htop
+ln -svfn ~/.dotfiles/.config/htop/ ~/.config
+
 # misc rc files
 ln -svfn ~/.dotfiles/.inputrc ~
 ln -svfn ~/.dotfiles/.screenrc ~
