@@ -1,6 +1,10 @@
-# .config setup
+# htop
 sudo rm -rf ~/.config/htop
 ln -svfn ~/.dotfiles/.config/htop/ ~/.config
+
+# tmux
+sudo rm -rf ~/.config/tmux
+ln -svfn ~/.dotfiles/.config/tmux/ ~/.config
 
 # misc rc files
 ln -svfn ~/.dotfiles/.inputrc ~
