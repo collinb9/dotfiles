@@ -1,6 +1,14 @@
-# .config setup
+# htop
 sudo rm -rf ~/.config/htop
 ln -svfn ~/.dotfiles/.config/htop/ ~/.config
+
+# tmux
+sudo rm -rf ~/.config/tmux
+ln -svfn ~/.dotfiles/.config/tmux/ ~/.config
+
+# nvim
+sudo rm -rf ~/.config/nvim
+ln -svfn ~/.dotfiles/.config/nvim/ ~/.config
 
 # misc rc files
 ln -svfn ~/.dotfiles/.inputrc ~
