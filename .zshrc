@@ -103,11 +103,14 @@ source $ZSH/oh-my-zsh.sh
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ctags="/usr/local/bin/ctags"
-eval "$(rbenv init -)"
+# eval "$(rbenv init -)"
 if [ -d "$HOME/bin" ] ; then
 	export PATH="$HOME/bin:$PATH"
 fi
 source ~/bin/custom_commands.sh
+
+################################## config dir location
+XDG_CONFIG_HOME="$HOME/.config"
 
 ################################## pyenv
 export PYENV_ROOT="$HOME/.pyenv"
@@ -120,12 +123,11 @@ export NIMBLE_ROOT="$HOME/.nimble"
 export PATH="$NIMBLE_ROOT/bin:$PATH"
 
 ################################## fuzzy finding
-alias fd="fdfind"
+# alias fd="fdfind"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPS="--extended"
 export FZF_DEFAULT_COMMAND="$(which fdfind) --type f"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-alias fd="fdfind"
 
 ################################## misc
 stty -ixon
@@ -133,3 +135,9 @@ alias git push="git push 2>&1 | grep git | xargs -I {} sh -c {}"
 
 # added by travis gem
 [ ! -s /home/brendan/.travis/travis.sh ] || source /home/brendan/.travis/travis.sh
+
+################################## xorg
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+	exec startx
+fi
+
