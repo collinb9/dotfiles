@@ -6,12 +6,6 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall
 endif
 
-" auto-install mising plugins
-autocmd VimEnter *
-    \  if !empty(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
-    \|   PlugInstall | q
-    \| endif
-
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
@@ -41,12 +35,35 @@ call plug#begin('~/.config/nvim/plugged')
 " junegunn/fzf
 
 " " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+"  Tpope stuff
+Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
+
+" general text editing improvements
 Plug 'jiangmiao/auto-pairs'
 Plug 'wellle/targets.vim'
+
+" telescope
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
+
+" treesitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+" language servers and autocomplete
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
+Plug 'nvim-telescope/telescope.nvim'
 " Plug 'junegunn/vim-easy-align'
 " 
 " " Any valid git URL is allowed
@@ -77,6 +94,8 @@ Plug 'wellle/targets.vim'
 " Initialize plugin system
 call plug#end()
 
+" Use lua config
+" lua require("lua.config")
 
 " Stops things breaking
 set nocompatible
@@ -86,7 +105,7 @@ set hidden
 
 " Set runtime path and (vim)rc path
 let $RTP=split(&runtimepath, ',')[0]
-let $RC="$HOME/.config/nvim/nvim.vim"
+" let $RC="$HOME/.config/nvim/init.vim"
 
 " No swap files
  set noswapfile
@@ -122,16 +141,17 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
+" " fzf mappings
+" nmap <leader><tab> <plug>(fzf-maps-n)
+" xmap <leader><tab> <plug>(fzf-maps-x)
+" omap <leader><tab> <plug>(fzf-maps-o)
+
 " Create a tags file (need to install ctags first)
 command! MakeTags !ctags -R ./*
 
 " Tweaks for file browsing
 let g:netrw_banner=0		" disable banner
-let g:netrw_browse_split=4	" open in prior window
-let g:netrw_altv=1		" open splits to the right
-let g:netrw_liststyle=3	" tree view
 let g:netrw_list_hide=netrw_gitignore#Hide()
-let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 " Use system clipboard
 set clipboard=unnamed
@@ -147,6 +167,12 @@ match BadWhitespace /\s\+$/ |
 
 " utf-8 encoding
 set encoding=utf-8
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 """ obvious-resize config
 noremap <silent> <ESC>k :ObviousResizeUp<CR>

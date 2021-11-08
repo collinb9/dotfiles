@@ -126,7 +126,7 @@ export PATH="$NIMBLE_ROOT/bin:$PATH"
 # alias fd="fdfind"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPS="--extended"
-export FZF_DEFAULT_COMMAND="$(which fdfind) --type f"
+export FZF_DEFAULT_COMMAND="$(which fd) --type f"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 ################################## misc
