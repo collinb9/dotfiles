@@ -1,3 +1,13 @@
+" Search for files anywhere lower in the file tree using fuzzy matching
+set path+=**
+
+" ignore files
+set wildignore+=*.pyc
+set wildignore+=*build/*
+set wildignore+=**/coverage/*
+set wildignore+=**/.git/*
+set wildignore+=**/.history/*
+set wildignore+=**/.aws-sam/*
 " auto-install vim-plug
 " if empty(glob('~/.config/nvim/autoload/plug.vim'))
 "   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -19,7 +29,6 @@ call plug#begin('~/.config/nvim/plugged')
 " talek/obvious-resize
 " tommcdo/vim-exchange
 " tpope/vim-fugitive
-" tpope/vim-abolish
 " tpope/vim-speeddating
 " tpope/vim-unimpaired
 " tpope/vim-vinegar
@@ -34,6 +43,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-abolish'
 
 " general text editing improvements
 " Plug 'jiangmiao/auto-pairs'
@@ -68,6 +78,7 @@ Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 
+
 " Colour scheme
 set t_Co=256
 colorscheme gruvbox
@@ -75,6 +86,7 @@ set background=dark
 
 " autocompletion
 set completeopt=menu,menuone,noselect
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 
 " Use lua config
 lua require("init")
@@ -109,8 +121,6 @@ set expandtab
 set shiftwidth=0
 
 
-" Search for files anywhere lower in the file tree using fuzzy matching
-set path+=**
 
 " Display all matching files when we tab complete
 set wildmenu
@@ -170,7 +180,7 @@ let g:airline#extensions#ale#enabled = 1
 let g:airline_theme='murmur'
 
 """ ALE config
-let g:ale_linters={'python': ['pylint']}
+let g:ale_linters={'python': ['pylint'], 'yaml.cloudformation': ['cfn-lint']}
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 

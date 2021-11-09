@@ -64,3 +64,7 @@ function tsession(){
     tmux new-session -d -s $session_name -c $1
     tmux switch-client -t $session_name
 }
+
+function git_push(){
+    git push 2>&1 | grep "git push" | xargs -I {} sh -c {}
+}

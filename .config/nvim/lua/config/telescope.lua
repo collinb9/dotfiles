@@ -25,4 +25,11 @@ require("telescope").setup({
     },
 })
 
-require("telescope").load_extension("fzy_native")
+require('telescope').load_extension('fzy_native')
+
+vim.api.nvim_set_keymap('n', '<leader>f*', "<cmd>lua require('telescope.builtin').lsp_references()<cr>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>fs', "<cmd>lua require('telescope.builtin').lsp_document_symbols({symbols = {'class', 'method', 'function'}})<cr>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>fd', "<cmd>lua require('telescope.builtin').lsp_definitions()<cr>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>ft', "<cmd>lua require('telescope.builtin').lsp_type_definitions()<cr>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>fi', "<cmd>lua require('telescope.builtin').lsp_implementations()<cr>", {noremap = true, silent = true})
+
