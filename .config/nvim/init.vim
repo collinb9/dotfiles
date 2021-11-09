@@ -1,10 +1,8 @@
-""""""""""""" vim-plug
-
 " auto-install vim-plug
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall
-endif
+" if empty(glob('~/.config/nvim/autoload/plug.vim'))
+"   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"   autocmd VimEnter * PlugInstall
+" endif
 
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
@@ -12,8 +10,6 @@ endif
 call plug#begin('~/.config/nvim/plugged')
 
 " Make sure you use single quotes
-" airblade/vim-gitgutter
-" dense-analysis/ale
 " ervandew/supertab
 " honza/vim-snippets
 " ivanov/vim-ipython
@@ -27,23 +23,20 @@ call plug#begin('~/.config/nvim/plugged')
 " tpope/vim-speeddating
 " tpope/vim-unimpaired
 " tpope/vim-vinegar
-" vim-airline/vim-airline
-" vim-airline/vim-airline-themes
 " vim-test/vim-test
 " Sirver/ultisnips
 " honza/vim-snippets
 " junegunn/fzf
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
-" " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 "  Tpope stuff
-Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
 
 " general text editing improvements
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 Plug 'wellle/targets.vim'
 
 " telescope
@@ -63,52 +56,44 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
-Plug 'nvim-telescope/telescope.nvim'
-" Plug 'junegunn/vim-easy-align'
-" 
-" " Any valid git URL is allowed
-" Plug 'https://github.com/junegunn/vim-github-dashboard.git'
-" 
-" " Multiple Plug commands can be written in a single line using | separators
-" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-" 
-" " On-demand loading
-" Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-" Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-" 
-" " Using a non-default branch
-" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
-" 
-" " Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
-" Plug 'fatih/vim-go', { 'tag': '*' }
-" 
-" " Plugin options
-" Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
-" 
-" " Plugin outside ~/.vim/plugged with post-update hook
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" 
-" " Unmanaged plugin (manually installed and updated)
-" Plug '~/my-prototype-plugin'
-" 
-" Initialize plugin system
+Plug 'onsails/lspkind-nvim'
+Plug 'dense-analysis/ale'
+Plug 'cespare/vim-toml'
+
+" make things look nice
+Plug 'gruvbox-community/gruvbox'
+Plug 'airblade/vim-gitgutter'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
 call plug#end()
 
+" Colour scheme
+set t_Co=256
+colorscheme gruvbox
+set background=dark
+
+" autocompletion
+set completeopt=menu,menuone,noselect
+
 " Use lua config
-" lua require("lua.config")
+lua require("init")
 
 " Stops things breaking
 set nocompatible
 
 "Allow switching from an unsaved buffer
 set hidden
+"
+"Allow switching from an unsaved buffer
+set nowrap
 
 " Set runtime path and (vim)rc path
 let $RTP=split(&runtimepath, ',')[0]
 " let $RC="$HOME/.config/nvim/init.vim"
 
 " No swap files
- set noswapfile
+set noswapfile
 
 " Line numbering
 set number
@@ -123,11 +108,6 @@ set softtabstop=4
 set expandtab
 set shiftwidth=0
 
-" Colour scheme
-" let g:hybrid_custom_term_colors = 1
-set t_Co=256
-set background=dark
-" colorscheme molokai
 
 " Search for files anywhere lower in the file tree using fuzzy matching
 set path+=**
@@ -152,7 +132,11 @@ command! MakeTags !ctags -R ./*
 " Tweaks for file browsing
 let g:netrw_banner=0		" disable banner
 let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_liststyle = 3
+let g:netrw_localrmdir='rm -r'
 
+" " remap clashing autopaor command
+" let g:AutoPairsShortcutToggle = <>
 " Use system clipboard
 set clipboard=unnamed
 
@@ -204,11 +188,11 @@ let g:ale_set_quickfix = 1
 " let g:SuperTabDefaultCompletionType = '<C-n>'
 
 """ asyncomplete config
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <CR>    pumvisible() ? asyncomplete#close_popup() : "\<CR>"
-imap <C-space> <Plug>(asyncomplete_force_refresh)
-let g:asyncomplete_auto_popup = 1
+" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <CR>    pumvisible() ? asyncomplete#close_popup() : "\<CR>"
+" imap <C-space> <Plug>(asyncomplete_force_refresh)
+" let g:asyncomplete_auto_popup = 1
 
 """ syntastic config
 set statusline+=%#warningmsg#
@@ -216,19 +200,19 @@ set statusline+=%*
 
 """ Black config
 " Run black automatically on save
-autocmd! BufWritePre *.py execute ':Black'
-let g:black_linelength=79
+" autocmd! BufWritePre *.py execute ':Black'
+" let g:black_linelength=79
 
 """ asyncrun config
-let g:asyncrun_open=8
+" let g:asyncrun_open=8
 
 " vim-test config
-nmap <silent> t<C-n> :TestNearest<CR>
-nmap <silent> t<C-f> :TestFile<CR>
-nmap <silent> t<C-s> :TestSuite<CR>
-nmap <silent> t<C-l> :TestLast<CR>
-nmap <silent> t<C-g> :TestVisit<CR>
-let test#strategy="asyncrun"
+" nmap <silent> t<C-n> :TestNearest<CR>
+" nmap <silent> t<C-f> :TestFile<CR>
+" nmap <silent> t<C-s> :TestSuite<CR>
+" nmap <silent> t<C-l> :TestLast<CR>
+" nmap <silent> t<C-g> :TestVisit<CR>
+" let test#strategy="asyncrun"
 
 " WSL yank support
 " let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path

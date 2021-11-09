@@ -99,9 +99,6 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
-alias zshconfig="mate ~/.zshrc"
-alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ctags="/usr/local/bin/ctags"
 # eval "$(rbenv init -)"
 if [ -d "$HOME/bin" ] ; then
@@ -110,7 +107,10 @@ fi
 source ~/bin/custom_commands.sh
 
 ################################## config dir location
-XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CONFIG_HOME="$HOME/.config"
+
+################################## config dir location
+export CURL_HOME="$HOME/.config/curl"
 
 ################################## pyenv
 export PYENV_ROOT="$HOME/.pyenv"
@@ -123,10 +123,15 @@ export NIMBLE_ROOT="$HOME/.nimble"
 export PATH="$NIMBLE_ROOT/bin:$PATH"
 
 ################################## fuzzy finding
-# alias fd="fdfind"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPS="--extended"
-export FZF_DEFAULT_COMMAND="$(which fd) --type f"
+if ! command -v fd &> /dev/null
+then
+    # alias fd="fdfind"
+    export FZF_DEFAULT_COMMAND="$(which fdfind) --type f"
+else
+    export FZF_DEFAULT_COMMAND="$(which fd) --type f"
+fi
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 ################################## misc

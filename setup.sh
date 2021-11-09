@@ -10,6 +10,26 @@ ln -svfn ~/.dotfiles/.config/tmux/ ~/.config
 sudo rm -rf ~/.config/nvim
 ln -svfn ~/.dotfiles/.config/nvim/ ~/.config
 
+# alacritty
+sudo rm -rf ~/.config/alacritty
+ln -svfn ~/.dotfiles/.config/alacritty/ ~/.config
+
+# rofi
+sudo rm -rf ~/.config/rofi
+ln -svfn ~/.dotfiles/.config/rofi/ ~/.config
+
+# awesome
+sudo rm -rf ~/.config/awesome
+ln -svfn ~/.dotfiles/.config/awesome/ ~/.config
+
+# picom
+sudo rm -rf ~/.config/picom
+ln -svfn ~/.dotfiles/.config/picom/ ~/.config
+
+# gtk
+sudo rm -rf ~/.config/gtk-3.0
+ln -svfn ~/.dotfiles/.config/gtk-3.0/ ~/.config
+
 # misc rc files
 ln -svfn ~/.dotfiles/.inputrc ~
 ln -svfn ~/.dotfiles/.screenrc ~

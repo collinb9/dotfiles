@@ -6,3 +6,4 @@
 # vim plugins
 pack
 *.netrwhist
+plugged/

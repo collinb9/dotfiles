@@ -12,9 +12,9 @@ function mkcdir ()
 }
 
 function virtualenv_venv(){
-		virtualenv venv
+		python -m venv venv
 		source venv/bin/activate
-		pip install black ipykernel pylint pip-tools
+		pip install black ipykernel pylint pip-tools jedi-language-sever
 }
 function git_rollback(){
 		git reset --soft HEAD~
@@ -25,7 +25,7 @@ function activate(){
 
 function merge(){
   local ext
-  [ $# -ne 2 ] && echo "Error: Need exactly two args." && return 1
+  # [ $# -ne 2 ] && echo "Error: Need exactly two args." && return 1
   [[ ! -r $1 || ! -r $2 ]] && echo "Error: One of the files is not readable." && return 1
   if [[ ${1##*/} =~ '.' || ${2##*/} =~ '.' ]]; then
     [ ${1##*.} != ${2##*.} ] && echo "Error: Files must have same extension." && return 1
@@ -57,4 +57,10 @@ function gh_pr_create(){
   if [ "$answer" != "${answer#[Yy]}" ] ; then
     gh pr create --title $pr_title --body $pr_body --base $branch
   fi
+}
+
+function tsession(){
+    session_name=$(basename "$1")
+    tmux new-session -d -s $session_name -c $1
+    tmux switch-client -t $session_name
 }

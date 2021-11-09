@@ -1,4 +1,5 @@
 require("config.telescope")
+require("config.lsp")
 
 -- Not sure what this is doing
 P = function(v)

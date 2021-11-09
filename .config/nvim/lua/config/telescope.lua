@@ -8,12 +8,20 @@ require("telescope").setup({
         file_previewer = require("telescope.previewers").vim_buffer_cat.new,
         grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
         qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+        -- vimgrep_arguments =  {
+        --     'rg', '--hidden', '--with-filename', '--linenumber', 'smart-case'
+        -- }
     },
     extensions = {
         fzy_native = {
             override_generic_sorter = false,
             override_file_sorter = true,
         },
+    },
+    pickers = {
+        find_files = {
+            hidden = true
+        }
     },
 })
 
