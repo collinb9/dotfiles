@@ -104,6 +104,7 @@ alias ctags="/usr/local/bin/ctags"
 if [ -d "$HOME/bin" ] ; then
 	export PATH="$HOME/bin:$PATH"
 fi
+################################## custom scripts and commands
 source ~/bin/custom_commands.sh
 
 ################################## config dir location
@@ -124,7 +125,8 @@ export PATH="$NIMBLE_ROOT/bin:$PATH"
 
 ################################## fuzzy finding
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_OPS="--extended"
+export FZF_DEFAULT_OPTS="--extended --preview='bat --color=always --style=numbers {}' --bind shift-up:preview-page-up,shift-down:preview-page-down"
+# alias pf="fzf --preview='less {}' --bind shift-up:preview-page-up,shift-down:preview-page-down"
 if ! command -v fd &> /dev/null
 then
     # alias fd="fdfind"

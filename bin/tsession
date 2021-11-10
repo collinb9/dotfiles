@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+# Create a tmux session in a given directory and name the session after that directory
+
+if [ $# -eq 1 ]; then
+    selected=$1
+else
+    selected=$(pwd)
+fi
+
+session_name=$(basename "$selected" | tr "." "_")
+
+if ! tmux has-session -t $selected_name 2> /dev/null; then
+    tmux new-session -d -s $session_name -c $selected
+fi
+
+if [ -z $TMUX ]; then
+    tmux attach-session -t $session_name
+else
+    tmux switch-client -t $session_name
+fi
+
