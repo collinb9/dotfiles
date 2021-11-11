@@ -14,7 +14,8 @@ function mkcdir ()
 function virtualenv_venv(){
     python -m venv venv
     source venv/bin/activate
-    pip install black ipykernel pylint pip-tools jedi-language-sever
+    python -m pip install --upgrade pip
+    python -m pip install black ipykernel pylint pip-tools jedi-language-server cfn-lint
 }
 function git_rollback(){
     git reset --soft HEAD~
