@@ -1,5 +1,6 @@
 require("config.telescope")
 require("config.lsp")
+require("config.harpoon")
 
 -- Not sure what this is doing
 P = function(v)

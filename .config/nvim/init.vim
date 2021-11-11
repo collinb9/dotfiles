@@ -9,10 +9,10 @@ set wildignore+=**/.git/*
 set wildignore+=**/.history/*
 set wildignore+=**/.aws-sam/*
 " auto-install vim-plug
-" if empty(glob('~/.config/nvim/autoload/plug.vim'))
-"   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-"   autocmd VimEnter * PlugInstall
-" endif
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
 
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
@@ -44,6 +44,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-fugitive'
 
 " general text editing improvements
 " Plug 'jiangmiao/auto-pairs'
@@ -76,6 +77,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+" harpoon
+Plug 'ThePrimeagen/harpoon'
+
 call plug#end()
 
 
@@ -97,7 +101,7 @@ set nocompatible
 "Allow switching from an unsaved buffer
 set hidden
 "
-"Allow switching from an unsaved buffer
+" dont wrap text
 set nowrap
 
 " Set runtime path and (vim)rc path
@@ -120,8 +124,6 @@ set softtabstop=4
 set expandtab
 set shiftwidth=0
 
-
-
 " Display all matching files when we tab complete
 set wildmenu
 
@@ -130,11 +132,6 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
-
-" " fzf mappings
-" nmap <leader><tab> <plug>(fzf-maps-n)
-" xmap <leader><tab> <plug>(fzf-maps-x)
-" omap <leader><tab> <plug>(fzf-maps-o)
 
 " Create a tags file (need to install ctags first)
 command! MakeTags !ctags -R ./*
@@ -153,7 +150,7 @@ set clipboard=unnamed
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
-nnoremap <space> za
+" nnoremap <space> za
 
 " Bad whitespace highlighting
 highlight badWhitespace ctermfg=16 ctermbg=253 guifg=#000000 guibg=#F8F8F0
@@ -168,70 +165,27 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
-""" obvious-resize config
-noremap <silent> <ESC>k :ObviousResizeUp<CR>
-noremap <silent> <ESC>j :ObviousResizeDown<CR>
-noremap <silent> <ESC>h :ObviousResizeLeft<CR>
-noremap <silent> <ESC>l :ObviousResizeRight<CR>
 
-""" vim-airline config
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#ale#enabled = 1
+" vim-airline config
+let g:airline#extensions#tabline#enabled = 0
+let g:airline#extensions#ale#enabled = 0
+let g:airline#extensions#branch#enabled = 1
 let g:airline_theme='murmur'
 
-""" ALE config
+" ALE config
 let g:ale_linters={'python': ['pylint'], 'yaml.cloudformation': ['cfn-lint']}
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 
-""" YCM config
 
-" make YCM compatible with UltiSnips (using supertab)
-" noremap <C-@> <C-Space>
-" set rtp+="$HOME/.vim/pack/ycm-core/start/YouCompleteMe"
-" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-" let g:ycm_filetype_whitelist = {"python":1,}
-" let g:ycm_auto_trigger = 1
-" let g:ycm_min_num_of_chars_for_completion = 2
-" let g:ycm_log_level = 'debug'
-" let g:SuperTabDefaultCompletionType = '<C-n>'
-
-""" asyncomplete config
-" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" inoremap <expr> <CR>    pumvisible() ? asyncomplete#close_popup() : "\<CR>"
-" imap <C-space> <Plug>(asyncomplete_force_refresh)
-" let g:asyncomplete_auto_popup = 1
-
-""" syntastic config
-set statusline+=%#warningmsg#
-set statusline+=%*
+" " syntastic config
+" set statusline+=%#warningmsg#
+" set statusline+=%*
 
 """ Black config
 " Run black automatically on save
 " autocmd! BufWritePre *.py execute ':Black'
 " let g:black_linelength=79
-
-""" asyncrun config
-" let g:asyncrun_open=8
-
-" vim-test config
-" nmap <silent> t<C-n> :TestNearest<CR>
-" nmap <silent> t<C-f> :TestFile<CR>
-" nmap <silent> t<C-s> :TestSuite<CR>
-" nmap <silent> t<C-l> :TestLast<CR>
-" nmap <silent> t<C-g> :TestVisit<CR>
-" let test#strategy="asyncrun"
-
-" WSL yank support
-" let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path
-" if executable(s:clip)
-"     augroup WSLYank
-" 			autocmd!
-" 			autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
-" 		augroup END
-" endif
 
 " Quickfix config
 function! QuickFix_toggle()
