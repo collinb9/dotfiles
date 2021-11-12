@@ -1,12 +1,12 @@
-#!/bin/sh
+#!/usr/bin/env sh
+
 function load_dotenv(){
 	if [ -f .env ]; then
 		export $(grep -v '^#' .env | xargs)
 	fi
 }
 
-function mkcdir ()
-{
+function mkcdir () {
 	mkdir -p -- "$1" &&
 		cd -P -- "$1"
 }
