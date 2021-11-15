@@ -137,6 +137,9 @@ fi
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 ################################## misc
+
+export EDITOR="nvim"
+
 stty -ixon
 alias git push="git push 2>&1 | grep git | xargs -I {} sh -c {}"
 
