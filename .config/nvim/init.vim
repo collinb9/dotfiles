@@ -80,6 +80,12 @@ Plug 'vim-airline/vim-airline-themes'
 " harpoon
 Plug 'ThePrimeagen/harpoon'
 
+" Ranger file browser
+Plug 'rbgrouleff/bclose.vim'
+Plug 'francoiscabrol/ranger.vim'
+
+
+
 call plug#end()
 
 
@@ -137,12 +143,16 @@ nnoremap <C-l> <C-w>l
 command! MakeTags !ctags -R ./*
 
 " Tweaks for file browsing
-let g:netrw_banner=0		" disable banner
-let g:netrw_list_hide=netrw_gitignore#Hide()
-let g:netrw_liststyle = 3
-let g:netrw_localrmdir='rm -r'
+" let g:netrw_banner=0		" disable banner
+" let g:netrw_list_hide=netrw_gitignore#Hide()
+" let g:netrw_liststyle = 3
+" let g:netrw_localrmdir='rm -r'
 
-" " remap clashing autopaor command
+" ranger config
+let g:ranger_replace_netrw = 1
+let g:ranger_map_keys = 0
+
+
 " let g:AutoPairsShortcutToggle = <>
 " Use system clipboard
 set clipboard=unnamed
