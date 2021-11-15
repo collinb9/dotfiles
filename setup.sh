@@ -1,3 +1,7 @@
+# ranger
+sudo rm -rf ~/.config/ranger
+ln -svfn ~/.dotfiles/.config/ranger/ ~/.config
+
 # htop
 sudo rm -rf ~/.config/htop
 ln -svfn ~/.dotfiles/.config/htop/ ~/.config

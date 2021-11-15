@@ -7,3 +7,6 @@
 pack
 *.netrwhist
 plugged/
+
+# ranger plugins
+plugins/
