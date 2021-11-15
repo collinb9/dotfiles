@@ -198,27 +198,27 @@ awful.screen.connect_for_each_screen(function(s)
         buttons = tasklist_buttons
     }
 
-    -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
+    -- -- Create the wibox
+    -- s.mywibox = awful.wibar({ position = "top", screen = s })
 
-    -- Add widgets to the wibox
-    s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            mylauncher,
-            s.mytaglist,
-            s.mypromptbox,
-        },
-        s.mytasklist, -- Middle widget
-        { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
-            wibox.widget.systray(),
-            mytextclock,
-            s.mylayoutbox,
-        },
-    }
+    -- -- Add widgets to the wibox
+    -- s.mywibox:setup {
+    --     layout = wibox.layout.align.horizontal,
+    --     { -- Left widgets
+    --         layout = wibox.layout.fixed.horizontal,
+    --         mylauncher,
+    --         s.mytaglist,
+    --         s.mypromptbox,
+    --     },
+    --     s.mytasklist, -- Middle widget
+    --     { -- Right widgets
+    --         layout = wibox.layout.fixed.horizontal,
+    --         mykeyboardlayout,
+    --         wibox.widget.systray(),
+    --         mytextclock,
+    --         s.mylayoutbox,
+    --     },
+    -- }
 end)
 -- }}}
 
@@ -314,8 +314,8 @@ globalkeys = gears.table.join(
               {description = "restore minimized", group = "client"}),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
-              {description = "run prompt", group = "launcher"}),
+    awful.key({ modkey },            "r",     function () awful.util.spawn_with_shell("rofi -show run") end, --awful.screen.focused().mypromptbox:run() end,
+              {description = "run rofi", group = "launcher"}),
 
     awful.key({ modkey }, "x",
               function ()
