@@ -1,6 +1,7 @@
 require("config.telescope")
 require("config.lsp")
 require("config.harpoon")
+require("config.git-worktree")
 
 -- Not sure what this is doing
 P = function(v)

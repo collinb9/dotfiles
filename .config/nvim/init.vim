@@ -80,10 +80,8 @@ Plug 'vim-airline/vim-airline-themes'
 " harpoon
 Plug 'ThePrimeagen/harpoon'
 
-" Ranger file browser
-Plug 'rbgrouleff/bclose.vim'
-Plug 'francoiscabrol/ranger.vim'
-
+" git worktree
+Plug 'ThePrimeagen/git-worktree.nvim'
 
 
 call plug#end()
@@ -139,18 +137,29 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
+" Some easier commands for saving and reloading vimrc
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :wq<CR>
+nnoremap <leader>r :so ~/.config/nvim/init.vim<CR>
+
+
+" Plug remaps
+nnoremap <leader>pi :PlugInstall<CR>
+nnoremap <leader>pc :PlugClean<CR>
+nnoremap <leader>pu :PlugUpdate<CR>
+
 " Create a tags file (need to install ctags first)
 command! MakeTags !ctags -R ./*
 
 " Tweaks for file browsing
-" let g:netrw_banner=0		" disable banner
-" let g:netrw_list_hide=netrw_gitignore#Hide()
-" let g:netrw_liststyle = 3
-" let g:netrw_localrmdir='rm -r'
+let g:netrw_banner=0		" disable banner
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_liststyle = 3
+let g:netrw_localrmdir='rm -r'
 
 " ranger config
-let g:ranger_replace_netrw = 1
-let g:ranger_map_keys = 0
+" let g:ranger_replace_netrw = 1
+" let g:ranger_map_keys = 0
 
 
 " let g:AutoPairsShortcutToggle = <>

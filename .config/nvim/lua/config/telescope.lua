@@ -26,6 +26,8 @@ require("telescope").setup({
 })
 
 require('telescope').load_extension('fzy_native')
+require('telescope').load_extension('git_worktree')
+
 
 local ops = { noremap = true, silent = true }
 
@@ -35,6 +37,7 @@ vim.api.nvim_set_keymap('n', '<leader>fs', "<cmd>lua require('telescope.builtin'
 vim.api.nvim_set_keymap('n', '<leader>fd', "<cmd>lua require('telescope.builtin').lsp_definitions()<cr>", ops)
 vim.api.nvim_set_keymap('n', '<leader>ft', "<cmd>lua require('telescope.builtin').lsp_type_definitions()<cr>", ops)
 vim.api.nvim_set_keymap('n', '<leader>fq', "<cmd>lua require('telescope.builtin').quickfix()<cr>", ops)
+vim.api.nvim_set_keymap('n', '<leader>fl', "<cmd>lua require('telescope.builtin').loclist()<cr>", ops)
 vim.api.nvim_set_keymap('n', '<leader>fm', "<cmd>lua require('telescope.builtin').man_pages()<cr>", ops)
 vim.api.nvim_set_keymap('n', '<leader>fe', "<cmd>lua require('telescope.builtin').file_browser()<cr>", ops)
 
