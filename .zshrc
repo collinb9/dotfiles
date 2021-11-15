@@ -136,18 +136,17 @@ else
 fi
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
+################################## xorg
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+	exec startx
+fi
+
 ################################## misc
 
 export EDITOR="nvim"
 
 stty -ixon
-alias git push="git push 2>&1 | grep git | xargs -I {} sh -c {}"
 
 # added by travis gem
 [ ! -s /home/brendan/.travis/travis.sh ] || source /home/brendan/.travis/travis.sh
-
-################################## xorg
-if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-	exec startx
-fi
 
