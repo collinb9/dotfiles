@@ -1,3 +1,7 @@
+# bat
+sudo rm -rf ~/.config/bat
+ln -svfn ~/.dotfiles/.config/bat/ ~/.config
+
 # ranger
 sudo rm -rf ~/.config/ranger
 ln -svfn ~/.dotfiles/.config/ranger/ ~/.config
