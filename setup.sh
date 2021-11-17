@@ -57,6 +57,8 @@ chmod +x ~/.git_template/hooks/*
 
 # zsh
 ln -svfn ~/.dotfiles/.zshrc ~
+sudo rm -rf ~/.config/zsh
+ln -svfn ~/.dotfiles/.config/zsh/ ~/.config
 sudo rm -rf ~/.oh-my-zsh
 ln -svfn ~/.dotfiles/.oh-my-zsh ~
 chmod +x ~/.oh-my-zsh/*
