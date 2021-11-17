@@ -1,3 +1,7 @@
+# polybar
+sudo rm -rf ~/.config/polybar
+ln -svfn ~/.dotfiles/.config/polybar/ ~/.config
+
 # bat
 sudo rm -rf ~/.config/bat
 ln -svfn ~/.dotfiles/.config/bat/ ~/.config
@@ -39,6 +43,7 @@ sudo rm -rf ~/.config/gtk-3.0
 ln -svfn ~/.dotfiles/.config/gtk-3.0/ ~/.config
 
 # misc rc files
+ln -svfn ~/.dotfiles/.xinitrc ~
 ln -svfn ~/.dotfiles/.inputrc ~
 ln -svfn ~/.dotfiles/.screenrc ~
 ln -svfn ~/.dotfiles/.psqlrc ~
