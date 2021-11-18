@@ -2,5 +2,5 @@
 
 # Update the system
 
-sudo aur sync -u
-sudo acman -Syu
+aur sync -u
+sudo pacman -Syu

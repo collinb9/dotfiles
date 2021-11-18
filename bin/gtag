@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+# Tag a commit a nd push the tag
+#   params:
+#       $1: The tag. Should start with "v"
+
+#TODO: Confirm the tag matches a suitable regex
+git tag "$1" && git push --tags origin
