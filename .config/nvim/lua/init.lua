@@ -2,6 +2,7 @@ require("config.telescope")
 require("config.lsp")
 require("config.harpoon")
 require("config.git-worktree")
+require("config.nvim-terminal")
 
 -- Not sure what this is doing
 P = function(v)

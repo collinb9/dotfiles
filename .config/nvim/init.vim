@@ -83,6 +83,9 @@ Plug 'ThePrimeagen/harpoon'
 " git worktree
 Plug 'ThePrimeagen/git-worktree.nvim'
 
+" tmux telescope integration
+Plug 'norcalli/nvim-terminal.lua'
+Plug 'camgraff/telescope-tmux.nvim'
 
 call plug#end()
 
