@@ -1,6 +1,8 @@
 [submodule ".fzf"]
-	path = .fzf
-	url = git@github.com:junegunn/fzf
+    path = .fzf
+    url = git@github.com:junegunn/fzf
+    igore = dirty
 [submodule ".oh-my-zsh"]
-	path = .oh-my-zsh
-	url = git@github.com:ohmyzsh/ohmyzsh
+    path = .oh-my-zsh
+    url = git@github.com:ohmyzsh/ohmyzsh
+    igore = dirty
