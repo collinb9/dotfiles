@@ -5,7 +5,7 @@
 	email = brendan.m.collins@outlook.com
 	name = collinb9
 [pull]
-	rebase = true
+	rebase = false
 [core]
 	editor = nvim
 	pager = less
