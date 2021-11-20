@@ -1,3 +1,5 @@
+# Would you like to use another custom folder than $ZSH/custom?
+export ZSH_CUSTOM=$XDG_CONFIG_HOME/zsh/custom
 
 # If you come from bash you might have to change your $PATH.
 #export PATH=/usr/local/bin:$$HOME/bin:PATH
@@ -65,8 +67,6 @@ export UPDATE_ZSH_DAYS=1
 # see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
 
-# Would you like to use another custom folder than $ZSH/custom?
-export ZSH_CUSTOM=$XDG_CONFIG_HOME/zsh/custom
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
