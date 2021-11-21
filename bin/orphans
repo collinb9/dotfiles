@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+# Remove orphaned packages
+
+sudo /usr/bin/pacman -Rns $(/usr/bin/pacman -Qtdq) || /usr/bin/echo '==> No orphaned packages found.'
+
