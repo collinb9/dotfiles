@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+# Rotate AWS access keys
+#   params:
+#       $1: Name of the user to rotate keys for
+#       $2: AWS profile to use
+
+user=$1
+profile=$2
+
+aws iam list-access-keys --user-name $user --profile $profile\
+    | jq '.AccessKeyMetadata[].AccessKeyId' \
+    | xargs -I {} aws iam delete-access-key \
+        --user-name $user \
+        --access-key-id {} \
+        --profile $profile
+
+aws iam create-access-key --user-name $user --profile $profile
