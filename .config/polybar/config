@@ -51,13 +51,14 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = fixed:pixelsize=10;1
-font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = siji:pixelsize=10;1
+font-0 = RobotoMono Nerd Font:pixelsize=10;1
+font-1 = fixed:pixelsize=10;1
+font-2 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-3 = siji:pixelsize=10;1
 
 modules-left = bspwm i3
 modules-center = mpd
-modules-right = filesystem xbacklight alsa pulseaudio xkeyboard memory cpu wlan eth battery temperature date powermenu
+modules-right = filesystem xbacklight alsa pulseaudio xkeyboard memory cpu wlan eth battery temperature date powermenu bluetooth
 
 tray-position = right
 tray-padding = 2
@@ -97,12 +98,17 @@ cursor-scroll = ns-resize
 ; label-indicator-background = ${colors.secondary}
 ; label-indicator-underline = ${colors.secondary}
 
+; [module/bluetooth]
+; type = custom/script
+; exec = rofi-bluetooth --status
+; interval = 1
+; ; click-left = rofi-bluetooth &
+
 [module/filesystem]
 type = internal/fs
 interval = 25
 
 mount-0 = /
-
 
 label-mounted = Storage %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
@@ -185,7 +191,7 @@ label-unmounted-foreground = ${colors.foreground-alt}
 type = internal/xbacklight
 
 format = <label> <bar>
-label = Brightness
+label = Brightness %percentage%%
 
 bar-width = 10
 bar-indicator = |
