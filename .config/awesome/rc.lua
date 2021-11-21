@@ -314,7 +314,11 @@ globalkeys = gears.table.join(
               {description = "restore minimized", group = "client"}),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () awful.util.spawn_with_shell("rofi -show run") end, --awful.screen.focused().mypromptbox:run() end,
+    awful.key({ modkey },"r",function () awful.util.spawn_with_shell("rofi -show run") end,
+              {description = "run rofi", group = "launcher"}),
+    awful.key({ modkey },"b",function () awful.util.spawn_with_shell("rofi-bluetooth") end,
+              {description = "run rofi", group = "launcher"}),
+    awful.key({ modkey },"w",function () awful.util.spawn_with_shell("rofi-wifi-menu") end,
               {description = "run rofi", group = "launcher"}),
 
     awful.key({ modkey }, "x",
