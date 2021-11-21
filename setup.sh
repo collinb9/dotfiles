@@ -77,3 +77,4 @@ chmod +x ~/.fzf/*
 
 # /bin
 ln -svfn ~/.dotfiles/bin/ ~
+chmod u+x ~/bin/**
