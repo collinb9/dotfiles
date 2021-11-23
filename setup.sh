@@ -64,16 +64,6 @@ chmod +x ~/.git_template/hooks/*
 ln -svfn ~/.dotfiles/.zshrc ~
 sudo rm -rf ~/.config/zsh
 ln -svfn ~/.dotfiles/.config/zsh/ ~/.config
-sudo rm -rf ~/.oh-my-zsh
-ln -svfn ~/.dotfiles/.oh-my-zsh ~
-chmod +x ~/.oh-my-zsh/*
-~/.oh-my-zsh/tools/install.sh
-
-# fzf
-ln -svfn ~/.dotfiles/.fzf ~
-chmod +x ~/.fzf/*
-~/.fzf/install
-chmod +x ~/.fzf/*
 
 # /bin
 ln -svfn ~/.dotfiles/bin/ ~
