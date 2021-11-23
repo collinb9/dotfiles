@@ -124,7 +124,6 @@ export NIMBLE_ROOT="$HOME/.nimble"
 export PATH="$NIMBLE_ROOT/bin:$PATH"
 
 ################################## fuzzy finding
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS="--extended --preview='bat --color=always --style=numbers {}' --bind shift-up:preview-page-up,shift-down:preview-page-down"
 # alias pf="fzf --preview='less {}' --bind shift-up:preview-page-up,shift-down:preview-page-down"
 if ! command -v fd &> /dev/null
