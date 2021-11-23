@@ -134,6 +134,9 @@ set shiftwidth=0
 " Display all matching files when we tab complete
 set wildmenu
 
+" Typewriter mode
+set scrolloff=999
+
 " Easy switching between panes
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
