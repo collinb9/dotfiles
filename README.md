@@ -1,11 +1,10 @@
 # Dotfiles
-This repo contains all my dot files. Run 
+This repo contains all my dot files. Run
 ```
 git clone git@github:collinb9/dotfiles ~/.dotfiles
-cd ~/.dotfiles
-git submodule init
-git submodule update
 chmod +x ~/.dotfiles/setup.sh
 ~/.dotfiles/setup.sh
 ```
-to set everything up. You should backup your existing dot files before you do this, as any with the same name as a file in this repo will be deleted
+to set everything up.
+
+You should backup your existing dot files before you do this, as any with the same name as a file in this repo will be deleted.
