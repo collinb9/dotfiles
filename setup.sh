@@ -1,70 +1,70 @@
 # polybar
-sudo rm -rf ~/.config/polybar
-ln -svfn ~/.dotfiles/.config/polybar/ ~/.config
+sudo rm -rf $HOME/.config/polybar
+ln -svfn $HOME/.dotfiles/.config/polybar/ $HOME/.config
 
 # bat
-sudo rm -rf ~/.config/bat
-ln -svfn ~/.dotfiles/.config/bat/ ~/.config
+sudo rm -rf $HOME/.config/bat
+ln -svfn $HOME/.dotfiles/.config/bat/ $HOME/.config
 
 # ranger
-sudo rm -rf ~/.config/ranger
-ln -svfn ~/.dotfiles/.config/ranger/ ~/.config
+sudo rm -rf $HOME/.config/ranger
+ln -svfn $HOME/.dotfiles/.config/ranger/ $HOME/.config
 
 # htop
-sudo rm -rf ~/.config/htop
-ln -svfn ~/.dotfiles/.config/htop/ ~/.config
+sudo rm -rf $HOME/.config/htop
+ln -svfn $HOME/.dotfiles/.config/htop/ $HOME/.config
 
 # tmux
-sudo rm -rf ~/.config/tmux
-ln -svfn ~/.dotfiles/.config/tmux/ ~/.config
+sudo rm -rf $HOME/.config/tmux
+ln -svfn $HOME/.dotfiles/.config/tmux/ $HOME/.config
 
 # nvim
-sudo rm -rf ~/.config/nvim
-ln -svfn ~/.dotfiles/.config/nvim/ ~/.config
+sudo rm -rf $HOME/.config/nvim
+ln -svfn $HOME/.dotfiles/.config/nvim/ $HOME/.config
 
 # alacritty
-sudo rm -rf ~/.config/alacritty
-ln -svfn ~/.dotfiles/.config/alacritty/ ~/.config
+sudo rm -rf $HOME/.config/alacritty
+ln -svfn $HOME/.dotfiles/.config/alacritty/ $HOME/.config
 
 # rofi
-sudo rm -rf ~/.config/rofi
-ln -svfn ~/.dotfiles/.config/rofi/ ~/.config
+sudo rm -rf $HOME/.config/rofi
+ln -svfn $HOME/.dotfiles/.config/rofi/ $HOME/.config
 
 # awesome
-sudo rm -rf ~/.config/awesome
-ln -svfn ~/.dotfiles/.config/awesome/ ~/.config
+sudo rm -rf $HOME/.config/awesome
+ln -svfn $HOME/.dotfiles/.config/awesome/ $HOME/.config
 
 # picom
-sudo rm -rf ~/.config/picom
-ln -svfn ~/.dotfiles/.config/picom/ ~/.config
+sudo rm -rf $HOME/.config/picom
+ln -svfn $HOME/.dotfiles/.config/picom/ $HOME/.config
 
 # gtk
-sudo rm -rf ~/.config/gtk-3.0
-ln -svfn ~/.dotfiles/.config/gtk-3.0/ ~/.config
+sudo rm -rf $HOME/.config/gtk-3.0
+ln -svfn $HOME/.dotfiles/.config/gtk-3.0/ $HOME/.config
 
 # misc rc files
-ln -svfn ~/.dotfiles/.xinitrc ~
-ln -svfn ~/.dotfiles/.inputrc ~
-ln -svfn ~/.dotfiles/.screenrc ~
-ln -svfn ~/.dotfiles/.psqlrc ~
+ln -svfn $HOME/.dotfiles/.xinitrc $HOME
+ln -svfn $HOME/.dotfiles/.inputrc $HOME
+ln -svfn $HOME/.dotfiles/.screenrc $HOME
+ln -svfn $HOME/.dotfiles/.psqlrc $HOME
 
 # vim
-sudo rm -rf ~/.vim
-ln -svfn ~/.dotfiles/.vim ~
+sudo rm -rf $HOME/.vim
+ln -svfn $HOME/.dotfiles/.vim $HOME
 
 # git
-ln -svfn ~/.dotfiles/.gitconfig ~
-sudo rm -rf ~/.git_template
-ln -svfn ~/.git_template ~
-git config --global init.templatedir '~/.git_template'
-ln -svfn ~/.dotfiles/.git_template ~
-chmod +x ~/.git_template/hooks/*
+ln -svfn $HOME/.dotfiles/.gitconfig $HOME
+sudo rm -rf $HOME/.git_template
+ln -svfn $HOME/.git_template $HOME
+git config --global init.templatedir '$HOME/.git_template'
+ln -svfn $HOME/.dotfiles/.git_template $HOME
+chmod +x $HOME/.git_template/hooks/*
 
 # zsh
-ln -svfn ~/.dotfiles/.zshrc ~
-sudo rm -rf ~/.config/zsh
-ln -svfn ~/.dotfiles/.config/zsh/ ~/.config
+ln -svfn $HOME/.dotfiles/.zshrc $HOME
+sudo rm -rf $HOME/.config/zsh
+ln -svfn $HOME/.dotfiles/.config/zsh/ $HOME/.config
 
 # /bin
-ln -svfn ~/.dotfiles/bin/ ~
-chmod u+x ~/bin/**
+ln -svfn $HOME/.dotfiles/bin/ $HOME
+chmod u+x $HOME/bin/**

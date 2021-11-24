@@ -106,7 +106,7 @@ if [ -d "$HOME/bin" ] ; then
 	export PATH="$HOME/bin:$PATH"
 fi
 ################################## custom scripts and commands
-source ~/bin/custom_commands.sh
+source $HOME/bin/custom_commands.sh
 
 ################################## config dir location
 export XDG_CONFIG_HOME="$HOME/.config"
