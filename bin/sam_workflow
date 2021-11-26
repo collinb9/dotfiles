@@ -4,8 +4,9 @@ if [ -z "$1" ]; then
     environment=default
 else
     environment="$1"
+    shift
 fi
 
-sam build --config-env ${1}
-sam package --config-env ${1} > /dev/null
-sam deploy --config-env "$@"
+sam build --config-env $environment
+sam package --config-env $environment > /dev/null
+sam deploy --config-env $environment "$@"
