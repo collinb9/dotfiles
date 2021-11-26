@@ -6,6 +6,10 @@ ln -svfn $HOME/.dotfiles/.config/polybar/ $HOME/.config
 sudo rm -rf $HOME/.config/bat
 ln -svfn $HOME/.dotfiles/.config/bat/ $HOME/.config
 
+# curl
+sudo rm -rf $HOME/.config/curl
+ln -svfn $HOME/.dotfiles/.config/curl/ $HOME/.config
+
 # ranger
 sudo rm -rf $HOME/.config/ranger
 ln -svfn $HOME/.dotfiles/.config/ranger/ $HOME/.config
