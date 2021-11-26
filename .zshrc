@@ -1,3 +1,6 @@
+################################## config dir location
+export XDG_CONFIG_HOME="$HOME/.config"
+
 # Would you like to use another custom folder than $ZSH/custom?
 export ZSH_CUSTOM=$XDG_CONFIG_HOME/zsh/custom
 
@@ -100,7 +103,7 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-alias ctags="/usr/local/bin/ctags"
+# alias ctags="/usr/local/bin/ctags"
 # eval "$(rbenv init -)"
 if [ -d "$HOME/bin" ] ; then
 	export PATH="$HOME/bin:$PATH"
@@ -108,10 +111,7 @@ fi
 ################################## custom scripts and commands
 source $HOME/bin/custom_commands.sh
 
-################################## config dir location
-export XDG_CONFIG_HOME="$HOME/.config"
-
-################################## config dir location
+################################## curl config location
 export CURL_HOME="$HOME/.config/curl"
 
 ################################## pyenv
@@ -130,11 +130,11 @@ export FZF_DEFAULT_OPTS="--extended --preview='bat --color=always --style=number
 if ! command -v fd &> /dev/null
 then
     # alias fd="fdfind"
-    export FZF_DEFAULT_COMMAND="$(which fdfind) --type f"
+    export FZF_CTRL_T_COMMAND="$(which fdfind) --type f"
 else
-    export FZF_DEFAULT_COMMAND="$(which fd) --type f"
+    export FZF_CTRL_T_COMMAND="$(which fd) --type f"
 fi
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 ################################## xorg
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
