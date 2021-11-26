@@ -148,7 +148,6 @@ nnoremap <leader>w :w<CR>
 nnoremap <leader>q :wq<CR>
 nnoremap <leader>r :so ~/.config/nvim/init.vim<CR>
 
-
 " Plug remaps
 nnoremap <leader>pi :PlugInstall<CR>
 nnoremap <leader>pc :PlugClean<CR>
@@ -162,11 +161,6 @@ let g:netrw_banner=0		" disable banner
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_liststyle = 3
 let g:netrw_localrmdir='rm -r'
-
-" ranger config
-" let g:ranger_replace_netrw = 1
-" let g:ranger_map_keys = 0
-
 
 " let g:AutoPairsShortcutToggle = <>
 " Use system clipboard
@@ -190,9 +184,16 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
+" Moving between buffers
+nnoremap ]b <cmd>bnext<cr>
+nnoremap [b <cmd>bprev<cr>
+nnoremap <leader>bw <cmd>bw<cr>
+
+
 
 " vim-airline config
-let g:airline#extensions#tabline#enabled = 0
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#ale#enabled = 0
 let g:airline#extensions#branch#enabled = 1
 let g:airline_theme='murmur'
