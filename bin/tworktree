@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+
+# Create a new git worktree and open a tmux session there. If the worktree already exists then just open the session
+
+target_dir="$1"
+project="$(dirname $target_dir)"
+worktree="$(basename $target_dir)"
+
+cd $project
+
+bare="$(git rev-parse --is-bare-repository)"
+
+if [ ! $bare = true ]; then
+    echo $project is not a bare git repo >&2
+    exit 1
+fi
+
+git worktree list | grep -P "\/${worktree}\s"
+
+if git worktree list | grep -Pq "\/${worktree}\s" ; then
+    cd -
+    tsession $target_dir
+else
+    git worktree add $worktree
+    cd -
+    tsession $target_dir
+fi
+

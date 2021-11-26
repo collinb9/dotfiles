@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
-# Create a tmux session in a given directory and name the session after that directory
+# Create a tmux session in a given directory and name the session after that directory.
+# Open up one pane in neovim and one with a terminal.
 
 # set -x
 if [ $# -eq 1 ]; then
@@ -9,9 +10,14 @@ else
     selected="$(pwd)"
 fi
 
+if [ ! -d $selected ]; then
+    echo $selected directory does not exist >&2
+    eingestionxit 1
+fi
+
 session_name="$(echo "$(echo "$(basename "$(dirname "$selected")")"/"$(basename "$selected")")" | tr "." "_")"
 
-if ! tmux has-session -t "$session_name" 2> /dev/null; then
+if ! tmux has-session -t="$session_name" 2> /dev/null; then
     tmux new-session -d -s "$session_name" -c "$selected"
 fi
 
