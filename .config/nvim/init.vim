@@ -93,6 +93,7 @@ call plug#end()
 " Colour scheme
 set t_Co=256
 colorscheme gruvbox
+let g:gruvbox_transparent_bg=1
 set background=dark
 
 " autocompletion
