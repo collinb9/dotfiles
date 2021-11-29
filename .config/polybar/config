@@ -17,15 +17,20 @@
 ;==========================================================
 
 [colors]
+background = #50070522
+foreground = #fbf1c7
+primary = #fabd2f
+secondary = #fb4934
+alert = #cc241d
 ;background = ${xrdb:color0:#222}
-background = #222
+; background = #222
 background-alt = #444
 ; foreground = ${xrdb:color7:#222}
-foreground = #dfdfdf
+; foreground = #dfdfdf
 foreground-alt = #555
-primary = #ffb52a
-secondary = #e60053
-alert = #bd2c40
+; primary = #ffb52a
+; secondary = #e60053
+; alert = #bd2c40
 
 [bar/top]
 ;monitor = ${env:MONITOR:HDMI-1}
@@ -34,7 +39,7 @@ height = 27
 offset-x = 0%
 ;offset-y = 1%
 radius = 6.0
-fixed-center = false
+fixed-center = true
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -56,7 +61,8 @@ font-1 = fixed:pixelsize=10;1
 font-2 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-3 = siji:pixelsize=10;1
 
-modules-left = bspwm i3
+modules-left = 1 2 3 4 5 6 7 8 9
+; modules-left = bspwm i3
 modules-center = mpd
 modules-right = filesystem xbacklight alsa pulseaudio xkeyboard memory cpu wlan eth battery temperature date powermenu bluetooth
 
@@ -283,7 +289,7 @@ label = %date% %time%
 type = internal/pulseaudio
 
 format-volume = <label-volume> <bar-volume>
-label-volume = VOL %percentage%%
+label-volume = 墳 %percentage%%
 label-volume-foreground = ${root.foreground}
 
 label-muted = VOL muted
