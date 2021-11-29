@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
@@ -54,8 +54,8 @@ xbindkeys &
 # xclock -geometry 50x50-1+1 &
 picom &
 setxkbmap -option caps:escape &
-polybar top --reload &
-feh --bg-scale ~/Pictures/wallpapers/boardwalk.jpg &
+polybar top --reload >> ~/.cache/polybar/stdout 2>> ~/.cache/polybar/stderr &
+feh --bg-scale ~/Pictures/wallpapers/arch.jpg &
 exec alacritty
 # xterm -geometry 80x50+494+51 &
 # xterm -geometry 80x20+494-0 &
