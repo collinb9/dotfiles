@@ -1,6 +1,21 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Update the system
 
-aur sync -u
-sudo pacman -Syu
+# arch
+if command -v pacman > /dev/null;
+then
+    echo arch
+    aur sync -u
+    sudo pacman -Syu
+    exit 0
+fi
+
+# debian
+if command -v apt > /dev/null;
+then
+    echo debian
+    sudo apt update
+    sudo apt upgrade -y
+    exit 0
+fi
