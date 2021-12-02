@@ -146,9 +146,11 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
 " Some easier commands for saving and reloading vimrc
-nnoremap <leader>w :w<CR>
-nnoremap <leader>q :wq<CR>
+nnoremap <leader>w <cmd>w<CR>
+nnoremap <leader>q <cmd>wq<CR>
 nnoremap <leader>r :so ~/.config/nvim/init.vim<CR>
+" Open Netrw
+nnoremap <leader>x <cmd>Ex<CR>
 
 " Plug remaps
 nnoremap <leader>pi :PlugInstall<CR>
