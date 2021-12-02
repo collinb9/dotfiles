@@ -70,6 +70,7 @@ Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 Plug 'onsails/lspkind-nvim'
 Plug 'dense-analysis/ale'
 Plug 'cespare/vim-toml'
+Plug 'L3MON4D3/LuaSnip'
 
 " make things look nice
 Plug 'gruvbox-community/gruvbox'
