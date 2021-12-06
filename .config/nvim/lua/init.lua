@@ -3,8 +3,8 @@ require("config.lsp")
 require("config.harpoon")
 require("config.git-worktree")
 require("config.nvim-terminal")
+require("config.hop")
 
--- Not sure what this is doing
 P = function(v)
   print(vim.inspect(v))
   return v

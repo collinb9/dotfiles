@@ -28,15 +28,12 @@ call plug#begin('~/.config/nvim/plugged')
 " skywind3000/asyncrun.vim
 " talek/obvious-resize
 " tommcdo/vim-exchange
-" tpope/vim-fugitive
 " tpope/vim-speeddating
 " tpope/vim-unimpaired
 " tpope/vim-vinegar
 " vim-test/vim-test
 " Sirver/ultisnips
 " honza/vim-snippets
-" junegunn/fzf
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 "  Tpope stuff
 Plug 'tpope/vim-surround'
@@ -50,11 +47,13 @@ Plug 'tpope/vim-fugitive'
 " Plug 'jiangmiao/auto-pairs'
 Plug 'wellle/targets.vim'
 
-" telescope
+" navigation
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'phaazon/hop.nvim'
+
 
 " treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -127,6 +126,9 @@ set relativenumber
 " Search highlighting
 set hlsearch
 
+" Remove whitespace
+autocmd BufWritePre * :%s/\s\+$//e
+
 " foratting
 set tabstop=4
 set softtabstop=4
@@ -151,6 +153,9 @@ nnoremap <leader>q <cmd>wq<CR>
 nnoremap <leader>r :so ~/.config/nvim/init.vim<CR>
 " Open Netrw
 nnoremap <leader>x <cmd>Ex<CR>
+
+" Bar marking column 80
+set colorcolumn=80
 
 " Plug remaps
 nnoremap <leader>pi :PlugInstall<CR>
