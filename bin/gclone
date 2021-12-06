@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+repo=$1
+dirname="$(basename $repo)"
+
+git clone git@github.com:$repo $dirname
+cd $dirname
+git config --local --add remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+cd -
