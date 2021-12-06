@@ -170,6 +170,7 @@ let g:netrw_banner=0		" disable banner
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_liststyle = 3
 let g:netrw_localrmdir='rm -r'
+let g:netrw_keepdir=0
 
 " let g:AutoPairsShortcutToggle = <>
 " Use system clipboard
@@ -182,7 +183,7 @@ set foldlevel=99
 
 " Bad whitespace highlighting
 highlight badWhitespace ctermfg=16 ctermbg=253 guifg=#000000 guibg=#F8F8F0
-match BadWhitespace /\s\+$/ | 
+match BadWhitespace /\s\+$/ |
 
 " utf-8 encoding
 set encoding=utf-8
