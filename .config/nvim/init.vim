@@ -70,6 +70,7 @@ Plug 'onsails/lspkind-nvim'
 Plug 'dense-analysis/ale'
 Plug 'cespare/vim-toml'
 Plug 'L3MON4D3/LuaSnip'
+Plug 'alaviss/nim.nvim'
 
 " make things look nice
 Plug 'gruvbox-community/gruvbox'
@@ -199,6 +200,8 @@ nnoremap ]b <cmd>bnext<cr>
 nnoremap [b <cmd>bprev<cr>
 nnoremap <leader>bw <cmd>bw<cr>
 
+" Working with nim
+let g:nim_highlight_wait = v:true
 
 
 " vim-airline config
@@ -209,10 +212,16 @@ let g:airline#extensions#branch#enabled = 1
 let g:airline_theme='murmur'
 
 " ALE config
-let g:ale_linters={'python': ['pylint'], 'yaml.cloudformation': ['cfn-lint']}
+let g:ale_linters={
+\   'python': ['pylint'],
+\   'yaml.cloudformation': ['cfn-lint'],
+\ }
+let g:ale_fixers = {
+\   'nim': ['nimpretty'],
+\}
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
-
+let g:ale_fix_on_save = 1
 
 " " syntastic config
 " set statusline+=%#warningmsg#

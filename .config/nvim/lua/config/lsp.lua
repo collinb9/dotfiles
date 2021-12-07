@@ -1,5 +1,6 @@
 -- Setup nvim-cmp.
 local nvim_lsp = require('lspconfig')
+local configs = require('lspconfig.configs')
 
 local cmp = require("cmp")
 local source_mapping = {
@@ -130,7 +131,23 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'jedi_language_server', 'bashls' }
+local servers = { 'jedi_language_server', 'bashls', 'nimlsp' }
+
+if not configs.nimlsp then
+    configs.nimlsp = {
+        default_config = {
+            cmd = { 'nimlsp' },
+            filetypes = { 'nim' },
+            root_dir = nvim_lsp.util.root_pattern('.git'),
+            -- root_dir = function(fname)
+            --     return lspconfig.util.find_git_ancestor(fname) or
+            --     vim.loop.os_homedir()
+            -- end,
+            settings = {}
+        }
+    }
+end
+
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
         on_attach = on_attach,
