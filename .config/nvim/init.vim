@@ -54,7 +54,6 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'phaazon/hop.nvim'
 
-
 " treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
@@ -87,6 +86,9 @@ Plug 'ThePrimeagen/git-worktree.nvim'
 " tmux telescope integration
 Plug 'norcalli/nvim-terminal.lua'
 Plug 'camgraff/telescope-tmux.nvim'
+
+" test runner
+Plug 'vim-test/vim-test'
 
 call plug#end()
 
@@ -221,6 +223,13 @@ let g:ale_fixers = {
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_fix_on_save = 1
+
+" vim-test
+nnoremap <silent> <leader>tn :TestNearest<CR>
+nnoremap <silent> <leader>tf :TestFile<CR>
+nnoremap <silent> <leader>tt :TestSuite<CR>
+nnoremap <silent> <leader>tl :TestLast<CR>
+nnoremap <silent> <leader>tg :TestVisit<CR>
 
 " " syntastic config
 " set statusline+=%#warningmsg#
