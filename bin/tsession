@@ -12,7 +12,7 @@ fi
 
 if [ ! -d $selected ]; then
     echo $selected directory does not exist >&2
-    eingestionxit 1
+    exit 1
 fi
 
 session_name="$(echo "$(echo "$(basename "$(dirname "$selected")")"/"$(basename "$selected")")" | tr "." "_")"

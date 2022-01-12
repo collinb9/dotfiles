@@ -15,8 +15,8 @@ export ZSH=/usr/share/oh-my-zsh/
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="bco"
-# ZSH_THEME="robbyrussell"
+# ZSH_THEME="bco"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -127,13 +127,13 @@ export PATH="$NIMBLE_ROOT/bin:$PATH"
 ################################## fuzzy finding
 export FZF_DEFAULT_OPTS="--extended --preview='bat --color=always --style=numbers {}' --bind shift-up:preview-page-up,shift-down:preview-page-down"
 # alias pf="fzf --preview='less {}' --bind shift-up:preview-page-up,shift-down:preview-page-down"
-if ! command -v fd &> /dev/null
-then
-    # alias fd="fdfind"
-    export FZF_CTRL_T_COMMAND="$(which fdfind) --type f"
-else
-    export FZF_CTRL_T_COMMAND="$(which fd) --type f"
-fi
+# if ! command -v fd &> /dev/null
+# then
+#     # alias fd="fdfind"
+#     export FZF_CTRL_T_COMMAND="$(which fdfind) --type f"
+# else
+#     export FZF_CTRL_T_COMMAND="$(which fd) --type f"
+# fi
 # export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 ################################## xorg
