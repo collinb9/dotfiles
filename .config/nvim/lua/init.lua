@@ -5,6 +5,9 @@ require("config.git-worktree")
 require("config.nvim-terminal")
 require("config.hop")
 
+-- Logs stores in ~/.cache/nvim/lsp.log
+-- vim.lsp.set_log_level("debug")
+
 P = function(v)
   print(vim.inspect(v))
   return v
