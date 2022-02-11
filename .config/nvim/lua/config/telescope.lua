@@ -46,7 +46,7 @@ vim.api.nvim_set_keymap('n', '<leader>fe', "<cmd>lua require('telescope.builtin'
 
 -- git-worktree key bindings
 vim.api.nvim_set_keymap('n', '<leader>gw', "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees() <cr>", ops)
-vim.api.nvim_set_keymap('n', '<leader>gc', "<cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<cr>", ops)
+vim.api.nvim_set_keymap('n', '<leader>gn', "<cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<cr>", ops)
 
 -- telescope-tmux key bindings
 vim.api.nvim_set_keymap('n', '<leader>ts', "<cmd>lua require('telescope').extensions.tmux.sessions({}) <cr>", ops)
