@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # Create a tmux session in a given directory and name the session after that directory.
-# Open up one pane in neovim and one with a terminal.
+# Based on/stolen from https://github.com/ThePrimeagen/.dotfiles
 
 # set -x
 if [ $# -eq 1 ]; then
@@ -15,7 +15,22 @@ if [ ! -d $selected ]; then
     exit 1
 fi
 
-session_name="$(echo "$(echo "$(basename "$(dirname "$selected")")"/"$(basename "$selected")")" | tr "." "_")"
+# Dynamically choose name of session. Want to use the path to the directory
+# of the worktree up to the first parent directory that is not a worktree.
+# Useful for nested worktrees.
+popped=$(basename $selected)
+current_path="$(dirname $selected)"
+
+while git worktree list | sed 1d | grep -Pq "${current_path}\s"
+do
+    popped=$(basename $current_path)/$popped
+    current_path=$(dirname $current_path)
+done
+
+popped=$(basename $current_path)/$popped
+current_path=$(dirname $current_path)
+
+session_name=$(echo $popped | tr "." "_")
 
 if ! tmux has-session -t="$session_name" 2> /dev/null; then
     tmux new-session -d -s "$session_name" -c "$selected"
