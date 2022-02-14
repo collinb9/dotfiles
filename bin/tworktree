@@ -9,10 +9,8 @@ worktree="$(basename $target_dir)"
 
 cd $project
 
-bare="$(git rev-parse --is-bare-repository)"
-
-if [ ! $bare = true ]; then
-    echo $project is not a bare git repo >&2
+if [ ! git rev-parse ]; then
+    echo $project is not a git repo >&2
     exit 1
 fi
 
