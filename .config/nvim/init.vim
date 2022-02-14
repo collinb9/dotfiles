@@ -69,6 +69,7 @@ Plug 'onsails/lspkind-nvim'
 Plug 'dense-analysis/ale'
 Plug 'cespare/vim-toml'
 Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'alaviss/nim.nvim'
 
 " make things look nice

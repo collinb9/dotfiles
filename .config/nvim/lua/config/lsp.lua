@@ -12,7 +12,7 @@ local source_mapping = {
 }
 local lspkind = require("lspkind")
 require('lspkind').init({
-    with_text = true,
+    mode = 'symbol_text'
 })
 
 cmp.setup({
@@ -55,11 +55,15 @@ cmp.setup({
             vim_item.menu = menu
             return vim_item
         end
+        -- format = lspkind.cmp_format({
+        --     mode = 'symbol',
+        --     maxwidth = 50,
+        -- })
     },
 
 	sources = {
         -- tabnine completion? yayaya
-        { name = "cmp_tabnine" },
+        -- { name = "cmp_tabnine" },
 
 		{ name = "nvim_lsp" },
 
@@ -67,7 +71,7 @@ cmp.setup({
 		-- -- { name = 'vsnip' },
 
 		-- -- For luasnip user.
-		-- { name = "luasnip" },
+		{ name = "luasnip" },
 
 		-- -- For ultisnips user.
 		-- -- { name = 'ultisnips' },
@@ -130,6 +134,22 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', '<leader>b', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
 end
+
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', {
+    sources = {
+        { name = 'buffer' }
+    }
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+    sources = cmp.config.sources({
+        { name = 'path' }
+    }, {
+        { name = 'cmdline' }
+    })
+})
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
