@@ -5,7 +5,7 @@
 
 # set -x
 if [ $# -eq 1 ]; then
-    selected="$1"
+    selected=$(cd "$1"; pwd)
 else
     selected="$(pwd)"
 fi

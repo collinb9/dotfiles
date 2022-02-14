@@ -2,7 +2,7 @@
 
 # Create a new git worktree and open a tmux session there. If the worktree already exists then just open the session
 
-target_dir="$1"
+target_dir=$(cd "$1"; pwd)
 project="$(dirname $target_dir)"
 worktree="$(basename $target_dir)"
 
