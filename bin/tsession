@@ -3,9 +3,9 @@
 # Create a tmux session in a given directory and name the session after that directory.
 # Based on/stolen from https://github.com/ThePrimeagen/.dotfiles
 
-# set -x
 if [ $# -eq 1 ]; then
-    selected=$(cd "$1"; pwd)
+    path=$1
+    selected=$(cd $(dirname "$path"); pwd)/$(basename $path)
 else
     selected="$(pwd)"
 fi
@@ -21,6 +21,8 @@ fi
 popped=$(basename $selected)
 current_path="$(dirname $selected)"
 
+cd $current_path
+
 while git worktree list | sed 1d | grep -Pq "${current_path}\s"
 do
     popped=$(basename $current_path)/$popped
@@ -31,6 +33,8 @@ popped=$(basename $current_path)/$popped
 current_path=$(dirname $current_path)
 
 session_name=$(echo $popped | tr "." "_")
+
+cd -
 
 if ! tmux has-session -t="$session_name" 2> /dev/null; then
     tmux new-session -d -s "$session_name" -c "$selected"

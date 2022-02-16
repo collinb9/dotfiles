@@ -9,7 +9,7 @@ worktree="$(basename $target_dir)"
 
 cd $project
 
-if [ ! git rev-parse ]; then
+if ! git rev-parse; then
     echo $project is not a git repo >&2
     exit 1
 fi
