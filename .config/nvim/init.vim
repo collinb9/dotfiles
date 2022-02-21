@@ -123,6 +123,9 @@ let $RTP=split(&runtimepath, ',')[0]
 " No swap files
 set noswapfile
 
+" Backup
+set backupdir=~/.cache/nvim/backups
+
 " Line numbering
 set number
 set relativenumber
