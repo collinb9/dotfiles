@@ -13,6 +13,11 @@ require("telescope").setup({
         --     'rg', '--hidden', '--with-filename', '--linenumber', 'smart-case'
         -- }
     },
+    mappings = {
+        i = {
+            ["<M-q>"] = require("telescope.actions").send_to_loclist + require("telescope.actions").open_loclist
+        }
+    },
     extensions = {
         fzy_native = {
             override_generic_sorter = false,
@@ -41,6 +46,7 @@ vim.api.nvim_set_keymap('n', '<leader>fd', "<cmd>lua require('telescope.builtin'
 vim.api.nvim_set_keymap('n', '<leader>ft', "<cmd>lua require('telescope.builtin').lsp_type_definitions()<cr>", ops)
 vim.api.nvim_set_keymap('n', '<leader>fq', "<cmd>lua require('telescope.builtin').quickfix()<cr>", ops)
 vim.api.nvim_set_keymap('n', '<leader>fl', "<cmd>lua require('telescope.builtin').loclist()<cr>", ops)
+vim.api.nvim_set_keymap('n', '<leader>fj', "<cmd>lua require('telescope.builtin').jumplist()<cr>", ops)
 vim.api.nvim_set_keymap('n', '<leader>fm', "<cmd>lua require('telescope.builtin').man_pages()<cr>", ops)
 vim.api.nvim_set_keymap('n', '<leader>fe', "<cmd>lua require('telescope.builtin').file_browser()<cr>", ops)
 
