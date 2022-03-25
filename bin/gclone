@@ -7,4 +7,5 @@ git clone --bare git@github.com:$repo $dirname
 cd $dirname
 git config --local --add remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 git fetch
+git worktree add master
 cd -
