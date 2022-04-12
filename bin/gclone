@@ -1,11 +1,21 @@
 #!/usr/bin/env sh
 
 repo=$1
+host=$2
+master=$3
 dirname="$(basename $repo)"
 
-git clone --bare git@github.com:$repo $dirname
+if [ -z $host ]; then
+    host=git@github.com
+fi
+if [ -z $master ]; then
+    master=master
+fi
+
+git clone --bare $host:$repo $dirname
 cd $dirname
 git config --local --add remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 git fetch
-git worktree add master
+git worktree add $master
+git branch --set-upstream-to=origin/$master $master
 cd -
