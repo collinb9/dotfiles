@@ -91,6 +91,9 @@ Plug 'camgraff/telescope-tmux.nvim'
 " test runner
 Plug 'vim-test/vim-test'
 
+" Preview markdown
+Plug 'ellisonleao/glow.nvim', {'branch': 'main'}
+
 call plug#end()
 
 
@@ -193,12 +196,6 @@ match BadWhitespace /\s\+$/ |
 
 " utf-8 encoding
 set encoding=utf-8
-
-" Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " Moving between buffers
 nnoremap ]b <cmd>bnext<cr>

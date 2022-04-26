@@ -39,6 +39,10 @@ require('telescope').load_extension('tmux')
 
 local ops = { noremap = true, silent = true }
 
+vim.api.nvim_set_keymap('n', '<leader>ff', "<cmd>lua require('telescope.builtin').find_files()<cr>", ops)
+vim.api.nvim_set_keymap('n', '<leader>fg', "<cmd>lua require('telescope.builtin').live_grep()<cr>", ops)
+vim.api.nvim_set_keymap('n', '<leader>fb', "<cmd>lua require('telescope.builtin').buffers()<cr>", ops)
+vim.api.nvim_set_keymap('n', '<leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>", ops)
 vim.api.nvim_set_keymap('n', '<leader>f*', "<cmd>lua require('telescope.builtin').lsp_references()<cr>", ops)
 vim.api.nvim_set_keymap('n', '<leader>fr', "<cmd>lua require('telescope.builtin').lsp_references()<cr>", ops)
 vim.api.nvim_set_keymap('n', '<leader>fs', "<cmd>lua require('telescope.builtin').lsp_document_symbols({symbols = {'class', 'method', 'function'}})<cr>", ops)
