@@ -10,3 +10,6 @@ plugged/
 
 # ranger plugins
 plugins/
+
+# virtual environment
+venv/
