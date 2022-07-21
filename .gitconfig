@@ -23,3 +23,5 @@
     autoupdate = true
 [alias]
     lg = log --graph --simplify-by-decoration --pretty=format:'%d' --all
+[help]
+    autocorrect = 20
