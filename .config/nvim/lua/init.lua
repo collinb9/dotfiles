@@ -2,7 +2,6 @@ require("config.telescope")
 require("config.lsp")
 require("config.harpoon")
 require("config.git-worktree")
-require("config.nvim-terminal")
 require("config.hop")
 require("config.fugitive")
 

@@ -84,15 +84,15 @@ Plug 'ThePrimeagen/harpoon'
 " git worktree
 Plug 'ThePrimeagen/git-worktree.nvim'
 
-" tmux telescope integration
-Plug 'norcalli/nvim-terminal.lua'
-Plug 'camgraff/telescope-tmux.nvim'
-
 " test runner
 Plug 'vim-test/vim-test'
 
 " Preview markdown
 Plug 'ellisonleao/glow.nvim', {'branch': 'main'}
+
+" Github copilot
+Plug 'github/copilot.vim'
+Plug 'hrsh7th/cmp-copilot'
 
 call plug#end()
 

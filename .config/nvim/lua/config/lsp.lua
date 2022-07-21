@@ -9,6 +9,7 @@ local source_mapping = {
 	nvim_lua = "[Lua]",
 	cmp_tabnine = "[TN]",
 	path = "[Path]",
+    copilot = "[CPL]",
 }
 local lspkind = require("lspkind")
 require('lspkind').init({
@@ -36,10 +37,10 @@ cmp.setup({
         ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
         ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
         ['<C-e>'] = cmp.mapping.close(),
-        ['<tab>'] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
-        })
+        ['<tab>'] = cmp.mapping({
+            i = cmp.mapping.confirm{beahavior = cmp.ConfirmBehavior.Replace, select = true},
+            c = cmp.mapping.confirm{beahavior = cmp.config.disable,},
+        }),
 	},
 
     formatting = {
@@ -63,17 +64,16 @@ cmp.setup({
 
 	sources = {
         -- tabnine completion? yayaya
-        -- { name = "cmp_tabnine" },
+        { name = "cmp_tabnine" },
 
 		{ name = "nvim_lsp" },
 
-		-- -- For vsnip user.
+        {name = 'copilot'},
+
 		-- -- { name = 'vsnip' },
 
-		-- -- For luasnip user.
 		{ name = "luasnip" },
 
-		-- -- For ultisnips user.
 		-- -- { name = 'ultisnips' },
 
 		{ name = "buffer" },
@@ -130,26 +130,9 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
     buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    -- buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
     buf_set_keymap('n', '<leader>b', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
 end
-
--- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline('/', {
-    sources = {
-        { name = 'buffer' }
-    }
-})
-
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(':', {
-    sources = cmp.config.sources({
-        { name = 'path' }
-    }, {
-        { name = 'cmdline' }
-    })
-})
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
