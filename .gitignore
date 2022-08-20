@@ -13,3 +13,6 @@ plugins/
 
 # virtual environment
 venv/
+
+# python
+.python-version
