@@ -90,9 +90,9 @@ Plug 'vim-test/vim-test'
 " Preview markdown
 Plug 'ellisonleao/glow.nvim', {'branch': 'main'}
 
-" Github copilot
-Plug 'github/copilot.vim'
-Plug 'hrsh7th/cmp-copilot'
+" " Github copilot
+" Plug 'github/copilot.vim'
+" Plug 'hrsh7th/cmp-copilot'
 
 call plug#end()
 
