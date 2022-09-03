@@ -25,9 +25,5 @@
     lg = log --graph --simplify-by-decoration --pretty=format:'%d' --all
 [help]
     autocorrect = 20
-[url "ssh://git@github.com"]
-    insteadOf = https://github.com
 [push]
     autoSetupRemote = true
-# [url "ssh://git@github.com"]
-#     insteadOf = https://github.com
