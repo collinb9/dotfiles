@@ -46,6 +46,10 @@ ln -svfn $HOME/.dotfiles/.config/picom/ $HOME/.config
 sudo rm -rf $HOME/.config/gtk-3.0
 ln -svfn $HOME/.dotfiles/.config/gtk-3.0/ $HOME/.config
 
+# stockfish client
+sudo rm -rf $HOME/.config/stockfish_socket_client
+ln -svfn $HOME/.dotfiles/.config/stockfish_socket_client/ $HOME/.config
+
 # misc rc files
 ln -svfn $HOME/.dotfiles/.xinitrc $HOME
 ln -svfn $HOME/.dotfiles/.inputrc $HOME
