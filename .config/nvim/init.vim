@@ -103,6 +103,11 @@ colorscheme gruvbox
 let g:gruvbox_transparent_bg=1
 set background=dark
 
+" Necessary to make background transparent
+set termguicolors
+hi! Normal ctermbg=NONE guibg=None
+hi! NonText ctermbg=NONE guibg=None
+
 " autocompletion
 set completeopt=menu,menuone,noselect
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
