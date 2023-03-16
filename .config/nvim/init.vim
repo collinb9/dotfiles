@@ -94,6 +94,10 @@ Plug 'ellisonleao/glow.nvim', {'branch': 'main'}
 " Plug 'github/copilot.vim'
 " Plug 'hrsh7th/cmp-copilot'
 
+" Database stuff
+Plug 'tpope/vim-dadbod'
+Plug 'kristijanhusak/vim-dadbod-ui'
+
 call plug#end()
 
 
@@ -236,6 +240,9 @@ nnoremap <silent> <leader>tf :TestFile<CR>
 nnoremap <silent> <leader>tt :TestSuite<CR>
 nnoremap <silent> <leader>tl :TestLast<CR>
 nnoremap <silent> <leader>tg :TestVisit<CR>
+
+" Dadbod
+nnoremap <leader>db :DBUIToggle<CR>
 
 " " syntastic config
 " set statusline+=%#warningmsg#
