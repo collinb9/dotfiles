@@ -1,0 +1,29 @@
+[init]
+	templatedir = $HOME/.git_template
+	defaultBranch = master
+[user]
+	email = brendan.m.collins@outlook.com
+	name = collinb9
+[pull]
+	rebase = true
+[core]
+	editor = nvim
+	pager = less
+    bare = true
+[color]
+	ui = auto
+[merge]
+	tool = vimdiff
+[mergetool]
+    keepBackup = false
+[mergetool "vimdiff"]
+    cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[rerere]
+	enabled = true
+    autoupdate = true
+[alias]
+    lg = log --graph --simplify-by-decoration --pretty=format:'%d' --all
+[help]
+    autocorrect = 20
+[push]
+    autoSetupRemote = true

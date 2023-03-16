@@ -62,9 +62,9 @@ ln -svfn $HOME/.dotfiles/.vim $HOME
 
 # git
 ln -svfn $HOME/.dotfiles/.gitconfig $HOME
+ln -svfn $HOME/.dotfiles/default.gitconfig $HOME
+ln -svfn $HOME/.dotfiles/work.gitconfig $HOME
 sudo rm -rf $HOME/.git_template
-ln -svfn $HOME/.git_template $HOME
-git config --global init.templatedir '$HOME/.git_template'
 ln -svfn $HOME/.dotfiles/.git_template $HOME
 chmod +x $HOME/.git_template/hooks/*
 
