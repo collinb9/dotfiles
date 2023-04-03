@@ -3,7 +3,7 @@
 ------------------------------- Format query results
 
 \pset format wrapped
-\x on
+-- \x on
 \pset columns 0
 \pset border 1
 \pset linestyle old-ascii

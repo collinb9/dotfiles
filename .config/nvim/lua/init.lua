@@ -4,6 +4,7 @@ require("config.harpoon")
 require("config.git-worktree")
 require("config.hop")
 require("config.fugitive")
+require("config.dadbod")
 
 -- Logs stores in ~/.cache/nvim/lsp.log
 -- vim.lsp.set_log_level("debug")

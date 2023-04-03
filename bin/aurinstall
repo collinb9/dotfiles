@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
 package="$1"
-aur sync -c "$package"
+aur sync "$package"
 sudo pacman -S "$package"

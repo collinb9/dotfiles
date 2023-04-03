@@ -97,6 +97,7 @@ Plug 'ellisonleao/glow.nvim', {'branch': 'main'}
 " Database stuff
 Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-ui'
+Plug 'kristijanhusak/vim-dadbod-completion'
 
 call plug#end()
 
@@ -241,8 +242,10 @@ nnoremap <silent> <leader>tt :TestSuite<CR>
 nnoremap <silent> <leader>tl :TestLast<CR>
 nnoremap <silent> <leader>tg :TestVisit<CR>
 
-" Dadbod
+" Dadbod config
 nnoremap <leader>db :DBUIToggle<CR>
+nnoremap <leader>dp :% DB postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST/$POSTGRES_DATABASE<CR>
+nnoremap <leader>dy :% DB mysql://$MYSQL_USER:$MYSQL_PASSWORD@$MYSQL_HOST/$MYSQL_DATABASE<CR>
 
 " " syntastic config
 " set statusline+=%#warningmsg#

@@ -104,6 +104,7 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # alias ctags="/usr/local/bin/ctags"
+# alias mysql="/usr/bin/mycli"
 # eval "$(rbenv init -)"
 if [ -d "$HOME/bin" ] ; then
 	export PATH="$HOME/bin:$PATH"
