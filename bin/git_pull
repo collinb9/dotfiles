@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+branch=$(git branch --show-current)
+git pull 2>&1 | grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox} "git branch" | sed "s/<branch>/$branch/" | xargs -I {} sh -c {}
+git pull
+
