@@ -71,6 +71,7 @@ Plug 'cespare/vim-toml'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'alaviss/nim.nvim'
+Plug 'jose-elias-alvarez/typescript.nvim'
 
 " make things look nice
 Plug 'gruvbox-community/gruvbox'
@@ -230,6 +231,9 @@ let g:ale_linters={
 \ }
 let g:ale_fixers = {
 \   'nim': ['nimpretty'],
+\   'python': ['black'],
+\   'typescript': ['prettier'],
+\   'typescriptreact': ['prettier']
 \}
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1

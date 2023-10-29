@@ -138,7 +138,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'jedi_language_server', 'bashls', 'nimlsp' }
+local servers = { 'jedi_language_server', 'bashls', 'nimlsp'}
 
 if not configs.nimlsp then
     configs.nimlsp = {
@@ -164,3 +164,14 @@ for _, lsp in ipairs(servers) do
         config()
     }
 end
+
+typescript = require("typescript").setup({
+    disable_commands = false, -- prevent the plugin from creating Vim commands
+    debug = false, -- enable debug logging for commands
+    go_to_source_definition = {
+        fallback = true, -- fall back to standard LSP definition on failure
+    },
+    server = { -- pass options to lspconfig's setup method
+        on_attach = on_attach,
+    },
+})
