@@ -74,7 +74,7 @@ Plug 'alaviss/nim.nvim'
 Plug 'jose-elias-alvarez/typescript.nvim'
 
 " make things look nice
-Plug 'gruvbox-community/gruvbox', { 'branch': 'v2.2.0' }
+Plug 'gruvbox-community/gruvbox'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
