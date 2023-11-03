@@ -7,8 +7,8 @@ require("config.fugitive")
 require("config.dadbod")
 require("config.treesitter")
 
--- Logs stores in ~/.cache/nvim/lsp.log
--- vim.lsp.set_log_level("debug")
+-- TODO make this mapping filetype dependent
+vim.api.nvim_set_keymap('n', '<leader>b', '<cmd>:! black % --line-length 79<CR>', {noremap = true, silent = true} )
 
 P = function(v)
   print(vim.inspect(v))

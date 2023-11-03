@@ -55,7 +55,8 @@ Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'phaazon/hop.nvim'
 
 " treesitter
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" For some reason TSUpdate isn't recognised as an editor command (same goes for all treesitter commands)
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':lua require(\"nvim-treesitter.install\").commands.TSUpdate[\"run\"](\"all\")'}
 
 " language servers and autocomplete
 Plug 'neovim/nvim-lspconfig'

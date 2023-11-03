@@ -21,6 +21,9 @@ require("harpoon").setup({
     tabline = false,
     tabline_prefix = "   ",
     tabline_suffix = "   ",
+    global_settings = {
+        enter_on_sendcmd = true,
+    }
 })
 
 vim.api.nvim_set_keymap('n', '<leader>a', '<cmd>:lua require("harpoon.mark").add_file()<CR>', {noremap = true, silent = true} )
