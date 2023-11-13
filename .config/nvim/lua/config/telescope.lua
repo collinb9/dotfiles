@@ -31,29 +31,19 @@ require("telescope").setup({
     },
 })
 
-require('telescope').load_extension('fzy_native')
-require('telescope').load_extension('git_worktree')
-require('telescope').load_extension('harpoon')
+-- require('telescope').load_extension('fzy_native')
+-- require('telescope').load_extension('harpoon')
 
 -- Key bindings
 
-local ops = { noremap = true, silent = true }
+-- local ops = { noremap = true, silent = true }
+local ops = {}
 
-vim.api.nvim_set_keymap('n', '<leader>ff', "<cmd>lua require('telescope.builtin').find_files()<cr>", ops)
-vim.api.nvim_set_keymap('n', '<leader>fg', "<cmd>lua require('telescope.builtin').live_grep()<cr>", ops)
-vim.api.nvim_set_keymap('n', '<leader>fb', "<cmd>lua require('telescope.builtin').buffers()<cr>", ops)
-vim.api.nvim_set_keymap('n', '<leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>", ops)
-vim.api.nvim_set_keymap('n', '<leader>f*', "<cmd>lua require('telescope.builtin').lsp_references()<cr>", ops)
-vim.api.nvim_set_keymap('n', '<leader>fr', "<cmd>lua require('telescope.builtin').lsp_references()<cr>", ops)
-vim.api.nvim_set_keymap('n', '<leader>fs', "<cmd>lua require('telescope.builtin').lsp_document_symbols({symbols = {'class', 'method', 'function'}})<cr>", ops)
-vim.api.nvim_set_keymap('n', '<leader>fd', "<cmd>lua require('telescope.builtin').lsp_definitions()<cr>", ops)
-vim.api.nvim_set_keymap('n', '<leader>ft', "<cmd>lua require('telescope.builtin').lsp_type_definitions()<cr>", ops)
-vim.api.nvim_set_keymap('n', '<leader>fq', "<cmd>lua require('telescope.builtin').quickfix()<cr>", ops)
-vim.api.nvim_set_keymap('n', '<leader>fl', "<cmd>lua require('telescope.builtin').loclist()<cr>", ops)
-vim.api.nvim_set_keymap('n', '<leader>fj', "<cmd>lua require('telescope.builtin').jumplist()<cr>", ops)
-vim.api.nvim_set_keymap('n', '<leader>fm', "<cmd>lua require('telescope.builtin').man_pages()<cr>", ops)
-vim.api.nvim_set_keymap('n', '<leader>fe', "<cmd>lua require('telescope.builtin').file_browser()<cr>", ops)
+local builtin = require('telescope.builtin')
 
--- git-worktree key bindings
-vim.api.nvim_set_keymap('n', '<leader>gw', "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees() <cr>", ops)
-vim.api.nvim_set_keymap('n', '<leader>gn', "<cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<cr>", ops)
+vim.keymap.set('n', '<leader>ff', builtin.find_files, ops)
+vim.keymap.set('n', '<C-p>', builtin.git_files, ops)
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, ops)
+vim.keymap.set('n', '<leader>fq', builtin.quickfix, ops)
+vim.keymap.set('n', '<leader>fl', builtin.loclist, ops)
+vim.keymap.set('n', '<leader>fm', builtin.man_pages, ops)
