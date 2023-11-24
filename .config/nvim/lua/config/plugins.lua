@@ -27,7 +27,11 @@ return require("packer").startup(function(use)
 	use("stevearc/conform.nvim")
 
 	use("ellisonleao/gruvbox.nvim")
-	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate", requires = { { "windwp/nvim-ts-autotag", "nvim-treesitter/nvim-treesitter-textobjects" } } })
+	use({
+		"nvim-treesitter/nvim-treesitter",
+		run = ":TSUpdate",
+		requires = { { "windwp/nvim-ts-autotag", "nvim-treesitter/nvim-treesitter-textobjects" } },
+	})
 	use("ThePrimeagen/harpoon")
 
 	use("neovim/nvim-lspconfig")
