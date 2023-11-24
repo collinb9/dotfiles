@@ -8,6 +8,8 @@ require("config.dadbod")
 require("config.lsp")
 require("config.fugitive")
 require("config.treesitter")
+require("config.autopairs")
+require("config.conform")
 
 P = function(v)
   print(vim.inspect(v))

@@ -27,7 +27,7 @@ cmp.setup({
 	-- 		-- vim.fn["UltiSnips#Anon"](args.body)
 	-- 	end,
 	-- },
-	-- 
+	--
 	mapping = cmp.mapping.preset.insert({
 
 		["<C-u>"] = cmp.mapping.scroll_docs(-4),
@@ -89,7 +89,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		vim.keymap.set('v', '<leader>ca', "<cmd>'<,'>lua vim.lsp.buf.range_code_action()<CR>", opts)
 		vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 		vim.keymap.set('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-		vim.keymap.set('n', '<leader>b', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 	end
 
 }
@@ -104,8 +103,9 @@ end
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-	ensure_installed = {'bashls', 'jedi_language_server', 'lua_ls', 'tsserver'},
+	ensure_installed = {'bashls', 'jedi_language_server', 'lua_ls', 'tsserver', 'sqlls'},
 	automatic_installation = true,
 	handlers = {default_setup},
 })
+
 
