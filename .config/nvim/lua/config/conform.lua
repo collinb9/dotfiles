@@ -9,7 +9,8 @@ conform.setup({
 		javascript = { "prettierd" },
 		html = { "prettierd" },
 		yaml = { "prettierd" },
+		sh = { "beautysh" },
 	},
 })
 
-vim.keymap.set("n", "<leader>b", conform.format, opts)
+vim.keymap.set("n", "<leader>b", conform.format)
