@@ -24,8 +24,6 @@ return require("packer").startup(function(use)
 
 	-- use ( 'mhartington/formatter.nvim' )
 	-- use ( 'nvimtools/none-ls.nvim' )
-	use("stevearc/conform.nvim")
-
 	use("ellisonleao/gruvbox.nvim")
 	use({
 		"nvim-treesitter/nvim-treesitter",
@@ -42,11 +40,14 @@ return require("packer").startup(function(use)
 	use("hrsh7th/cmp-path")
 	use("hrsh7th/cmp-cmdline")
 
-	-- Formatting
-	use("jose-elias-alvarez/null-ls.nvim")
 	-- Manages LSP servers
 	use("williamboman/mason.nvim", { tag = "1.8.1" })
 	use("williamboman/mason-lspconfig.nvim")
+	-- Formatting
+	use("stevearc/conform.nvim")
+    -- Linting
+    use("mfussenegger/nvim-lint")
+
 
 	use("airblade/vim-gitgutter")
 

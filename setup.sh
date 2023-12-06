@@ -50,6 +50,10 @@ ln -svfn $HOME/.dotfiles/.config/gtk-3.0/ $HOME/.config
 sudo rm -rf $HOME/.config/stockfish_socket_client
 ln -svfn $HOME/.dotfiles/.config/stockfish_socket_client/ $HOME/.config
 
+# pylint
+sudo rm $HOME/.config/pylintrc
+ln -svfn $HOME/.dotfiles/.config/pylintrc $HOME/.config/pylintrc
+
 # misc rc files
 ln -svfn $HOME/.dotfiles/.xinitrc $HOME
 ln -svfn $HOME/.dotfiles/.inputrc $HOME

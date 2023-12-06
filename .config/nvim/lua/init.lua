@@ -10,6 +10,8 @@ require("config.fugitive")
 require("config.treesitter")
 require("config.autopairs")
 require("config.conform")
+require("config.lint")
+
 
 P = function(v)
   print(vim.inspect(v))
