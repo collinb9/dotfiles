@@ -51,8 +51,7 @@ sudo rm -rf $HOME/.config/stockfish_socket_client
 ln -svfn $HOME/.dotfiles/.config/stockfish_socket_client/ $HOME/.config
 
 # pylint
-sudo rm $HOME/.config/pylintrc
-ln -svfn $HOME/.dotfiles/.config/pylintrc $HOME/.config/pylintrc
+ln -svfn $HOME/.dotfiles/.config/pylintrc $HOME/.config
 
 # misc rc files
 ln -svfn $HOME/.dotfiles/.xinitrc $HOME
@@ -80,3 +79,6 @@ ln -svfn $HOME/.dotfiles/.config/zsh/ $HOME/.config
 # /bin
 ln -svfn $HOME/.dotfiles/bin/ $HOME
 chmod u+x $HOME/bin/**
+
+# cfn-lint
+ln -svfn $HOME/.dotfiles/.cfnlintrc $HOME
