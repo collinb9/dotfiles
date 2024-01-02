@@ -11,6 +11,7 @@ require("config.treesitter")
 require("config.autopairs")
 require("config.conform")
 require("config.lint")
+require("config.comment")
 
 
 P = function(v)
