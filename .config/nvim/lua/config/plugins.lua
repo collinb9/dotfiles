@@ -46,9 +46,12 @@ return require("packer").startup(function(use)
 	use("williamboman/mason-lspconfig.nvim")
 	-- Formatting
 	use("stevearc/conform.nvim")
-    -- Linting
-    use("mfussenegger/nvim-lint")
+	-- Linting
+	use("mfussenegger/nvim-lint")
 
+	-- Copilot
+	use("github/copilot.vim")
+	use("hrsh7th/cmp-copilot")
 
 	use("airblade/vim-gitgutter")
 
