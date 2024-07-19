@@ -5,6 +5,8 @@ lint.linters_by_ft = {
 	cloudformation = { "cfn_lint" },
 	lua = { "luacheck" },
 	javascript = { "eslint_d" },
+	typescript = { "eslint_d" },
+	typescriptreact = { "eslint_d" },
 }
 
 lint.linters.cfn_lint.ignore_exitcode = true

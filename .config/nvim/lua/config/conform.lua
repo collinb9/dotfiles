@@ -5,6 +5,8 @@ conform.setup({
 		lua = { "stylua" },
 		python = { "black" },
 		javascript = { "prettierd" },
+		typescript = { "prettierd" },
+		typescriptreact = { "prettierd" },
 		html = { "prettierd" },
 		yaml = { "prettierd" },
 		sh = { "beautysh" },
