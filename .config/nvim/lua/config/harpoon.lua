@@ -34,13 +34,6 @@ local ui = require('harpoon.ui')
 local tmux = require('harpoon.tmux')
 local cmdui = require('harpoon.cmd-ui')
 
--- vim.keymap.set('n', '<leader>ff', builtin.find_files, ops)
--- vim.keymap.set('n', '<C-p>', builtin.git_files, ops)
--- vim.keymap.set('n', '<leader>fg', builtin.live_grep, ops)
--- vim.keymap.set('n', '<leader>fq', builtin.quickfix, ops)
--- vim.keymap.set('n', '<leader>fl', builtin.loclist, ops)
--- vim.keymap.set('n', '<leader>fm', builtin.man_pages, ops)
-
 vim.keymap.set('n', '<leader>a', mark.add_file, ops )
 vim.keymap.set('n', '<leader>ha', ui.toggle_quick_menu, ops )
 vim.keymap.set('n', '<leader>1', function() ui.nav_file(1) end, ops )
