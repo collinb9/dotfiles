@@ -130,6 +130,9 @@ eval "$(pyenv init -)"
 export NIMBLE_ROOT="$HOME/.nimble"
 export PATH="$NIMBLE_ROOT/bin:$PATH"
 
+################################## sqlcmd
+export PATH="$PATH:/opt/mssql-tools18/bin"
+
 ################################## fuzzy finding
 export FZF_DEFAULT_OPTS="--extended --preview='bat --color=always --style=numbers {}' --bind shift-up:preview-page-up,shift-down:preview-page-down"
 # alias pf="fzf --preview='less {}' --bind shift-up:preview-page-up,shift-down:preview-page-down"

@@ -18,3 +18,8 @@ venv/
 
 # python
 .python-version
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
