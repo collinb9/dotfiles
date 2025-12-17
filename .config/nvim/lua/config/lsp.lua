@@ -101,7 +101,7 @@ end
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
-	ensure_installed = { "bashls", "jedi_language_server", "lua_ls", "tsserver", "sqlls" },
+	ensure_installed = { "bashls", "jedi_language_server", "lua_ls", "sqlls" },
 	automatic_installation = true,
 	handlers = { default_setup },
 })

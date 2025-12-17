@@ -42,7 +42,7 @@ return require("packer").startup(function(use)
 	use("hrsh7th/cmp-cmdline")
 
 	-- Manages LSP servers
-	use("williamboman/mason.nvim", { tag = "1.8.1" })
+	use("williamboman/mason.nvim")
 	use("williamboman/mason-lspconfig.nvim")
 	-- Formatting
 	use("stevearc/conform.nvim")
