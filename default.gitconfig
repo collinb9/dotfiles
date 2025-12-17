@@ -10,6 +10,7 @@
 	editor = nvim
 	pager = less
     bare = true
+    fileMode = false
 [color]
 	ui = auto
 [merge]
