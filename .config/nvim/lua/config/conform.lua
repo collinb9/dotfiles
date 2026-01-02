@@ -11,11 +11,12 @@ conform.setup({
 		yaml = { "prettierd" },
 		sh = { "beautysh" },
 		sql = { "sqlfmt" },
-        markdown = {"prettierd" },
+		markdown = { "prettierd" },
+		toml = { "tombi" },
 	},
-    formatters = {
-        black = {prepend_args = {"--line-length", "79"}}
-    }
+	formatters = {
+		black = { prepend_args = { "--line-length", "79" } },
+	},
 })
 
 vim.keymap.set("n", "<leader>b", conform.format)
