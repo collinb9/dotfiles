@@ -1,8 +1,22 @@
 local code = require("codecompanion")
-code.setup({
+
+local copilot = { name = "copilot", model = "claude-opus-4.6" }
+
+code:setup({
 	display = {
 		diff = {
 			enabled = true,
+		},
+	},
+	interactions = {
+		chat = {
+			{ adapter = copilot },
+		},
+		inline = {
+			{ adapter = copilot },
+		},
+		cmd = {
+			{ adapter = copilot },
 		},
 	},
 	extensions = {
@@ -16,7 +30,6 @@ code.setup({
 		},
 	},
 })
-
 -- Keymap to toggle CodeCompanion chat
 local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<leader>ac", "<cmd>:CodeCompanionChat Toggle<CR>", opts)

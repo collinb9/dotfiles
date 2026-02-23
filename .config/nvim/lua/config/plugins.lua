@@ -1,78 +1,58 @@
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
+-- Bootstrap lazy.nvim if not installed
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable",
+		lazypath,
+	})
+end
+vim.opt.rtp:prepend(lazypath)
 
--- Only required if you have packer configured as `opt`
-vim.cmd([[packadd packer.nvim]])
-vim.keymap.set("n", "<leader>ps", "<cmd>:PackerSync<CR>")
-return require("packer").startup(function(use)
-	-- Packer can manage itself
-	use("wbthomason/packer.nvim")
-
-	use({
+require("lazy").setup({
+	{
 		"nvim-telescope/telescope.nvim",
+		dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzy-native.nvim" },
 		tag = "v0.2.1",
-		requires = { { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzy-native.nvim" } },
-	})
-
-	use("tpope/vim-surround")
-	-- use("tpope/vim-commentary")
-	use("tpope/vim-repeat")
-	use("tpope/vim-abolish")
-	use("tpope/vim-fugitive")
-	use("numToStr/Comment.nvim")
-	-- use( 'jiangmiao/auto-pairs')
-
-	use("windwp/nvim-autopairs")
-
-	-- use ( 'mhartington/formatter.nvim' )
-	-- use ( 'nvimtools/none-ls.nvim' )
-	use("ellisonleao/gruvbox.nvim")
-	use({
+	},
+	{ "tpope/vim-surround" },
+	{ "tpope/vim-repeat" },
+	{ "tpope/vim-abolish" },
+	{ "tpope/vim-fugitive" },
+	{ "numToStr/Comment.nvim" },
+	{ "windwp/nvim-autopairs" },
+	{ "ellisonleao/gruvbox.nvim" },
+	{
 		"nvim-treesitter/nvim-treesitter",
-		run = ":TSUpdate",
-		requires = { { "windwp/nvim-ts-autotag", "nvim-treesitter/nvim-treesitter-textobjects" } },
-	})
-	use({ "ThePrimeagen/harpoon", requires = { "nvim-lua/plenary.nvim" } })
-
-	use("neovim/nvim-lspconfig")
-	use("onsails/lspkind-nvim")
-	use("hrsh7th/cmp-nvim-lsp")
-	use("hrsh7th/nvim-cmp")
-	use("hrsh7th/cmp-buffer")
-	use("hrsh7th/cmp-path")
-	use("hrsh7th/cmp-cmdline")
-
-	-- Manages LSP servers
-	use("williamboman/mason.nvim")
-	use("williamboman/mason-lspconfig.nvim")
-	-- Formatting
-	use("stevearc/conform.nvim")
-	-- Linting
-	use("mfussenegger/nvim-lint")
-
-	-- AI coding tools
-	use({
+		build = ":TSUpdate",
+		dependencies = { "windwp/nvim-ts-autotag", "nvim-treesitter/nvim-treesitter-textobjects" },
+	},
+	{ "ThePrimeagen/harpoon", dependencies = { "nvim-lua/plenary.nvim" } },
+	{ "neovim/nvim-lspconfig" },
+	{ "onsails/lspkind-nvim" },
+	{ "hrsh7th/cmp-nvim-lsp" },
+	{ "hrsh7th/nvim-cmp" },
+	{ "hrsh7th/cmp-buffer" },
+	{ "hrsh7th/cmp-path" },
+	{ "hrsh7th/cmp-cmdline" },
+	{ "williamboman/mason.nvim" },
+	{ "williamboman/mason-lspconfig.nvim" },
+	{ "stevearc/conform.nvim" },
+	{ "mfussenegger/nvim-lint" },
+	{
 		"olimorris/codecompanion.nvim",
 		tag = "v18.7.0",
-		requires = {
-			"nvim-lua/plenary.nvim",
-			"nvim-treesitter/nvim-treesitter",
-		},
-	})
-	use({"ravitemer/mcphub.nvim", run = "npm install -g mcp-hub@latest" })
-	-- Copilot
-	use("github/copilot.vim")
-	-- use("hrsh7th/cmp-copilot")
-
-	use("airblade/vim-gitgutter")
-
-	use("tpope/vim-dadbod")
-	use("kristijanhusak/vim-dadbod-ui")
-	use("kristijanhusak/vim-dadbod-completion")
-
-	use("nvim-mini/mini.diff")
-
-	-- Previously used plugins that I may want to look at again
-	-- use ('dense-analysis/ale')
-	-- use ('cespare/vim-toml')
-	-- use ('L3MON4D3/LuaSnip')
-end)
+		dependencies = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" },
+	},
+	{ "ravitemer/mcphub.nvim", build = "npm install -g mcp-hub@latest" },
+	{ "github/copilot.vim" },
+	{ "airblade/vim-gitgutter" },
+	{ "tpope/vim-dadbod" },
+	{ "kristijanhusak/vim-dadbod-ui" },
+	{ "kristijanhusak/vim-dadbod-completion" },
+	{ "nvim-mini/mini.diff" },
+}
+)
