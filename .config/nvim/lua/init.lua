@@ -12,6 +12,9 @@ require("config.autopairs")
 require("config.conform")
 require("config.lint")
 require("config.comment")
+require("config.codecompanion")
+require("config.minidiff")
+require("config.mcphub")
 
 
 P = function(v)

@@ -6,7 +6,6 @@ local source_mapping = {
 	nvim_lsp = "[LSP]",
 	nvim_lua = "[Lua]",
 	path = "[Path]",
-	copilot = "[CPL]",
 }
 
 local lspkind = require("lspkind")
@@ -69,7 +68,6 @@ cmp.setup({
 		-- -- { name = "vim-dadbod-completion" },
 		{ name = "path" },
 		{ name = "buffer" },
-		{ name = "copilot" },
 	},
 })
 

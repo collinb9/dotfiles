@@ -9,7 +9,7 @@ return require("packer").startup(function(use)
 
 	use({
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.4",
+		tag = "v0.2.1",
 		requires = { { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzy-native.nvim" } },
 	})
 
@@ -31,7 +31,7 @@ return require("packer").startup(function(use)
 		run = ":TSUpdate",
 		requires = { { "windwp/nvim-ts-autotag", "nvim-treesitter/nvim-treesitter-textobjects" } },
 	})
-	use("ThePrimeagen/harpoon")
+	use({ "ThePrimeagen/harpoon", requires = { "nvim-lua/plenary.nvim" } })
 
 	use("neovim/nvim-lspconfig")
 	use("onsails/lspkind-nvim")
@@ -49,15 +49,27 @@ return require("packer").startup(function(use)
 	-- Linting
 	use("mfussenegger/nvim-lint")
 
+	-- AI coding tools
+	use({
+		"olimorris/codecompanion.nvim",
+		tag = "v18.7.0",
+		requires = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
+	})
+	use({"ravitemer/mcphub.nvim", run = "npm install -g mcp-hub@latest" })
 	-- Copilot
 	use("github/copilot.vim")
-	use("hrsh7th/cmp-copilot")
+	-- use("hrsh7th/cmp-copilot")
 
 	use("airblade/vim-gitgutter")
 
 	use("tpope/vim-dadbod")
 	use("kristijanhusak/vim-dadbod-ui")
 	use("kristijanhusak/vim-dadbod-completion")
+
+	use("nvim-mini/mini.diff")
 
 	-- Previously used plugins that I may want to look at again
 	-- use ('dense-analysis/ale')
