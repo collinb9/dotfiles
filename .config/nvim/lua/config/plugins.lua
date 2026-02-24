@@ -27,6 +27,7 @@ require("lazy").setup({
 	{ "ellisonleao/gruvbox.nvim" },
 	{
 		"nvim-treesitter/nvim-treesitter",
+		lazy = false,
 		build = ":TSUpdate",
 		dependencies = { "windwp/nvim-ts-autotag", "nvim-treesitter/nvim-treesitter-textobjects" },
 	},
@@ -54,5 +55,4 @@ require("lazy").setup({
 	{ "kristijanhusak/vim-dadbod-ui" },
 	{ "kristijanhusak/vim-dadbod-completion" },
 	{ "nvim-mini/mini.diff" },
-}
-)
+})
