@@ -1,5 +1,9 @@
 live_config_reload = true
 
+[scrolling]
+history = 10000
+multiplier = 3
+
 [colors]
 draw_bold_text_with_bright_colors = false
 
@@ -58,8 +62,6 @@ y = -1
 [window]
 dynamic_padding = false
 dynamic_title = true
-history = 10000
-multiplier = 3
 opacity = 0.9
 
 [window.class]
