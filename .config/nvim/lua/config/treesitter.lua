@@ -1,6 +1,6 @@
 local treesitter = require("nvim-treesitter")
 
-treesitter:install({
+treesitter.install({
 	"c",
 	"lua",
 	"vim",
@@ -18,7 +18,7 @@ treesitter:install({
 vim.api.nvim_create_autocmd("FileType", {
 	callback = function(args)
 		local lang = vim.treesitter.language.get_lang(args.match) or args.match
-		local installed = treesitter:get_installed("parsers")
+		local installed = treesitter.get_installed("parsers")
 		if vim.tbl_contains(installed, lang) then
 			vim.treesitter.start(args.buf)
 		end
