@@ -15,21 +15,7 @@ lspkind.init({
 
 local cmp = require("cmp")
 cmp.setup({
-	-- snippet = {
-	-- 	expand = function(args)
-	-- 		-- For `vsnip` user.
-	-- 		-- vim.fn["vsnip#anonymous"](args.body)
-
-	-- 		-- For `luasnip` user.
-	-- 		require("luasnip").lsp_expand(args.body)
-
-	-- 		-- For `ultisnips` user.
-	-- 		-- vim.fn["UltiSnips#Anon"](args.body)
-	-- 	end,
-	-- },
-	--
 	mapping = cmp.mapping.preset.insert({
-
 		["<C-u>"] = cmp.mapping.scroll_docs(-4),
 		["<C-d>"] = cmp.mapping.scroll_docs(4),
 		["<C-Space>"] = cmp.mapping.complete(),
@@ -37,10 +23,6 @@ cmp.setup({
 		["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
 		["<C-e>"] = cmp.mapping.close(),
 		["<tab>"] = cmp.mapping.confirm(),
-		-- ['<tab>'] = cmp.mapping({
-		-- 	i = cmp.mapping.confirm{beahavior = cmp.ConfirmBehavior.Replace, select = true},
-		-- 	c = cmp.mapping.confirm{beahavior = cmp.config.disable,},
-		-- }),
 	}),
 
 	formatting = {
@@ -50,22 +32,10 @@ cmp.setup({
 			vim_item.menu = menu
 			return vim_item
 		end,
-		-- format = lspkind.cmp_format({
-		--     mode = 'symbol',
-		--     maxwidth = 50,
-		-- })
 	},
 
 	sources = {
 		{ name = "nvim_lsp" },
-
-		-- -- -- { name = 'vsnip' },
-
-		-- -- { name = "luasnip" },
-
-		-- -- -- { name = 'ultisnips' },
-
-		-- -- { name = "vim-dadbod-completion" },
 		{ name = "path" },
 		{ name = "buffer" },
 	},
@@ -81,13 +51,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
 		vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 		vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-		vim.keymap.set("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-		vim.keymap.set("i", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+		vim.keymap.set("n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+		vim.keymap.set("i", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 		vim.keymap.set("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 		vim.keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 		vim.keymap.set("v", "<leader>ca", "<cmd>'<,'>lua vim.lsp.buf.range_code_action()<CR>", opts)
 		vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-		vim.keymap.set("n", "<leader>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
+		vim.keymap.set("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 	end,
 })
 
@@ -96,6 +66,34 @@ local default_setup = function(server)
 		capabilities = lsp_capabilities,
 	})
 end
+
+-- CloudFormation LSP configuration (manual installation)
+-- cfn-lsp-extra provides hover, completion, and diagnostics for CloudFormation/SAM templates
+
+-- Add cfn-lsp-extra as a custom server configuration
+local configs = require('lspconfig.configs')
+if not configs.cfn_lsp_extra then
+	configs.cfn_lsp_extra = {
+		default_config = {
+			cmd = { "cfn-lsp-extra" },
+			filetypes = { "yaml.cloudformation", "json.cloudformation" },
+			root_dir = function(fname)
+				return nvim_lsp.util.find_git_ancestor(fname) or vim.fn.getcwd()
+			end,
+			settings = {
+				documentFormatting = false,
+			},
+		},
+		docs = {
+			description = "CloudFormation Language Server with hover, completion, and diagnostics support",
+		},
+	}
+end
+
+-- Setup the CloudFormation LSP server
+nvim_lsp.cfn_lsp_extra.setup({
+	capabilities = lsp_capabilities,
+})
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
