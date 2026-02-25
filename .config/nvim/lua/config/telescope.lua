@@ -41,14 +41,14 @@ require('telescope').load_extension('fzy_native')
 
 -- Key bindings
 
--- local ops = { noremap = true, silent = true }
-local ops = {}
+-- local opts = { noremap = true, silent = true }
+local opts = {}
 
 local builtin = require('telescope.builtin')
 
-vim.keymap.set('n', '<leader>ff', builtin.find_files, ops)
-vim.keymap.set('n', '<C-p>', builtin.git_files, ops)
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, ops)
-vim.keymap.set('n', '<leader>fq', builtin.quickfix, ops)
-vim.keymap.set('n', '<leader>fl', builtin.loclist, ops)
-vim.keymap.set('n', '<leader>fm', builtin.man_pages, ops)
+vim.keymap.set('n', '<leader>ff', builtin.find_files, opts)
+vim.keymap.set('n', '<C-p>', builtin.git_files, opts)
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, opts)
+vim.keymap.set('n', '<leader>fq', builtin.quickfix, opts)
+vim.keymap.set('n', '<leader>fl', builtin.loclist, opts)
+vim.keymap.set('n', '<leader>fm', builtin.man_pages, opts)

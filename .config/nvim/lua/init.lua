@@ -1,4 +1,5 @@
 require("config.opts")
+require("config.keymaps")  -- Default vim keymaps
 require("config.remap")
 require("config.plugins")
 require("config.colourscheme")
@@ -16,19 +17,17 @@ require("config.codecompanion")
 require("config.minidiff")
 require("config.mcphub")
 
+-- Setup utility functions
+local utils = require("utils")
 
-P = function(v)
-  print(vim.inspect(v))
-  return v
-end
+-- Global utility functions for debugging
+P = utils.print_inspect
 
-if pcall(require, 'plenary') then
+-- Setup reload function if plenary is available
+local reload_fn = utils.setup_reload()
+if reload_fn then
   RELOAD = require('plenary.reload').reload_module
-
-  R = function(name)
-    RELOAD(name)
-    return require(name)
-  end
+  R = reload_fn
 end
 
 
