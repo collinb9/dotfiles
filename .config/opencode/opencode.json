@@ -5,7 +5,7 @@
     "azure-devops": {
       "type": "local",
       "command": ["npx", "-y", "@azure-devops/mcp", "trackman"],
-      "enabled": true,
+      "enabled": false,
       "timeout": 10000
     }
   },
