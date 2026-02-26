@@ -166,3 +166,4 @@ export NVM_DIR="$HOME/.config/nvm"
 ################################## opencode
 
 export PATH="$HOME/.opencode/bin:$PATH"
+alias opencode='sudo -E -u agent OPENCODE_CONFIG=$XDG_CONFIG_HOME/opencode/opencode.json $HOME/.opencode/bin/opencode'
