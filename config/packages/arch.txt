@@ -1,0 +1,58 @@
+# Essential packages for Arch Linux
+# This file is primarily for reference
+# Arch users typically manage packages manually
+
+# Version control
+git
+
+# Editor
+neovim
+
+# Terminal multiplexer  
+tmux
+
+# Shell
+zsh
+
+# Fuzzy finder
+fzf
+
+# Modern CLI tools
+ripgrep
+fd
+bat
+
+# Network tools
+curl
+wget
+
+# Build tools
+base-devel
+
+# Python development
+python
+python-pip
+python-pylint
+python-black
+
+# Terminal emulator
+alacritty
+
+# Window manager and desktop tools
+awesome
+polybar
+picom
+rofi
+
+# X11 utilities
+xorg-server
+xorg-xinit
+xbindkeys
+feh
+
+# AUR helper
+yay
+
+# AWS tools (optional)
+# aws-cli
+# aws-sam-cli

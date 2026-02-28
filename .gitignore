@@ -23,3 +23,9 @@ venv/
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# ai
+.claude
+.pi/agent/bin/
+.pi/agent/sessions
+auth.json

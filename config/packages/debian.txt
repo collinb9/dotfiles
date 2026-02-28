@@ -1,0 +1,43 @@
+# Essential CLI tools for Debian/Ubuntu
+# This is a minimal package list for core functionality
+# Arch users can ignore this file
+
+# Version control
+git
+
+# Editor
+neovim
+
+# Terminal multiplexer
+tmux
+
+# Shell
+zsh
+
+# Fuzzy finder
+fzf
+
+# Modern CLI tools
+ripgrep
+fd-find
+bat
+
+# Network tools
+curl
+wget
+
+# Build tools (for some vim/nvim plugins)
+build-essential
+
+# Python development
+python3
+python3-pip
+pylint
+black
+
+# AWS CLI (optional - comment out if not needed)
+# awscli
+
+# Node.js (for some nvim LSP servers)
+# nodejs
+# npm
