@@ -1,0 +1,10 @@
+{
+  "lastChangelogVersion": "0.55.3",
+  "hideThinkingBlock": true,
+  "defaultProvider": "github-copilot",
+  "defaultModel": "claude-haiku-4.5",
+  "images": {
+    "blockImages": true
+  },
+  "theme": "dark"
+}
