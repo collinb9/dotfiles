@@ -1,0 +1,23 @@
+servers:
+  typescript:
+    command: ["typescript-language-server", "--stdio"]
+    fileTypes: [".ts", ".tsx", ".js", ".jsx"]
+  python:
+    command: ["jedi-language-server"]
+    fileTypes: [".py"]
+  lua:
+    command: ["lua-language-server"]
+    fileTypes: [".lua"]
+  bash:
+    command: ["bash-language-server", "start"]
+    fileTypes: [".sh", ".bash", ".zsh"]
+  sql:
+    command: ["sql-language-server", "up", "--method", "stdio"]
+    fileTypes: [".sql"]
+  cloudformation:
+    command: ["cfn-lsp-extra"]
+    fileTypes: [".cloudformation"]
+    contentPatterns:
+      - "AWSTemplateFormatVersion"
+      - "Transform:\\s*AWS::Serverless"
+      - "Resources:\\s*\\n\\s+\\w+:\\s*\\n\\s+Type:\\s*AWS::"

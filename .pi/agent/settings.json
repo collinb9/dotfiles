@@ -1,18 +1,22 @@
 {
   "lastChangelogVersion": "0.55.3",
-  "hideThinkingBlock": false,
+  "hideThinkingBlock": true,
   "defaultProvider": "github-copilot",
   "defaultModel": "claude-opus-4.5",
   "images": {
-    "blockImages": true
+    "blockImages": false
   },
   "theme": "dark",
   "defaultThinkingLevel": "medium",
   "packages": [
-    "npm:pi-hashline-edit@v0.3.0",
-    "npm:pi-ask-tool-extension@v0.2.2",
-    "npm:@plannotator/pi-extension",
-    "npm:pi-ding@v0.2.2",
-    "npm:@tmustier/pi-session-hud@v0.1.4"
+    {
+      "source": "ssh://git@github.com/yofriadi/pi-extensions@ast-v0.1.1",
+      "extensions": [
+        "packages/ast/src/index.ts",
+        "packages/lsp/src/index.ts"
+      ]
+    },
+    "npm:@plannotator/pi-extension@v0.9.3",
+    "ssh://git@github.com/devkade/pi-ask-tool@v0.2.2"
   ]
 }
