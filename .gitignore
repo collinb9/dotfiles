@@ -19,6 +19,9 @@ venv/
 # python
 .python-version
 
+# node
+node_modules/
+
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
@@ -28,4 +31,5 @@ venv/
 .claude
 .pi/agent/bin/
 .pi/agent/sessions
+.pi/agent/git
 auth.json
