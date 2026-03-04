@@ -33,7 +33,7 @@ base-devel
 python
 python-pip
 python-pylint
-python-black
+python-ruff
 
 # Terminal emulator
 alacritty

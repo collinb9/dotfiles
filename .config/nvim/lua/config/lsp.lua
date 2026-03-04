@@ -96,7 +96,7 @@ nvim_lsp.cfn_lsp_extra.setup({
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
-	ensure_installed = { "bashls", "jedi_language_server", "lua_ls", "sqlls" },
+	ensure_installed = { "bashls", "ruff", "lua_ls", "sqlls" },
 	automatic_installation = true,
 	handlers = { default_setup },
 })

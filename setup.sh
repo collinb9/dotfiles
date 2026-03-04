@@ -114,6 +114,9 @@ install_core_configs() {
     
     # tmux
     safe_link "$DOTFILES_DIR/.config/tmux/" "$HOME/.config/tmux"
+
+    # ruff
+    safe_link "$DOTFILES_DIR/.config/ruff/" "$HOME/.config/ruff"
     
     # git
     safe_link "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
@@ -192,6 +195,7 @@ install_desktop_configs() {
 
     # pi
     safe_link "$DOTFILES_DIR/.pi" "$HOME/.pi"
+
 }
 
 # Validation

@@ -183,8 +183,8 @@ ls -la ~/.config/nvim ~/.tmux.conf ~/.zshrc
 ### Lint and Format
 ```bash
 # Python scripts
-pylint bin/*.py
-black --line-length 79 bin/*.py
+ruff check bin/*.py
+ruff format bin/*.py
 
 # Lua configuration
 stylua .config/nvim/
