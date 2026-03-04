@@ -98,6 +98,71 @@ The .xinitrc will automatically use this variable, or fall back to the default i
 
 The setup script auto-detects your distribution and installs appropriate packages.
 
+## Tool Installation
+
+The setup script automatically installs additional development tools beyond system packages when using the **full profile**:
+
+### Rust-based Tools (via cargo)
+
+- **uv**: Fast Python package manager
+- **cfn-lsp-extra**: CloudFormation Language Server
+- **stylua**: Lua code formatter
+- **tombi**: TOML formatter/linter
+
+If Rust/cargo is not installed, setup.sh will automatically install rustup.
+
+### Python Tools (via pipx)
+
+- **cfn-lint**: CloudFormation template linter
+- **beautysh**: Shell script formatter
+- **ruff**: Python linter/formatter (Debian fallback if not in system packages)
+
+These are installed in isolated environments via pipx to avoid conflicts.
+
+### Node.js Tools (via npm)
+
+- **mcp-hub**: Model Context Protocol hub (required for nvim MCP integration)
+- **prettierd**: Fast Prettier daemon for code formatting
+- **eslint_d**: Fast ESLint daemon for linting
+
+Requires Node.js/npm to be installed (included in system package lists).
+
+### Neovim Plugin Dependencies
+
+- **opencode**: AI platform plugins installed via npm in `.config/opencode/`
+
+### Skipping Tool Installation
+
+To skip additional tool installation and only install system packages + configs:
+
+```bash
+./setup.sh --skip-tools
+```
+
+Or for minimal profile (no additional tools by default):
+
+```bash
+./setup.sh minimal
+```
+
+### Manual Tool Installation
+
+If you need to install tools manually later:
+
+```bash
+# Rust tools (after installing rustup)
+cargo install uv cfn-lsp-extra stylua tombi
+
+# Python tools
+pipx install cfn-lint beautysh ruff
+
+# Node.js tools
+npm install -g mcp-hub prettierd eslint_d
+
+# opencode dependencies
+cd ~/.config/opencode && npm install
+```
+
 ## Safety Features
 
 ### Automatic Backups

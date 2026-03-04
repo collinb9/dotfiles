@@ -35,6 +35,20 @@ python-pip
 python-pylint
 python-ruff
 
+# Node.js ecosystem (required for nvim plugins and AI tools)
+nodejs
+npm
+
+# Lua development (for nvim config)
+luarocks
+luacheck
+
+# Rust toolchain (for modern CLI tools)
+rustup
+
+# Tree-sitter (for nvim syntax)
+tree-sitter
+
 # Terminal emulator
 alacritty
 

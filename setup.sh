@@ -9,7 +9,27 @@ set -euo pipefail
 # Configuration
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 BACKUP_DIR="$HOME/.dotfiles_backup_$(date +%Y%m%d_%H%M%S)"
-PROFILE="${1:-full}"  # full or minimal
+PROFILE="full"  # full or minimal
+SKIP_TOOLS=false
+
+# Parse command-line arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --skip-tools)
+            SKIP_TOOLS=true
+            shift
+            ;;
+        minimal|full)
+            PROFILE="$1"
+            shift
+            ;;
+        *)
+            log_error "Unknown option: $1" 2>/dev/null || echo "Error: Unknown option: $1"
+            echo "Usage: $0 [minimal|full] [--skip-tools]"
+            exit 1
+            ;;
+    esac
+done
 
 # Colors for output
 RED='\033[0;31m'
@@ -105,6 +125,108 @@ install_packages() {
     esac
 }
 
+# Install Rust-based tools via cargo
+install_rust_tools() {
+    log_info "Installing Rust-based tools..."
+    
+    # Check if cargo is available
+    if ! command -v cargo >/dev/null 2>&1; then
+        log_warn "Cargo not found. Installing rustup..."
+        if curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y; then
+            # shellcheck disable=SC1091
+            source "$HOME/.cargo/env"
+        else
+            log_error "Failed to install rustup. Skipping Rust tools."
+            return 1
+        fi
+    fi
+    
+    # Install tools with existence checks
+    local rust_tools=("uv" "cfn-lsp-extra" "stylua" "tombi")
+    for tool in "${rust_tools[@]}"; do
+        if command -v "$tool" >/dev/null 2>&1; then
+            log_info "$tool already installed, skipping"
+        else
+            log_info "Installing $tool via cargo..."
+            cargo install "$tool" || log_warn "Failed to install $tool"
+        fi
+    done
+}
+
+# Install Python tools via pipx
+install_python_tools() {
+    log_info "Installing Python tools..."
+    
+    # Ensure pip is available
+    if ! command -v pip3 >/dev/null 2>&1; then
+        log_error "pip3 not found. Install Python first."
+        return 1
+    fi
+    
+    # Install pipx for isolated tool installation
+    if ! command -v pipx >/dev/null 2>&1; then
+        log_info "Installing pipx..."
+        pip3 install --user pipx
+        pipx ensurepath
+    fi
+    
+    # Install tools via pipx
+    local python_tools=("cfn-lint" "beautysh")
+    for tool in "${python_tools[@]}"; do
+        if command -v "$tool" >/dev/null 2>&1; then
+            log_info "$tool already installed, skipping"
+        else
+            log_info "Installing $tool via pipx..."
+            pipx install "$tool" || log_warn "Failed to install $tool"
+        fi
+    done
+    
+    # Install ruff via pipx if not in system packages (Debian fallback)
+    if ! command -v ruff >/dev/null 2>&1; then
+        log_info "Installing ruff via pipx (not in system packages)..."
+        pipx install ruff || log_warn "Failed to install ruff"
+    fi
+}
+
+# Install Node.js tools via npm
+install_node_tools() {
+    log_info "Installing Node.js tools..."
+    
+    # Check if npm is available
+    if ! command -v npm >/dev/null 2>&1; then
+        log_warn "npm not found. Install Node.js first or run with --skip-tools"
+        return 0
+    fi
+    
+    # Install global npm tools
+    local node_tools=("mcp-hub" "prettierd" "eslint_d")
+    for tool in "${node_tools[@]}"; do
+        if npm list -g "$tool" >/dev/null 2>&1; then
+            log_info "$tool already installed globally, skipping"
+        else
+            log_info "Installing $tool via npm..."
+            npm install -g "$tool" || log_warn "Failed to install $tool"
+        fi
+    done
+}
+
+# Install opencode npm dependencies
+install_opencode_deps() {
+    log_info "Installing opencode dependencies..."
+    
+    local opencode_dir="$DOTFILES_DIR/.config/opencode"
+    if [[ -f "$opencode_dir/package.json" ]]; then
+        if command -v npm >/dev/null 2>&1; then
+            log_info "Running npm install in $opencode_dir..."
+            (cd "$opencode_dir" && npm install) || log_warn "Failed to install opencode deps"
+        else
+            log_warn "npm not found, skipping opencode dependencies"
+        fi
+    else
+        log_info "No opencode package.json found, skipping"
+    fi
+}
+
 # Core configuration (shell, git, nvim)
 install_core_configs() {
     log_info "Installing core configurations..."
@@ -196,6 +318,9 @@ install_desktop_configs() {
     # pi
     safe_link "$DOTFILES_DIR/.pi" "$HOME/.pi"
 
+    # oh-my-pi
+    safe_link "$DOTFILES_DIR/.omp" "$HOME/.omp"
+
 }
 
 # Validation
@@ -238,6 +363,18 @@ main() {
             ;;
         full|*)
             log_info "Installing FULL profile (all configurations)"
+            
+            # Install additional tools unless skipped
+            if [[ "$SKIP_TOOLS" == "false" ]]; then
+                install_rust_tools
+                install_python_tools
+                install_node_tools
+                install_opencode_deps
+            else
+                log_info "Skipping additional tool installation (--skip-tools)"
+            fi
+            
+            # Install all configurations
             install_core_configs
             install_desktop_configs
             ;;
@@ -251,6 +388,22 @@ main() {
     log_info "Setup complete!"
     if [[ -d "$BACKUP_DIR" ]]; then
         log_info "Backups saved to: $BACKUP_DIR"
+    fi
+    
+    # Tool installation summary
+    if [[ "$SKIP_TOOLS" == "false" && "$PROFILE" == "full" ]]; then
+        echo ""
+        log_info "Additional tools installed:"
+        command -v uv >/dev/null && echo "  ✓ uv (Python package manager)"
+        command -v ruff >/dev/null && echo "  ✓ ruff (Python linter/formatter)"
+        command -v cfn-lint >/dev/null && echo "  ✓ cfn-lint (CloudFormation linter)"
+        command -v cfn-lsp-extra >/dev/null && echo "  ✓ cfn-lsp-extra (CloudFormation LSP)"
+        command -v stylua >/dev/null && echo "  ✓ stylua (Lua formatter)"
+        command -v tombi >/dev/null && echo "  ✓ tombi (TOML formatter)"
+        command -v beautysh >/dev/null && echo "  ✓ beautysh (Shell formatter)"
+        command -v mcp-hub >/dev/null && echo "  ✓ mcp-hub (MCP integration)"
+        command -v prettierd >/dev/null && echo "  ✓ prettierd (Prettier daemon)"
+        command -v eslint_d >/dev/null && echo "  ✓ eslint_d (ESLint daemon)"
     fi
     echo ""
     log_info "Usage: source ~/.zshrc (or restart your shell)"
