@@ -1,4 +1,9 @@
-# Ask During Planning
+---
+name: use-ask-tool
+description: Use the ask tool for structured questions during planning instead of free-form text
+---
+
+# Use ask tool
 
 When in planning mode (plannotator) and you need user input or clarification:
 

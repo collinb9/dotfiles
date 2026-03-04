@@ -17,6 +17,7 @@
       ]
     },
     "npm:@plannotator/pi-extension@v0.9.3",
-    "ssh://git@github.com/devkade/pi-ask-tool@v0.2.2"
+    "ssh://git@github.com/devkade/pi-ask-tool@v0.2.2",
+    "ssh://git@github.com/zenobi-us/pi-dcp@v0.1.0"
   ]
 }

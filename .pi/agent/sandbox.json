@@ -8,6 +8,8 @@
 			"registry.yarnpkg.com",
 			"pypi.org",
 			"*.pypi.org",
+            "docs.python.org",
+            "docs.astral.sh",
 			"github.com",
 			"*.github.com",
 			"api.github.com",

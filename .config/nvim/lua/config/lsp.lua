@@ -70,7 +70,7 @@ end
 -- cfn-lsp-extra provides hover, completion, and diagnostics for CloudFormation/SAM templates
 
 -- Add cfn-lsp-extra as a custom server configuration
-local configs = require('lspconfig.configs')
+local configs = require("lspconfig.configs")
 if not configs.cfn_lsp_extra then
 	configs.cfn_lsp_extra = {
 		default_config = {
@@ -96,7 +96,7 @@ nvim_lsp.cfn_lsp_extra.setup({
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
-	ensure_installed = { "bashls", "jedi_language_server", "lua_ls", "sqlls" },
+	ensure_installed = { "bashls", "jedi_language_server", "lua_ls", "sqlls" }, --"typescript-language-server" },
 	automatic_installation = true,
 	handlers = { default_setup },
 })
