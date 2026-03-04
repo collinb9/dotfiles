@@ -34,3 +34,4 @@ node_modules/
 .pi/agent/git
 auth.json
 .pi/logs/
+auth.json

@@ -1,7 +1,7 @@
 local lint = require("lint")
 
 lint.linters_by_ft = {
-	python = { "pylint" },
+	python = { "ruff" },
 	cloudformation = { "cfn_lint" },
 	["yaml.cloudformation"] = { "cfn_lint" },
 	["json.cloudformation"] = { "cfn_lint" },

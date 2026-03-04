@@ -1,0 +1,47 @@
+# Dotfiles User Configuration
+# 
+# This file allows you to customize dotfiles behavior without modifying the core files.
+# Copy this file to 'user.conf' and edit your personal settings.
+#
+# Usage:
+#   cp config/user.conf.example config/user.conf
+#   $EDITOR config/user.conf
+#
+
+# ============================================================================
+# Git Configuration
+# ============================================================================
+
+# Work directory path for conditional git config
+# Any git repository under this path will use work.gitconfig settings
+# NOTE: Git does not support shell variable expansion in includeIf paths.
+# After setup.sh creates .gitconfig, you MUST manually update the includeIf
+# path to your actual work directory path (replace $HOME with full path):
+#   [includeIf "gitdir:/home/user/Work/"]
+#     path = ~/.dotfiles/git/work.gitconfig
+GIT_WORK_DIR="$HOME/Work"
+
+# Personal git email (used in default.gitconfig)
+GIT_PERSONAL_EMAIL="brendan.m.collins@outlook.com"
+
+# Work git email (used in work.gitconfig)
+GIT_WORK_EMAIL="bco@trackman.com"
+
+# ============================================================================
+# Desktop Environment
+# ============================================================================
+
+# Wallpaper path for .xinitrc
+# This is used when starting X11 with awesome window manager
+WALLPAPER_PATH="$HOME/Pictures/wallpapers/arch.jpg"
+
+# ============================================================================
+# Notes
+# ============================================================================
+#
+# This file is sourced by setup.sh and can also be used by other scripts.
+# Variables defined here override the defaults in setup.sh.
+#
+# After editing, re-run setup.sh to apply changes:
+#   ~/.dotfiles/setup.sh
+#

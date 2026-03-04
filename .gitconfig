@@ -2,3 +2,5 @@
     path = default.gitconfig
 [includeIf "gitdir:~/Work/"]
     path = work.gitconfig
+[safe]
+	directory = /home/bco/Work/pitcher/local-tests

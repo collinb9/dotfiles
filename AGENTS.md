@@ -13,8 +13,58 @@ This is a personal dotfiles configuration repository for a Linux development env
 # Clone and setup dotfiles
 git clone <repo-url> ~/.dotfiles
 cd ~/.dotfiles
-./setup.sh  # Creates symbolic links to configurations
+chmod +x setup.sh
+./setup.sh  # Full profile (default) - installs all configurations and packages
 ```
+
+**Safety Features:**
+- **Automatic Backups**: All existing configurations backed up with timestamps before any changes
+- **Idempotent**: Safe to run multiple times; won't recreate existing symbolic links
+- **Error Handling**: Strict error checking (`set -euo pipefail`) prevents partial installations
+- **Distribution Detection**: Auto-detects Arch Linux or Debian/Ubuntu and installs appropriate packages
+
+### Installation Profiles
+
+The setup script supports different installation profiles for various environments:
+
+**Full Profile (Default)**
+```bash
+~/.dotfiles/setup.sh
+```
+- Installs all configurations (nvim, tmux, zsh, git, alacritty, etc.)
+- Installs complete package list (LSP servers, development tools, utilities)
+- Recommended for personal desktops and workstations
+
+**Minimal Profile**
+```bash
+~/.dotfiles/setup.sh --profile minimal
+```
+- Installs only essential configurations
+- Skips package installation
+- Recommended for VMs, cloud instances, and resource-constrained systems
+
+### User Customization
+
+Customize your dotfiles without modifying core files using `config/user.conf`:
+
+```bash
+# 1. Copy the example configuration
+cp ~/.dotfiles/config/user.conf.example ~/.dotfiles/config/user.conf
+
+# 2. Edit with your personal settings
+$EDITOR ~/.dotfiles/config/user.conf
+
+# 3. Re-run setup to apply changes
+~/.dotfiles/setup.sh
+```
+
+**Customizable Settings:**
+- Git email addresses (personal and work)
+- Work directory path for conditional git configuration
+- Wallpaper path for X11 and window manager
+- Other environment-specific variables
+
+**Reference:** See README.md for comprehensive customization documentation
 
 ### Directory Structure
 ```

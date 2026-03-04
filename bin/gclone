@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+set -e
+
 repo=$1
 host=$2
 master=$3
