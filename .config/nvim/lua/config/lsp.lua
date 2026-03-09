@@ -13,6 +13,22 @@ lspkind.init({
 	mode = "symbol_text",
 })
 
+-- Configure diagnostics with simpler signs to avoid rendering artifacts
+vim.diagnostic.config({
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = 'E',
+      [vim.diagnostic.severity.WARN]  = 'W',
+      [vim.diagnostic.severity.INFO]  = 'I',
+      [vim.diagnostic.severity.HINT]  = 'H',
+    },
+  },
+  virtual_text = {
+    prefix = '●', -- Simple bullet instead of complex unicode
+  },
+  update_in_insert = false, -- Reduce rendering updates
+})
+
 local cmp = require("cmp")
 cmp.setup({
 	mapping = cmp.mapping.preset.insert({

@@ -16,6 +16,7 @@ require("config.comment")
 require("config.codecompanion")
 require("config.minidiff")
 require("config.mcphub")
+require("config.gitgutter")
 
 -- Setup utility functions
 local utils = require("utils")
