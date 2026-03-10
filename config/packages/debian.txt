@@ -34,9 +34,19 @@ python3
 python3-pip
 pylint
 
+# Lua development (for nvim config)
+luarocks
+luacheck
+
 # AWS CLI (optional - comment out if not needed)
 # awscli
 
-# Node.js (for some nvim LSP servers)
-# nodejs
-# npm
+# Node.js (for some nvim LSP servers and AI tools)
+nodejs
+npm
+
+# Note: ruff not in standard Debian repos for older versions
+# Will be installed via pipx during setup
+
+# Note: Rust toolchain (rustup) will be installed via curl during setup
+# Required for: uv, stylua, cfn-lsp-extra, tombi

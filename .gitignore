@@ -12,6 +12,7 @@ plugin/
 
 # ranger plugins
 plugins/
+!.config/nvim/lua/plugins
 
 # virtual environment
 venv/

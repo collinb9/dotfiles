@@ -51,8 +51,3 @@ require("codecompanion").setup({
 -- 		},
 -- 	},
 -- })
--- Keymap to toggle CodeCompanion chat
-local opts = { noremap = true, silent = true }
-vim.keymap.set("n", "<leader>ac", "<cmd>:CodeCompanionChat Toggle<CR>", opts)
-vim.keymap.set("v", "<leader>z", ":CodeCompanion<space>", opts)
-vim.keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<cr>", opts)

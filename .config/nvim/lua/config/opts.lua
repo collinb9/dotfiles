@@ -19,6 +19,17 @@ vim.opt.incsearch = true
 
 vim.opt.termguicolors = true
 
+-- CRITICAL: Set ambiwidth to prevent unicode width mismatch in WSL2/tmux
+-- Forces ambiguous-width characters to be treated as single-width
+vim.opt.ambiwidth = "single"
+
+-- Configure sign column for better stability
+-- "auto:2" reserves space for up to 2 signs, reduces layout shifting
+vim.opt.signcolumn = "auto:2"
+
+-- Faster diagnostic updates to reduce stale rendering
+vim.opt.updatetime = 100
+
 -- Typewriter mode
 vim.opt.scrolloff = 999
 
