@@ -23,6 +23,7 @@ venv/
 # node
 node_modules/
 
+
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
@@ -36,3 +37,6 @@ node_modules/
 auth.json
 .pi/logs/
 auth.json
+.omp/logs/
+.omp/agent/
+!.omp/agent/extensions/
