@@ -119,11 +119,11 @@ source $HOME/bin/custom_commands.sh
 ################################## curl config location
 export CURL_HOME="$HOME/.config/curl"
 
-################################## pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-export PATH="$PYENV_ROOT/shims:$PATH"
-eval "$(pyenv init -)"
+# ################################## pyenv
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
+# export PATH="$PYENV_ROOT/shims:$PATH"
+# eval "$(pyenv init -)"
 
 ################################## nim
 export NIMBLE_ROOT="$HOME/.nimble"
