@@ -41,18 +41,18 @@ TERM = "alacritty"
 size = 9.0
 
 [font.bold]
-family = "monospace"
+family = "JetBrainsMono Nerd Font"
 style = "Bold"
 
 [font.bold_italic]
 style = "Bold Italic"
 
 [font.italic]
-family = "monospace"
+family = "JetBrainsMono Nerd Font"
 style = "Italic"
 
 [font.normal]
-family = "monospace"
+family = "JetBrainsMono Nerd Font"
 style = "Regular"
 
 [font.offset]
