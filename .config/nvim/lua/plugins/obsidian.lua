@@ -20,4 +20,12 @@ return {
 			default_tags = { "journal", "daily" },
 		},
 	},
+	keys = {
+		{
+			"<leader>ol",
+			":Obsidian link<CR>",
+			mode = "v",
+			desc = "Link highlighted text to note. Open picker to find note.",
+		},
+	},
 }
