@@ -16,4 +16,9 @@ task:
   maxConcurrency: 4
 skills:
   enabled: true
+grep:
+  contextBefore: 3
+  contextAfter: 3
+browser:
+  enabled: false
 

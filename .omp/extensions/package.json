@@ -1,0 +1,24 @@
+{
+  "name": "omp-ralph-loop",
+  "version": "1.0.0",
+  "description": "Ralph loop extension for Oh My Pi - iterative subagent execution",
+  "type": "module",
+  "main": "ralph-loop.ts",
+  "scripts": {
+    "demo": "./ralph-loop-demo.sh",
+    "test": "./ralph-loop-test.sh"
+  },
+  "keywords": [
+    "omp",
+    "oh-my-pi",
+    "ralph-loop",
+    "subagent",
+    "iteration",
+    "extension"
+  ],
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "@oh-my-pi/pi-coding-agent": "*"
+  }
+}
