@@ -38,5 +38,6 @@ auth.json
 .pi/logs/
 auth.json
 .omp/logs/
-.omp/agent/
-!.omp/agent/extensions/
+.omp/agent/sessions
+.omp/agent/terminal-sessions
+.omp/agent/*.db*
