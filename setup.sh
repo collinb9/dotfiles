@@ -306,6 +306,9 @@ install_desktop_configs() {
     
     # opencode
     safe_link "$DOTFILES_DIR/.config/opencode/" "$HOME/.config/opencode"
+
+    # uv
+    safe_link "$DOTFILES_DIR/.config/uv/" "$HOME/.config/uv"
     
     # vim
     backup_existing "$HOME/.vim"
@@ -320,7 +323,6 @@ install_desktop_configs() {
 
     # oh-my-pi
     safe_link "$DOTFILES_DIR/.omp" "$HOME/.omp"
-
 }
 
 # Validation
