@@ -23,6 +23,8 @@ venv/
 # node
 node_modules/
 
+#env vars
+.env
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
@@ -34,7 +36,24 @@ uv-receipt.json
 uv.toml
 
 # ai
-.claude
+.claude/backups/
+.claude/tasks/
+.claude/.credentials.json
+.claude/policy-limits.json
+.claude/cache/
+.claude/downloads/
+.claude/file-history/
+.claude/plans/
+.claude/plugins/
+.claude/projects/
+.claude/session-env/
+.claude/sessions/
+.claude/shell-snapshots/
+.claude/skills
+.claude/transcripts/
+.claude/history.jsonl
+.claude/mcp-needs-auth-cache.json
+
 .pi/agent/bin/
 .pi/agent/sessions
 .pi/agent/git
@@ -45,3 +64,4 @@ auth.json
 .omp/agent/sessions
 .omp/agent/terminal-sessions
 .omp/agent/*.db*
+
