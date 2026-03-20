@@ -12,6 +12,7 @@ BACKUP_DIR="$HOME/.dotfiles_backup_$(date +%Y%m%d_%H%M%S)"
 PROFILE="full"  # full or minimal
 SKIP_TOOLS=false
 SKIP_DESKTOP=false
+DRY_RUN=false
 
 # Parse command-line arguments
 while [[ $# -gt 0 ]]; do
@@ -24,13 +25,17 @@ while [[ $# -gt 0 ]]; do
             SKIP_DESKTOP=true
             shift
             ;;
+        --dry-run)
+            DRY_RUN=true
+            shift
+            ;;
         minimal|full)
             PROFILE="$1"
             shift
             ;;
         *)
             log_error "Unknown option: $1" 2>/dev/null || echo "Error: Unknown option: $1"
-            echo "Usage: $0 [minimal|full] [--skip-tools] [--skip-desktop]"
+            echo "Usage: $0 [minimal|full] [--skip-tools] [--skip-desktop] [--dry-run]"
             exit 1
             ;;
     esac
@@ -68,6 +73,10 @@ log_error() {
 backup_existing() {
     local target="$1"
     if [[ -e "$target" && ! -L "$target" ]]; then
+        if [[ "$DRY_RUN" == "true" ]]; then
+            log_info "[DRY RUN] Would back up: $(basename "$target") → $BACKUP_DIR/"
+            return 0
+        fi
         mkdir -p "$BACKUP_DIR"
         mv "$target" "$BACKUP_DIR/"
         log_info "Backed up: $(basename "$target") → $BACKUP_DIR/"
@@ -78,18 +87,23 @@ backup_existing() {
 safe_link() {
     local source="$1"
     local target="$2"
-    
+
     # Skip if already correctly linked
     if [[ -L "$target" && "$(readlink "$target")" == "$source" ]]; then
         return 0
     fi
-    
+
+    if [[ "$DRY_RUN" == "true" ]]; then
+        log_info "[DRY RUN] Would link: $(basename "$source") → $target"
+        return 0
+    fi
+
     # Backup if real file/directory exists
     backup_existing "$target"
-    
+
     # Remove broken symlink if exists
     [[ -L "$target" ]] && rm "$target"
-    
+
     # Create symlink
     ln -sf "$source" "$target"
     log_info "Linked: $(basename "$source") → $target"
@@ -112,6 +126,12 @@ configure_tmux_prefix() {
         echo ""
         key="${key:-b}"
         log_info "Tmux prefix key set to: C-$key"
+    fi
+
+    if [[ "$DRY_RUN" == "true" ]]; then
+        log_info "[DRY RUN] Would save TMUX_PREFIX_KEY=\"$key\" to user.conf"
+        log_info "[DRY RUN] Would generate ~/.tmux.prefix.conf (prefix: C-$key)"
+        return 0
     fi
 
     # Save to user.conf if not already there
@@ -154,10 +174,14 @@ install_packages() {
             ;;
         debian)
             if [[ -f "$DOTFILES_DIR/config/packages/debian.txt" ]]; then
-                log_info "Debian/Ubuntu detected - installing essential packages"
-                sudo apt update
-                # shellcheck disable=SC2046
-                sudo apt install -y $(grep -v '^#' "$DOTFILES_DIR/config/packages/debian.txt" | tr '\n' ' ')
+                if [[ "$DRY_RUN" == "true" ]]; then
+                    log_info "[DRY RUN] Would install Debian packages from config/packages/debian.txt"
+                else
+                    log_info "Debian/Ubuntu detected - installing essential packages"
+                    sudo apt update
+                    # shellcheck disable=SC2046
+                    sudo apt install -y $(grep -v '^#' "$DOTFILES_DIR/config/packages/debian.txt" | tr '\n' ' ')
+                fi
             fi
             ;;
         *)
@@ -370,7 +394,11 @@ validate_setup() {
 # Main installation flow
 main() {
     echo ""
-    log_info "Dotfiles Setup - Profile: $PROFILE"
+    if [[ "$DRY_RUN" == "true" ]]; then
+        log_info "Dotfiles Setup - Profile: $PROFILE [DRY RUN]"
+    else
+        log_info "Dotfiles Setup - Profile: $PROFILE"
+    fi
     echo ""
     
     # Check if running from correct directory
@@ -395,7 +423,7 @@ main() {
             log_info "Installing FULL profile (all configurations)"
 
             # Install additional tools unless skipped
-            if [[ "$SKIP_TOOLS" == "false" ]]; then
+            if [[ "$SKIP_TOOLS" == "false" && "$DRY_RUN" == "false" ]]; then
                 install_rust_tools
                 install_python_tools
                 install_node_tools

@@ -12,8 +12,6 @@ chmod +x ~/.dotfiles/setup.sh
 ~/.dotfiles/setup.sh
 ```
 
-**Important:** Back up existing dot files before running setup, as files with matching names will be replaced.
-
 ### Customization
 
 1. Copy the example user configuration:
@@ -31,25 +29,46 @@ $EDITOR ~/.dotfiles/config/user.conf
 ~/.dotfiles/setup.sh
 ```
 
-## Installation Profiles
+## Usage
 
-The setup script supports different profiles for various environments:
+```
+./setup.sh [minimal|full] [--skip-tools] [--skip-desktop] [--dry-run]
+```
+
+| Option           | Description                                              |
+|------------------|----------------------------------------------------------|
+| `full`           | Install all configurations and tools (default)           |
+| `minimal`        | Install core configs only (shell, git, nvim)             |
+| `--skip-tools`   | Skip additional tool installation (cargo, pipx, npm)     |
+| `--skip-desktop` | Skip desktop/GUI configs (X11, window managers, terminals) |
+| `--dry-run`      | Show what would be done without making changes           |
+
+Options can be combined:
+
+```bash
+./setup.sh --skip-tools --skip-desktop
+./setup.sh minimal --dry-run
+```
+
+## Installation Profiles
 
 ### Full Profile (Default)
 ```bash
 ~/.dotfiles/setup.sh
 ```
 - Installs all configurations (nvim, tmux, zsh, git, alacritty, etc.)
-- Installs full package list (LSP servers, development tools, utilities)
+- Installs additional development tools (via cargo, pipx, npm)
+- Installs desktop/GUI configurations
 - Recommended for personal desktops and workstations
 
 ### Minimal Profile
 ```bash
-~/.dotfiles/setup.sh --profile minimal
+~/.dotfiles/setup.sh minimal
 ```
-- Installs only essential configurations
-- Skips package installation
-- Recommended for VMs, cloud instances, and systems with limited resources
+- Installs core configurations only (nvim, tmux, zsh, git, bin scripts, misc rc files)
+- Still installs system packages via the package manager
+- Skips development tool configs, desktop configs, and additional tools
+- Recommended for VMs, cloud instances, and servers
 
 ## User Customization
 
@@ -75,6 +94,16 @@ GIT_WORK_DIR="$HOME/Work"
     path = ~/.dotfiles/git/work.gitconfig
 ```
 
+### Tmux Prefix Key
+
+```bash
+# Tmux prefix key (single character combined with Ctrl)
+# Examples: b (C-b), a (C-a), s (C-s)
+TMUX_PREFIX_KEY="b"
+```
+
+On first run, setup.sh prompts interactively for the prefix key (pre-filled with `C-`). The choice is saved to `user.conf` and generates `~/.tmux.prefix.conf`, which tmux.conf sources. On subsequent runs the saved value is used without prompting.
+
 ### Desktop Environment
 
 ```bash
@@ -87,16 +116,13 @@ The .xinitrc will automatically use this variable, or fall back to the default i
 ## Supported Distributions
 
 ### Arch Linux
-- Full package management via pacman
-- Optional AUR helper support
-- Complete development tool stack
+- Setup script detects Arch but assumes packages are managed by the user
+- No automatic package installation
 
 ### Debian / Ubuntu
-- Essential packages via apt
-- Basic development tools and utilities
-- Compatible with latest stable releases
+- Essential packages installed via apt from `config/packages/debian.txt`
 
-The setup script auto-detects your distribution and installs appropriate packages.
+The setup script auto-detects your distribution.
 
 ## Tool Installation
 
@@ -131,20 +157,6 @@ Requires Node.js/npm to be installed (included in system package lists).
 
 - **opencode**: AI platform plugins installed via npm in `.config/opencode/`
 
-### Skipping Tool Installation
-
-To skip additional tool installation and only install system packages + configs:
-
-```bash
-./setup.sh --skip-tools
-```
-
-Or for minimal profile (no additional tools by default):
-
-```bash
-./setup.sh minimal
-```
-
 ### Manual Tool Installation
 
 If you need to install tools manually later:
@@ -167,29 +179,21 @@ cd ~/.config/opencode && npm install
 
 ### Automatic Backups
 
-Before creating symbolic links, setup.sh automatically backs up existing configurations:
+Before creating symbolic links, setup.sh automatically backs up existing files (that are not already symlinks) to a timestamped directory:
 
 ```
-~/.dotfiles/.backups/
-  ├── nvim/
-  ├── tmux/
-  ├── alacritty/
-  ├── .zshrc
-  ├── .gitconfig
-  └── [other configs]
+~/.dotfiles_backup_20250320_143000/
 ```
-
-All backups are timestamped and preserved. Original files are never deleted without a backup.
 
 ### Dry Run Mode
 
-Test the setup without making changes:
+Preview what setup would do without making any changes:
 
 ```bash
 ~/.dotfiles/setup.sh --dry-run
 ```
 
-This shows what symbolic links would be created without actually creating them.
+Shows what symlinks, backups, package installs, and config files would be created. Tool installation (cargo, pipx, npm) is skipped entirely in dry-run mode.
 
 ## Configuration Structure
 
@@ -197,20 +201,44 @@ This shows what symbolic links would be created without actually creating them.
 ~/.dotfiles/
 ├── setup.sh                 # Main installation script
 ├── config/
-│   ├── user.conf.example   # User customization template
+│   ├── user.conf.example    # User customization template
 │   └── packages/
-│       ├── arch.txt        # Arch Linux package list
-│       └── debian.txt      # Debian package list
+│       ├── arch.txt         # Arch Linux package list
+│       └── debian.txt       # Debian package list
 ├── .config/
-│   ├── nvim/               # Neovim configuration (Lua)
-│   ├── tmux/               # Tmux configuration
-│   └── alacritty/          # Alacritty terminal emulator config
-├── bin/                    # Custom executable scripts
-├── .git_template/          # Git hooks and templates
-├── .xinitrc               # X11 startup script
-├── .zshrc                 # Zsh shell configuration
-├── .gitconfig             # Git configuration
-└── README.md              # This file
+│   ├── nvim/                # Neovim configuration (Lua)
+│   ├── tmux/                # Tmux configuration
+│   ├── zsh/                 # Zsh configuration
+│   ├── ruff/                # Ruff (Python linter/formatter)
+│   ├── bat/                 # Bat (cat replacement)
+│   ├── curl/                # Curl configuration
+│   ├── ranger/              # Ranger file manager
+│   ├── htop/                # Htop process viewer
+│   ├── opencode/            # Opencode AI platform
+│   ├── uv/                  # uv (Python package manager)
+│   ├── pylintrc             # Pylint configuration
+│   ├── alacritty/           # Alacritty terminal emulator
+│   ├── awesome/             # Awesome window manager
+│   ├── picom/               # Picom compositor
+│   ├── polybar/             # Polybar status bar
+│   ├── rofi/                # Rofi application launcher
+│   ├── gtk-3.0/             # GTK3 settings
+│   └── stockfish_socket_client/
+├── bin/                     # Custom executable scripts
+├── .git_template/           # Git hooks and templates
+├── .vim/                    # Vim configuration
+├── .claude/                 # Claude Code agent config
+├── .agents/                 # Agent skills
+├── .pi/                     # Pi agent config
+├── .omp/                    # Oh My Posh config
+├── .zshrc                   # Zsh shell configuration
+├── .gitconfig               # Git configuration
+├── .inputrc                 # Readline configuration
+├── .psqlrc                  # PostgreSQL client config
+├── .cfnlintrc               # CloudFormation lint config
+├── .screenrc                # Screen configuration
+├── .xinitrc                 # X11 startup script
+└── README.md                # This file
 ```
 
 ## Migration from Old Setup
@@ -241,8 +269,8 @@ zsh -c "source ~/.zshrc && echo 'Config loaded successfully'"
 
 ### Verify Symbolic Links
 ```bash
-# Check all dotfiles links
-ls -la ~/.config/nvim ~/.tmux.conf ~/.zshrc
+# Check key dotfiles links
+ls -la ~/.config/nvim ~/.config/tmux ~/.zshrc ~/.gitconfig
 ```
 
 ### Lint and Format
@@ -274,6 +302,16 @@ shellcheck bin/*.sh
 1. Edit `config/user.conf` with your email addresses
 2. Update the work directory path in `.gitconfig` if needed
 3. Re-run setup:
+   ```bash
+   ~/.dotfiles/setup.sh
+   ```
+
+### Change Tmux Prefix Key
+1. Edit `config/user.conf`:
+   ```bash
+   TMUX_PREFIX_KEY="a"
+   ```
+2. Re-run setup to regenerate `~/.tmux.prefix.conf`:
    ```bash
    ~/.dotfiles/setup.sh
    ```
