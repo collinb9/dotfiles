@@ -36,10 +36,6 @@ pylint
 
 # Lua development (for nvim config)
 luarocks
-luacheck
-
-# AWS CLI (optional - comment out if not needed)
-# awscli
 
 # Node.js (for some nvim LSP servers and AI tools)
 nodejs
