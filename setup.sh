@@ -112,6 +112,23 @@ safe_link() {
     log_info "Linked: $(basename "$source") → $target"
 }
 
+# Install oh-my-zsh if not already present
+install_ohmyzsh() {
+    if [[ -d "$HOME/.oh-my-zsh" ]]; then
+        log_info "oh-my-zsh already installed, skipping"
+        return 0
+    fi
+
+    if [[ "$DRY_RUN" == "true" ]]; then
+        log_info "[DRY RUN] Would install oh-my-zsh"
+        return 0
+    fi
+
+    log_info "Installing oh-my-zsh..."
+    RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
+        || { log_error "Failed to install oh-my-zsh"; return 1; }
+}
+
 # Configure tmux prefix key interactively
 configure_tmux_prefix() {
     local key="${TMUX_PREFIX_KEY:-}"
@@ -416,6 +433,9 @@ main() {
     
     # Install packages if needed
     install_packages
+
+    # Install oh-my-zsh (required by .zshrc)
+    install_ohmyzsh
 
     # Configure tmux prefix key
     configure_tmux_prefix

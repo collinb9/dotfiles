@@ -12,6 +12,8 @@ chmod +x ~/.dotfiles/setup.sh
 ~/.dotfiles/setup.sh
 ```
 
+The setup script automatically installs oh-my-zsh if it is not already present (required by `.zshrc`).
+
 ### Customization
 
 1. Copy the example user configuration:
