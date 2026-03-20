@@ -268,7 +268,7 @@ install_node_tools() {
     fi
     
     # Install global npm tools
-    local node_tools=("mcp-hub" "prettierd" "eslint_d")
+    local node_tools=("prettierd" "eslint_d")
     for tool in "${node_tools[@]}"; do
         if npm list -g "$tool" >/dev/null 2>&1; then
             log_info "$tool already installed globally, skipping"

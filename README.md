@@ -148,7 +148,6 @@ If Rust/cargo is not installed, setup.sh will automatically install rustup.
 
 ### Node.js Tools (via npm)
 
-- **mcp-hub**: Model Context Protocol hub (required for nvim MCP integration)
 - **prettierd**: Fast Prettier daemon for code formatting
 - **eslint_d**: Fast ESLint daemon for linting
 
@@ -179,7 +178,7 @@ uv tool install beautysh
 uv tool install ruff
 
 # Node.js tools
-npm install -g mcp-hub prettierd eslint_d
+npm install -g prettierd eslint_d
 
 # opencode dependencies
 cd ~/.config/opencode && npm install
