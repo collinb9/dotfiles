@@ -36,6 +36,14 @@ GIT_WORK_EMAIL="bco@trackman.com"
 WALLPAPER_PATH="$HOME/Pictures/wallpapers/arch.jpg"
 
 # ============================================================================
+# Tmux Configuration
+# ============================================================================
+
+# Tmux prefix key (single character combined with Ctrl)
+# Examples: b (C-b), a (C-a), s (C-s)
+TMUX_PREFIX_KEY="b"
+
+# ============================================================================
 # Notes
 # ============================================================================
 #

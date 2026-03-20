@@ -11,6 +11,7 @@ DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 BACKUP_DIR="$HOME/.dotfiles_backup_$(date +%Y%m%d_%H%M%S)"
 PROFILE="full"  # full or minimal
 SKIP_TOOLS=false
+SKIP_DESKTOP=false
 
 # Parse command-line arguments
 while [[ $# -gt 0 ]]; do
@@ -19,13 +20,17 @@ while [[ $# -gt 0 ]]; do
             SKIP_TOOLS=true
             shift
             ;;
+        --skip-desktop)
+            SKIP_DESKTOP=true
+            shift
+            ;;
         minimal|full)
             PROFILE="$1"
             shift
             ;;
         *)
             log_error "Unknown option: $1" 2>/dev/null || echo "Error: Unknown option: $1"
-            echo "Usage: $0 [minimal|full] [--skip-tools]"
+            echo "Usage: $0 [minimal|full] [--skip-tools] [--skip-desktop]"
             exit 1
             ;;
     esac
@@ -88,6 +93,42 @@ safe_link() {
     # Create symlink
     ln -sf "$source" "$target"
     log_info "Linked: $(basename "$source") → $target"
+}
+
+# Configure tmux prefix key interactively
+configure_tmux_prefix() {
+    local key="${TMUX_PREFIX_KEY:-}"
+    local user_conf="$DOTFILES_DIR/config/user.conf"
+
+    # Determine the prefix key
+    if [[ -n "$key" ]]; then
+        log_info "Tmux prefix key already set: C-$key"
+    elif [[ ! -t 0 ]]; then
+        key="b"
+        log_info "Non-interactive mode, using default tmux prefix: C-$key"
+    else
+        echo -ne "${GREEN}[INPUT]${NC} Tmux prefix key: C-"
+        read -r -n 1 key
+        echo ""
+        key="${key:-b}"
+        log_info "Tmux prefix key set to: C-$key"
+    fi
+
+    # Save to user.conf if not already there
+    if ! grep -q '^TMUX_PREFIX_KEY=' "$user_conf" 2>/dev/null; then
+        if [[ ! -f "$user_conf" ]]; then
+            cp "$DOTFILES_DIR/config/user.conf.example" "$user_conf"
+        fi
+        echo "TMUX_PREFIX_KEY=\"$key\"" >> "$user_conf"
+    fi
+
+    # Generate ~/.tmux.prefix.conf
+    cat > "$HOME/.tmux.prefix.conf" <<EOF
+set -g prefix C-$key
+unbind C-b
+bind C-$key send-prefix
+EOF
+    log_info "Generated ~/.tmux.prefix.conf (prefix: C-$key)"
 }
 
 # Detect Linux distribution
@@ -267,62 +308,46 @@ install_core_configs() {
     safe_link "$DOTFILES_DIR/.cfnlintrc" "$HOME/.cfnlintrc"
 }
 
-# Desktop-specific configurations
-install_desktop_configs() {
-    log_info "Installing desktop configurations..."
-    
-    # polybar
-    safe_link "$DOTFILES_DIR/.config/polybar/" "$HOME/.config/polybar"
-    
-    # bat
-    safe_link "$DOTFILES_DIR/.config/bat/" "$HOME/.config/bat"
-    
-    # curl
-    safe_link "$DOTFILES_DIR/.config/curl/" "$HOME/.config/curl"
-    
-    # ranger
-    safe_link "$DOTFILES_DIR/.config/ranger/" "$HOME/.config/ranger"
-    
-    # htop
-    safe_link "$DOTFILES_DIR/.config/htop/" "$HOME/.config/htop"
-    
-    # alacritty
-    safe_link "$DOTFILES_DIR/.config/alacritty/" "$HOME/.config/alacritty"
-    
-    # rofi
-    safe_link "$DOTFILES_DIR/.config/rofi/" "$HOME/.config/rofi"
-    
-    # awesome
-    safe_link "$DOTFILES_DIR/.config/awesome/" "$HOME/.config/awesome"
-    
-    # picom
-    safe_link "$DOTFILES_DIR/.config/picom/" "$HOME/.config/picom"
-    
-    # gtk
-    safe_link "$DOTFILES_DIR/.config/gtk-3.0/" "$HOME/.config/gtk-3.0"
-    
-    # stockfish client
-    safe_link "$DOTFILES_DIR/.config/stockfish_socket_client/" "$HOME/.config/stockfish_socket_client"
-    
-    # opencode
-    safe_link "$DOTFILES_DIR/.config/opencode/" "$HOME/.config/opencode"
+# Development tool configurations (useful on any system including WSL2/servers)
+install_dev_configs() {
+    log_info "Installing development tool configurations..."
 
-    # uv
+    # CLI tools
+    safe_link "$DOTFILES_DIR/.config/bat/" "$HOME/.config/bat"
+    safe_link "$DOTFILES_DIR/.config/curl/" "$HOME/.config/curl"
+    safe_link "$DOTFILES_DIR/.config/ranger/" "$HOME/.config/ranger"
+    safe_link "$DOTFILES_DIR/.config/htop/" "$HOME/.config/htop"
+
+    # dev tools
+    safe_link "$DOTFILES_DIR/.config/opencode/" "$HOME/.config/opencode"
     safe_link "$DOTFILES_DIR/.config/uv/" "$HOME/.config/uv"
-    
+
     # vim
     backup_existing "$HOME/.vim"
     safe_link "$DOTFILES_DIR/.vim" "$HOME/.vim"
-    
-    # xinitrc and screenrc
-    safe_link "$DOTFILES_DIR/.xinitrc" "$HOME/.xinitrc"
+
+    # screenrc
     safe_link "$DOTFILES_DIR/.screenrc" "$HOME/.screenrc"
 
-    # pi
+    # agent tools
+    safe_link "$DOTFILES_DIR/.claude" "$HOME/.claude"
+    safe_link "$DOTFILES_DIR/.agents" "$HOME/.agents"
     safe_link "$DOTFILES_DIR/.pi" "$HOME/.pi"
-
-    # oh-my-pi
     safe_link "$DOTFILES_DIR/.omp" "$HOME/.omp"
+}
+
+# Desktop/GUI configurations (X11, window managers, terminals)
+install_desktop_configs() {
+    log_info "Installing desktop configurations..."
+
+    safe_link "$DOTFILES_DIR/.config/alacritty/" "$HOME/.config/alacritty"
+    safe_link "$DOTFILES_DIR/.config/awesome/" "$HOME/.config/awesome"
+    safe_link "$DOTFILES_DIR/.config/picom/" "$HOME/.config/picom"
+    safe_link "$DOTFILES_DIR/.config/polybar/" "$HOME/.config/polybar"
+    safe_link "$DOTFILES_DIR/.config/rofi/" "$HOME/.config/rofi"
+    safe_link "$DOTFILES_DIR/.config/gtk-3.0/" "$HOME/.config/gtk-3.0"
+    safe_link "$DOTFILES_DIR/.config/stockfish_socket_client/" "$HOME/.config/stockfish_socket_client"
+    safe_link "$DOTFILES_DIR/.xinitrc" "$HOME/.xinitrc"
 }
 
 # Validation
@@ -356,7 +381,10 @@ main() {
     
     # Install packages if needed
     install_packages
-    
+
+    # Configure tmux prefix key
+    configure_tmux_prefix
+
     # Install configurations based on profile
     case "$PROFILE" in
         minimal)
@@ -365,7 +393,7 @@ main() {
             ;;
         full|*)
             log_info "Installing FULL profile (all configurations)"
-            
+
             # Install additional tools unless skipped
             if [[ "$SKIP_TOOLS" == "false" ]]; then
                 install_rust_tools
@@ -375,10 +403,16 @@ main() {
             else
                 log_info "Skipping additional tool installation (--skip-tools)"
             fi
-            
+
             # Install all configurations
             install_core_configs
-            install_desktop_configs
+            install_dev_configs
+
+            if [[ "$SKIP_DESKTOP" == "false" ]]; then
+                install_desktop_configs
+            else
+                log_info "Skipping desktop/GUI configurations (--skip-desktop)"
+            fi
             ;;
     esac
     
