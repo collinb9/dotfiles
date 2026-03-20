@@ -206,8 +206,32 @@ install_rust_tools() {
         fi
     fi
     
-    # Install tools with existence checks
-    local rust_tools=("uv" "cfn-lsp-extra" "stylua" "tombi")
+    # Install uv via official installer
+    if command -v uv >/dev/null 2>&1; then
+        log_info "uv already installed, skipping"
+    else
+        log_info "Installing uv via official installer..."
+        curl -LsSf https://astral.sh/uv/install.sh | sh || log_warn "Failed to install uv"
+    fi
+
+    # Install cfn-lsp-extra via uv
+    if command -v cfn-lsp-extra >/dev/null 2>&1; then
+        log_info "cfn-lsp-extra already installed, skipping"
+    else
+        log_info "Installing cfn-lsp-extra via uv..."
+        uv tool install cfn-lsp-extra || log_warn "Failed to install cfn-lsp-extra"
+    fi
+
+    # Install tombi via uv
+    if command -v tombi >/dev/null 2>&1; then
+        log_info "tombi already installed, skipping"
+    else
+        log_info "Installing tombi via uv..."
+        uv tool install tombi || log_warn "Failed to install tombi"
+    fi
+
+    # Install remaining tools with existence checks
+    local rust_tools=("stylua")
     for tool in "${rust_tools[@]}"; do
         if command -v "$tool" >/dev/null 2>&1; then
             log_info "$tool already installed, skipping"

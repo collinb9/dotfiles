@@ -128,12 +128,15 @@ The setup script auto-detects your distribution.
 
 The setup script automatically installs additional development tools beyond system packages when using the **full profile**:
 
+### uv (via official installer)
+
+- **uv**: Fast Python package manager — installed via `curl -LsSf https://astral.sh/uv/install.sh | sh`
+- **cfn-lsp-extra**: CloudFormation Language Server — installed via `uv tool install`
+- **tombi**: TOML formatter/linter — installed via `uv tool install`
+
 ### Rust-based Tools (via cargo)
 
-- **uv**: Fast Python package manager
-- **cfn-lsp-extra**: CloudFormation Language Server
 - **stylua**: Lua code formatter
-- **tombi**: TOML formatter/linter
 
 If Rust/cargo is not installed, setup.sh will automatically install rustup.
 
@@ -162,8 +165,15 @@ Requires Node.js/npm to be installed (included in system package lists).
 If you need to install tools manually later:
 
 ```bash
-# Rust tools (after installing rustup)
-cargo install uv cfn-lsp-extra stylua tombi
+# uv (official installer)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# cfn-lsp-extra and tombi via uv
+uv tool install cfn-lsp-extra
+uv tool install tombi
+
+# Other Rust tools (after installing rustup)
+cargo install stylua
 
 # Python tools
 pipx install cfn-lint beautysh ruff
