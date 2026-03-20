@@ -53,6 +53,7 @@ uv.toml
 .claude/transcripts/
 .claude/history.jsonl
 .claude/mcp-needs-auth-cache.json
+.agents/skills
 
 .pi/agent/bin/
 .pi/agent/sessions
