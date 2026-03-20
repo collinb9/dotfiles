@@ -140,13 +140,11 @@ The setup script automatically installs additional development tools beyond syst
 
 If Rust/cargo is not installed, setup.sh will automatically install rustup.
 
-### Python Tools (via pipx)
+### Python Tools (via uv)
 
 - **cfn-lint**: CloudFormation template linter
 - **beautysh**: Shell script formatter
-- **ruff**: Python linter/formatter (Debian fallback if not in system packages)
-
-These are installed in isolated environments via pipx to avoid conflicts.
+- **ruff**: Python linter/formatter
 
 ### Node.js Tools (via npm)
 
@@ -176,7 +174,9 @@ uv tool install tombi
 cargo install stylua
 
 # Python tools
-pipx install cfn-lint beautysh ruff
+uv tool install cfn-lint
+uv tool install beautysh
+uv tool install ruff
 
 # Node.js tools
 npm install -g mcp-hub prettierd eslint_d

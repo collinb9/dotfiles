@@ -242,39 +242,19 @@ install_rust_tools() {
     done
 }
 
-# Install Python tools via pipx
+# Install Python tools via uv
 install_python_tools() {
     log_info "Installing Python tools..."
-    
-    # Ensure pip is available
-    if ! command -v pip3 >/dev/null 2>&1; then
-        log_error "pip3 not found. Install Python first."
-        return 1
-    fi
-    
-    # Install pipx for isolated tool installation
-    if ! command -v pipx >/dev/null 2>&1; then
-        log_info "Installing pipx..."
-        pip3 install --user pipx
-        pipx ensurepath
-    fi
-    
-    # Install tools via pipx
-    local python_tools=("cfn-lint" "beautysh")
+
+    local python_tools=("cfn-lint" "beautysh" "ruff")
     for tool in "${python_tools[@]}"; do
         if command -v "$tool" >/dev/null 2>&1; then
             log_info "$tool already installed, skipping"
         else
-            log_info "Installing $tool via pipx..."
-            pipx install "$tool" || log_warn "Failed to install $tool"
+            log_info "Installing $tool via uv..."
+            uv tool install "$tool" || log_warn "Failed to install $tool"
         fi
     done
-    
-    # Install ruff via pipx if not in system packages (Debian fallback)
-    if ! command -v ruff >/dev/null 2>&1; then
-        log_info "Installing ruff via pipx (not in system packages)..."
-        pipx install ruff || log_warn "Failed to install ruff"
-    fi
 }
 
 # Install Node.js tools via npm
