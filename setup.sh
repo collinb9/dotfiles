@@ -98,6 +98,9 @@ safe_link() {
         return 0
     fi
 
+    # Ensure parent directory exists
+    mkdir -p "$(dirname "$target")"
+
     # Backup if real file/directory exists
     backup_existing "$target"
 
