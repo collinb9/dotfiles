@@ -133,14 +133,15 @@ export PATH="$NIMBLE_ROOT/bin:$PATH"
 export PATH="$PATH:/opt/mssql-tools18/bin"
 
 ################################## fuzzy finding
-export FZF_DEFAULT_OPTS="--extended --preview='bat --color=always --style=numbers {}' --bind shift-up:preview-page-up,shift-down:preview-page-down"
+export FZF_DEFAULT_OPTS="--extended"
+export FZF_CTRL_T_OPTS="--preview='bat --color=always --style=numbers {}' --bind shift-up:preview-page-up,shift-down:preview-page-down"
 # alias pf="fzf --preview='less {}' --bind shift-up:preview-page-up,shift-down:preview-page-down"
 if ! command -v fd &> /dev/null
 then
     # alias fd="fdfind"
-    export FZF_CTRL_T_COMMAND="$(which fdfind) --type f"
+    export FZF_CTRL_T_COMMAND="$(which fdfind) --type f --hidden"
 else
-    export FZF_CTRL_T_COMMAND="$(which fd) --type f"
+    export FZF_CTRL_T_COMMAND="$(which fd) --type f --hidden"
 fi
 # export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
