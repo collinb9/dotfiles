@@ -56,6 +56,24 @@
       "skillFolderHash": "4bb2d919b567277219f7a18358bd05e0a1679a77",
       "installedAt": "2026-03-20T11:46:49.099Z",
       "updatedAt": "2026-03-20T11:46:49.099Z"
+    },
+    "docker-expert": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/sickn33/antigravity-awesome-skills.git",
+      "skillPath": "skills/docker-expert/SKILL.md",
+      "skillFolderHash": "be7e756ad935e3b353559b2e7bf739de196747d9",
+      "installedAt": "2026-03-22T04:57:10.679Z",
+      "updatedAt": "2026-03-22T04:57:10.679Z"
+    },
+    "astro": {
+      "source": "astrolicious/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/astrolicious/agent-skills.git",
+      "skillPath": "skills/astro/SKILL.md",
+      "skillFolderHash": "81d96cec5008970ed8fbecb23f7fb48536102b84",
+      "installedAt": "2026-03-22T17:38:38.002Z",
+      "updatedAt": "2026-03-22T17:38:38.002Z"
     }
   },
   "dismissed": {
