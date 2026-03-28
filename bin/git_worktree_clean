@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+set -e
+
+# Clean up already merged git worktrees
+
+worktreeRoot=`git worktree list | head -n 1 | awk  '{print $1}'`
+
+echo Worktree root $worktreeRoot
+
+git fetch
+
+git branch --merged "$(git config init.defaultBranch)" \
+    | grep -Fv "$(git config init.defaultBranch)" \
+    | grep -vF '*' \
+    | grep -F '+' \
+    | awk '{print $2}' \
+    | tee /dev/fd/2 \
+    | xargs -I {} git worktree remove ${worktreeRoot}/{} -f
