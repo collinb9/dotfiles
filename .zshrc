@@ -164,20 +164,21 @@ export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 ################################## uv
+#
 eval "$(uv generate-shell-completion zsh)"
 
 ################################## opencode
 
 export PATH="$HOME/.opencode/bin:$PATH"
-alias opencode='sudo -E -u agent CLAUDE_CONFIG_DIR=./.claude OPENCODE_CONFIG_DIR=$XDG_CONFIG_HOME/opencode OPENCODE_CONFIG=$XDG_CONFIG_HOME/opencode/opencode.json $HOME/.opencode/bin/opencode'
 
-################################### pi
-
-# alias pi='sudo -E -u agent PATH=$PATH /bin/bash -c pi'
+################################### bun
 
 # bun completions
 [ -s "/home/bco/.bun/_bun" ] && source "/home/bco/.bun/_bun"
 
-# bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+################################### ocaml
+
+eval $(opam env --switch=default)

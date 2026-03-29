@@ -13,7 +13,8 @@ conform.setup({
 		sql = { "sqlfmt" },
 		markdown = { "prettierd" },
 		toml = { "tombi" },
-	}
+		ocaml = { "ocamlformat" },
+	},
 })
 
 vim.keymap.set("n", "<leader>b", conform.format)

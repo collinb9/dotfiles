@@ -15,18 +15,18 @@ lspkind.init({
 
 -- Configure diagnostics with simpler signs to avoid rendering artifacts
 vim.diagnostic.config({
-  signs = {
-    text = {
-      [vim.diagnostic.severity.ERROR] = 'E',
-      [vim.diagnostic.severity.WARN]  = 'W',
-      [vim.diagnostic.severity.INFO]  = 'I',
-      [vim.diagnostic.severity.HINT]  = 'H',
-    },
-  },
-  virtual_text = {
-    prefix = '●', -- Simple bullet instead of complex unicode
-  },
-  update_in_insert = false, -- Reduce rendering updates
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "E",
+			[vim.diagnostic.severity.WARN] = "W",
+			[vim.diagnostic.severity.INFO] = "I",
+			[vim.diagnostic.severity.HINT] = "H",
+		},
+	},
+	virtual_text = {
+		prefix = "●", -- Simple bullet instead of complex unicode
+	},
+	update_in_insert = false, -- Reduce rendering updates
 })
 
 local cmp = require("cmp")
@@ -82,11 +82,9 @@ local default_setup = function(server)
 	})
 end
 
--- CloudFormation LSP configuration (manual installation)
--- cfn-lsp-extra provides hover, completion, and diagnostics for CloudFormation/SAM templates
-
--- Add cfn-lsp-extra as a custom server configuration
+-- Configure custom server configurations
 local configs = require("lspconfig.configs")
+-- cfn-lsp-extra
 if not configs.cfn_lsp_extra then
 	configs.cfn_lsp_extra = {
 		default_config = {
@@ -104,15 +102,32 @@ if not configs.cfn_lsp_extra then
 		},
 	}
 end
-
--- Setup the CloudFormation LSP server
+-- Setup the LSP server
 nvim_lsp.cfn_lsp_extra.setup({
+	capabilities = lsp_capabilities,
+})
+
+-- ocaml
+if not configs.ocamllsp then
+	configs.ocamllsp = {
+		default_config = {
+			cmd = { "ocamllsp" },
+			filetypes = { "ocaml" },
+			root_markers = { "dune-project" },
+			root_dir = function(fname)
+				return nvim_lsp.util.find_git_ancestor(fname) or vim.fn.getcwd()
+			end,
+		},
+	}
+end
+-- Setup the LSP server
+nvim_lsp.ocamllsp.setup({
 	capabilities = lsp_capabilities,
 })
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
-	ensure_installed = { "bashls", "ruff", "lua_ls"},
+	ensure_installed = { "bashls", "ruff", "lua_ls" },
 	automatic_installation = true,
 	handlers = { default_setup },
 })
