@@ -1,0 +1,89 @@
+{
+  "skill_name": "tech-digest",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Run the weekly digest.",
+      "expected_output": "A markdown file written to ~/personal/obsidian/Work/digest/YYYY-MM-DD.md containing all required sections: AWS & Cloud, AI Coding Tools, Programming Languages, Neovim & Editor Ecosystem, Terminal & CLI Tools, and Key Takeaways. Each item has a one-line summary and source link. Major items have 2-3 sentences of detail. Key Takeaways has 4-6 items with significance explained.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "file_written",
+          "text": "A file was written to ~/personal/obsidian/Work/digest/ with today's date as the filename (YYYY-MM-DD.md)",
+          "type": "file_exists"
+        },
+        {
+          "id": "has_frontmatter",
+          "text": "The file has YAML frontmatter with an id field matching the date",
+          "type": "content_check"
+        },
+        {
+          "id": "has_all_sections",
+          "text": "The digest contains all required top-level sections: AWS & Cloud, AI Coding Tools, Programming Languages, Neovim & Editor Ecosystem, Terminal & CLI Tools, Key Takeaways",
+          "type": "content_check"
+        },
+        {
+          "id": "has_source_links",
+          "text": "Items include source links in markdown link format [text](url)",
+          "type": "content_check"
+        },
+        {
+          "id": "key_takeaways_count",
+          "text": "Key Takeaways section has between 4 and 6 items",
+          "type": "content_check"
+        },
+        {
+          "id": "covers_date_range",
+          "text": "The digest title or content references the date range since the last digest (2026-03-23)",
+          "type": "content_check"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "What's new in tech this week? Generate my update.",
+      "expected_output": "Same as eval 1 — a complete digest written to the Obsidian vault. The skill should trigger even though the user didn't say 'digest'.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "file_written",
+          "text": "A file was written to ~/personal/obsidian/Work/digest/ with today's date as the filename",
+          "type": "file_exists"
+        },
+        {
+          "id": "aws_section_has_content",
+          "text": "The AWS & Cloud section has at least 3 items with source links",
+          "type": "content_check"
+        },
+        {
+          "id": "ai_tools_section_has_content",
+          "text": "The AI Coding Tools section covers Claude and at least one other tool",
+          "type": "content_check"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Check for any updates to Neovim and AWS since the last digest.",
+      "expected_output": "A full digest written to the Obsidian vault. Even though the user only asked about Neovim and AWS, the skill should produce the complete structured digest covering all domains.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "file_written",
+          "text": "A file was written to ~/personal/obsidian/Work/digest/ with today's date as the filename",
+          "type": "file_exists"
+        },
+        {
+          "id": "neovim_section_present",
+          "text": "The Neovim & Editor Ecosystem section is present and has content",
+          "type": "content_check"
+        },
+        {
+          "id": "aws_section_present",
+          "text": "The AWS & Cloud section is present and has content",
+          "type": "content_check"
+        }
+      ]
+    }
+  ]
+}
