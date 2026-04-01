@@ -145,6 +145,11 @@ else
 fi
 # export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
+# Fuzzy find directories in which to open tmux sessions
+function run-tmux-sessionizer { tsessionizer; zle redisplay; }
+zle -N run-tmux-sessionizer
+bindkey '^Z' run-tmux-sessionizer
+
 ################################## xorg
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
 	exec startx

@@ -7,7 +7,6 @@ set clipboard=unnamed
 highlight badWhitespace ctermfg=16 ctermbg=253 guifg=#000000 guibg=#F8F8F0
 match BadWhitespace /\s\+$/ |
 
-" Dadbod config
 " Quickfix config
 function! QuickFix_toggle()
     for i in range(1, winnr('$'))
