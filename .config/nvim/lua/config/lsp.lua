@@ -1,5 +1,5 @@
 local nvim_lsp = require("lspconfig")
-local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local source_mapping = {
 	buffer = "[Buffer]",
@@ -51,7 +51,14 @@ cmp.setup({
 	},
 
 	sources = {
-		{ name = "nvim_lsp" },
+		{
+			name = "nvim_lsp",
+			option = {
+				markdown_oxide = {
+					keyword_pattern = [[\(\k\| \|\/\|#\)\+]],
+				},
+			},
+		},
 		{ name = "path" },
 		{ name = "buffer" },
 	},
@@ -124,6 +131,21 @@ end
 nvim_lsp.ocamllsp.setup({
 	capabilities = lsp_capabilities,
 })
+
+-- markdown
+-- Use the function call form to MERGE (not replace) the config
+vim.lsp.config("markdown_oxide", {
+	-- Ensure that dynamicRegistration is enabled! This allows the LS to take into account actions like the
+	-- Create Unresolved File code action, resolving completions for unindexed code blocks, ...
+	capabilities = vim.tbl_deep_extend("force", lsp_capabilities, {
+		workspace = {
+			didChangeWatchedFiles = {
+				dynamicRegistration = true,
+			},
+		},
+	}),
+})
+vim.lsp.enable("markdown_oxide")
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
