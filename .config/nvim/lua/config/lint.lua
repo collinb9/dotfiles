@@ -26,5 +26,3 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 		vim.diagnostic.setqflist({ open = false })
 	end,
 })
-
-vim.keymap.set("n", "<leader>f", vim.diagnostic.open_float)
