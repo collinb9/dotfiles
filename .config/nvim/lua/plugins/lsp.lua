@@ -61,7 +61,7 @@ return {
 				silent = true,
 			},
 			{
-				"<leader>a",
+				"<leader>z",
 				":Lspsaga show_line_diagnostics<CR>",
 				mode = { "n" },
 				desc = "Show lsp diagnostics",
@@ -79,6 +79,13 @@ return {
 				":Lspsaga hover_doc<CR>",
 				mode = { "n" },
 				desc = "Hover window w/ documentation",
+				silent = true,
+			},
+			{
+				"<leader>t",
+				":Lspsaga peek_type_definition<CR>",
+				mode = { "n" },
+				desc = "Peek type defininition",
 				silent = true,
 			},
 		},
