@@ -7,7 +7,7 @@ return {
 		tag = "v18.7.0",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"nvim-treesitter/nvim-treesitter"
+			"nvim-treesitter/nvim-treesitter",
 		},
 		cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions" },
 		keys = {
@@ -31,5 +31,11 @@ return {
 		config = function()
 			require("config.mcphub")
 		end,
+	},
+
+	-- GitHub Copilot
+	{
+		"github/copilot.vim",
+		lazy = false,
 	},
 }

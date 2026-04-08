@@ -39,10 +39,4 @@ return {
 			require("config.comment")
 		end,
 	},
-
-	-- GitHub Copilot
-	{
-		"github/copilot.vim",
-		event = "InsertEnter",
-	},
 }
