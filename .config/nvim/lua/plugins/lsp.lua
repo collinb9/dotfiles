@@ -94,17 +94,16 @@ return {
 		},
 	},
 
-	-- Mason - LSP installer (needs to load before mason-lspconfig)
+	-- Mason - LSP installer
 	{
-		"williamboman/mason.nvim",
-		lazy = false, -- Load early to ensure LSP servers are available
-	},
 
-	-- Mason LSP bridge (needs mason, provides handlers for lspconfig)
-	{
-		"williamboman/mason-lspconfig.nvim",
+		"mason-org/mason-lspconfig.nvim",
 		lazy = false,
-		dependencies = { "williamboman/mason.nvim" },
+		opts = {},
+		dependencies = {
+			{ "mason-org/mason.nvim", opts = {} },
+			"neovim/nvim-lspconfig",
+		},
 	},
 
 	-- LSP configuration

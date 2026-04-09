@@ -143,9 +143,3 @@ vim.lsp.config("markdown_oxide", {
 })
 vim.lsp.enable("markdown_oxide")
 
-require("mason").setup({})
-require("mason-lspconfig").setup({
-	ensure_installed = { "bashls", "lua_ls" },
-	automatic_installation = true,
-	handlers = { default_setup },
-})
