@@ -1,4 +1,3 @@
-local nvim_lsp = require("lspconfig")
 local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local source_mapping = {
@@ -80,57 +79,29 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
-local default_setup = function(server)
-	nvim_lsp[server].setup({
-		capabilities = lsp_capabilities,
-	})
-end
-
--- Configure custom server configurations
-local configs = require("lspconfig.configs")
 -- cfn-lsp-extra
-if not configs.cfn_lsp_extra then
-	configs.cfn_lsp_extra = {
-		default_config = {
-			cmd = { "cfn-lsp-extra" },
-			filetypes = { "yaml.cloudformation", "json.cloudformation" },
-			root_dir = function(fname)
-				return nvim_lsp.util.find_git_ancestor(fname) or vim.fn.getcwd()
-			end,
-			settings = {
-				documentFormatting = false,
-			},
-		},
-		docs = {
-			description = "CloudFormation Language Server with hover, completion, and diagnostics support",
-		},
-	}
-end
--- Setup the LSP server
-nvim_lsp.cfn_lsp_extra.setup({
-	capabilities = lsp_capabilities,
+vim.lsp.config("cfn-lsp-extra", {
+	cmd = { "cfn-lsp-extra" },
+	filetypes = { "yaml.cloudformation", "json.cloudformation" },
+	root_markers = { ".git" },
+	settings = {
+		documentFormatting = false,
+	},
 })
+vim.lsp.enable("cfn-lsp-extra")
 
 -- ocaml
-if not configs.ocamllsp then
-	configs.ocamllsp = {
-		default_config = {
-			cmd = { "ocamllsp" },
-			filetypes = { "ocaml" },
-			root_markers = { "dune-project" },
-			root_dir = function(fname)
-				return nvim_lsp.util.find_git_ancestor(fname) or vim.fn.getcwd()
-			end,
-		},
-	}
-end
--- Setup the LSP server
-nvim_lsp.ocamllsp.setup({
-	capabilities = lsp_capabilities,
+vim.lsp.config("ocamllsp", {
+	cmd = { "ocamllsp" },
+	filetypes = { "ocaml" },
+	root_markers = { "dune-project" },
+	-- root_dir = function(fname)
+	-- 	return vim.lsp.util.find_git_ancestor(fname) or vim.fn.getcwd()
+	-- end,
 })
+vim.lsp.enable("ocamllsp")
 
--- markdown
--- Use the function call form to MERGE (not replace) the config
+-- markdown-oxide
 vim.lsp.config("markdown_oxide", {
 	-- Ensure that dynamicRegistration is enabled! This allows the LS to take into account actions like the
 	-- Create Unresolved File code action, resolving completions for unindexed code blocks, ...
