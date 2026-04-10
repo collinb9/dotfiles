@@ -10,7 +10,7 @@ conform.setup({
 		html = { "prettierd" },
 		yaml = { "prettierd" },
 		sh = { "beautysh" },
-		sql = { "sqlfmt" },
+		sql = { "sleek" },
 		markdown = { "prettierd" },
 		toml = { "tombi" },
 		ocaml = { "ocamlformat" },
