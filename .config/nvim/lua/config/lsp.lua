@@ -39,6 +39,7 @@ cmp.setup({
 		["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
 		["<C-e>"] = cmp.mapping.close(),
 		["<tab>"] = cmp.mapping.confirm(),
+		["<CR>"] = cmp.mapping.confirm({ select = true }),
 	}),
 
 	formatting = {
@@ -142,4 +143,3 @@ vim.lsp.config("markdown_oxide", {
 	}),
 })
 vim.lsp.enable("markdown_oxide")
-
