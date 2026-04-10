@@ -33,9 +33,9 @@ return {
 		end,
 	},
 
-	-- GitHub Copilot
-	{
-		"github/copilot.vim",
-		lazy = false,
-	},
+	-- -- GitHub Copilot
+	-- {
+	-- 	"github/copilot.vim",
+	-- 	lazy = false,
+	-- },
 }
