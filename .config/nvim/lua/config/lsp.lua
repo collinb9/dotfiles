@@ -69,6 +69,7 @@ cmp.setup({
 vim.api.nvim_create_autocmd("LspAttach", {
 	desc = "LSP actions",
 	callback = function(event)
+		local client = assert(vim.lsp.get_client_by_id(event.data.client_id))
 		local opts = { buffer = event.buf }
 		-- See `:help vim.lsp.*` for documentation on any of the below functions
 		vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
@@ -76,6 +77,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "<C-s>", vim.lsp.buf.signature_help, opts)
 		vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help, opts)
 		vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+
+		if client.name == "obsidian-ls" then
+			client.server_capabilities.referencesProvider = false
+		end
 	end,
 })
 
@@ -95,9 +100,6 @@ vim.lsp.config("ocamllsp", {
 	cmd = { "ocamllsp" },
 	filetypes = { "ocaml" },
 	root_markers = { "dune-project" },
-	-- root_dir = function(fname)
-	-- 	return vim.lsp.util.find_git_ancestor(fname) or vim.fn.getcwd()
-	-- end,
 })
 vim.lsp.enable("ocamllsp")
 
