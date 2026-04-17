@@ -19,13 +19,6 @@ return {
 				desc = "Find files",
 			},
 			{
-				"<C-p>",
-				function()
-					require("telescope.builtin").git_files()
-				end,
-				desc = "Git files",
-			},
-			{
 				"<leader>fg",
 				function()
 					require("telescope.builtin").live_grep()
