@@ -9,7 +9,7 @@
       "skillFolderHash": "98a510d1cfef9f82c3b1eec200229ca68725e613",
       "pluginName": "example-skills",
       "installedAt": "2026-03-20T11:45:18.140Z",
-      "updatedAt": "2026-03-20T11:45:18.140Z"
+      "updatedAt": "2026-04-18T08:41:35.115Z"
     },
     "find-skills": {
       "source": "vercel-labs/skills",
@@ -81,9 +81,12 @@
   },
   "lastSelectedAgents": [
     "amp",
+    "antigravity",
     "cline",
     "codex",
     "cursor",
+    "deepagents",
+    "firebender",
     "gemini-cli",
     "github-copilot",
     "kimi-cli",

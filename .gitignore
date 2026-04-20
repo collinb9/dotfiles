@@ -66,6 +66,7 @@ auth.json
 .omp/agent/sessions
 .omp/agent/terminal-sessions
 .omp/agent/*.db*
+.omp/agent/search-db
 
 # setup config
 config/user.conf
