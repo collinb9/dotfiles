@@ -1,5 +1,5 @@
 lastChangelogVersion: 14.0.3
-modelRoles: 
+modelRoles:
   default: github-copilot/claude-opus-4.5:high
   smol: github-copilot/claude-haiku-4.5
   commit: github-copilot/claude-haiku-4.5
@@ -8,23 +8,22 @@ modelRoles:
   task: github-copilot/claude-sonnet-4.5:high
 defaultThinkingLevel: medium
 doubleEscapeAction: tree
-bashInterceptor: 
+bashInterceptor:
   enabled: true
-lsp: 
+lsp:
   formatOnWrite: false
-task: 
+task:
   eager: true
   maxConcurrency: 5
-  disabledAgents: 
-    []
-skills: 
+  disabledAgents: []
+skills:
   enabled: true
-grep: 
+grep:
   contextBefore: 3
   contextAfter: 3
-browser: 
+browser:
   enabled: false
-stt: 
+stt:
   enabled: false
-ask: 
+ask:
   notify: "on"
