@@ -94,10 +94,22 @@ Execute iterative subagent tasks until completion.
 - `thinking` (optional): Thinking level
 - `sleepMs` (optional): Delay between iterations
 
+### Tool: `ralph_spec`
+
+Generate Ralph spec files from a JTBD prompt.
+
+This tool breaks a request into distinct Topics of Concern (Jobs to Be Done), then writes XML-formatted Markdown spec files in the current workspace so `ralph_loop` can implement them later.
+
+**Parameters:**
+- `prompt` (required): JTBD or feature description to turn into one or more Ralph spec files
+- `model` (optional): Model to use for spec generation
+- `thinking` (optional): Thinking level: minimal, low, medium, high, xhigh
+
 ### Slash Commands
 
 - `/ralph-steer <message>` - Add steering to current iteration
 - `/ralph-follow <message>` - Queue follow-up task
+- `/ralph-spec <prompt>` - Generate Ralph spec files from a JTBD prompt
 - `/ralph-pause` - Pause the loop
 - `/ralph-resume` - Resume the loop
 - `/ralph-stop` - Stop the loop

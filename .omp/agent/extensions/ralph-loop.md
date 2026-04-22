@@ -51,6 +51,21 @@ Parameters:
 }
 ```
 
+## Spec Generation
+
+### `ralph_spec`
+Generate Ralph spec files from a JTBD prompt.
+
+This tool breaks the request into distinct Topics of Concern (Jobs to Be Done), then writes one XML-formatted Markdown spec file per topic into `specs/{number}-{topic}.md`. Use it when you want to prepare work for `ralph_loop` to process later.
+
+**Parameters:**
+- `prompt` (required): JTBD or feature description to turn into one or more Ralph spec files
+- `model` (optional): Model to use for spec generation
+- `thinking` (optional): Thinking level: minimal, low, medium, high, xhigh
+
+### `/ralph-spec <prompt>`
+Shortcut for generating Ralph spec files from the current workspace.
+
 ## Interactive Controls
 
 While a ralph loop is running, you can use these slash commands:
@@ -67,6 +82,13 @@ Queue a follow-up task for the next iteration.
 
 ```
 /ralph-follow After tests pass, add API documentation
+```
+
+### `/ralph-spec <prompt>`
+Generate Ralph spec files from a JTBD prompt. The command splits the request into distinct Topics of Concern, writes XML-formatted Markdown specs, and prepares them for `ralph_loop` to implement later.
+
+```
+/ralph-spec Build authentication and billing as separate deliverables
 ```
 
 ### `/ralph-pause`

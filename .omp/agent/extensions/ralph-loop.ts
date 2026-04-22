@@ -1,16 +1,42 @@
+/// <reference types="node" />
 /**
  * Ralph Loop Extension for Oh My Pi
- * 
+ *
  * Implements iterative subagent execution loops until completion criteria met.
- * Uses omp's built-in task agents for parallel/sequential work.
+ * Also provides Ralph spec generation as a one-shot subagent workflow.
  */
 
-import type { ExtensionAPI } from "@oh-my-pi/pi-coding-agent";
-import { Type } from "@sinclair/typebox";
 import { spawn } from "node:child_process";
-import { writeFile, readFile, unlink } from "node:fs/promises";
+import { writeFile, unlink } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
+
+type ToolExecutionResult = {
+	content: Array<{ type: "text"; text: string }>;
+	details?: unknown;
+};
+
+interface ExtensionAPI {
+	setLabel(label: string): void;
+	registerTool(definition: {
+		name: string;
+		label: string;
+		description: string;
+		parameters: unknown;
+		execute: (toolCallId: string, params: any) => Promise<ToolExecutionResult> | ToolExecutionResult;
+	}): void;
+	registerCommand(
+		name: string,
+		definition: {
+			description: string;
+			handler: (args: string, ctx: CommandContext) => Promise<void> | void;
+		},
+	): void;
+	on(
+		event: string,
+		handler: (event: unknown, ctx: CommandContext) => Promise<void> | void,
+	): void;
+}
 
 interface LoopState {
 	runId: string;
@@ -33,50 +59,19 @@ interface LoopState {
 	followUps: string[];
 }
 
-let currentLoop: LoopState | null = null;
+interface OmpRunParams {
+	prompt: string;
+	agent?: string;
+	model?: string;
+	thinking?: string;
+}
 
-const RalphLoopSchema = Type.Object({
-	prompt: Type.String({
-		description: "Task description for the subagent to execute each iteration",
-	}),
-	agent: Type.Optional(
-		Type.String({
-			description: "Agent type to use (task, explore, plan, etc.). Default: task",
-			default: "task",
-		}),
-	),
-	conditionCommand: Type.Optional(
-		Type.String({
-			description: "Shell command that must output 'true' to continue loop. If omitted, runs until maxIterations.",
-		}),
-	),
-	maxIterations: Type.Optional(
-		Type.Number({
-			description: "Maximum number of iterations. Default: 10",
-			default: 10,
-			minimum: 1,
-		}),
-	),
-	model: Type.Optional(
-		Type.String({
-			description: "Model to use for subagent tasks",
-		}),
-	),
-	thinking: Type.Optional(
-		Type.String({
-			description: "Thinking level: minimal, low, medium, high, xhigh",
-		}),
-	),
-	sleepMs: Type.Optional(
-		Type.Number({
-			description: "Minimum delay between iterations in milliseconds. Default: 0",
-			default: 0,
-			minimum: 0,
-		}),
-	),
-});
+interface OmpRunResult {
+	exitCode: number;
+	output: string;
+}
 
-type RalphLoopParams = {
+interface RalphLoopParams {
 	prompt: string;
 	agent?: string;
 	conditionCommand?: string;
@@ -84,7 +79,161 @@ type RalphLoopParams = {
 	model?: string;
 	thinking?: string;
 	sleepMs?: number;
-};
+}
+
+interface RalphSpecParams {
+	prompt: string;
+	model?: string;
+	thinking?: string;
+}
+
+type NotificationLevel = "info" | "warning" | "error";
+
+interface CommandContext {
+	ui: {
+		notify(message: string, level?: NotificationLevel): void;
+	};
+}
+
+let currentLoop: LoopState | null = null;
+
+const RalphLoopSchema = {
+	type: "object",
+	properties: {
+		prompt: {
+			type: "string",
+			description: "Task description for the subagent to execute each iteration",
+		},
+		agent: {
+			type: "string",
+			description: "Agent type to use (task, explore, plan, etc.). Default: task",
+			default: "task",
+		},
+		conditionCommand: {
+			type: "string",
+			description: "Shell command that must output 'true' to continue loop. If omitted, runs until maxIterations.",
+		},
+		maxIterations: {
+			type: "number",
+			description: "Maximum number of iterations. Default: 10",
+			default: 10,
+			minimum: 1,
+		},
+		model: {
+			type: "string",
+			description: "Model to use for subagent tasks",
+		},
+		thinking: {
+			type: "string",
+			description: "Thinking level: minimal, low, medium, high, xhigh",
+		},
+		sleepMs: {
+			type: "number",
+			description: "Minimum delay between iterations in milliseconds. Default: 0",
+			default: 0,
+			minimum: 0,
+		},
+	},
+	required: ["prompt"],
+} as const;
+
+const RalphSpecSchema = {
+	type: "object",
+	properties: {
+		prompt: {
+			type: "string",
+			description: "JTBD or feature description to turn into one or more Ralph spec files",
+		},
+		model: {
+			type: "string",
+			description: "Model to use for spec generation",
+		},
+		thinking: {
+			type: "string",
+			description: "Thinking level: minimal, low, medium, high, xhigh",
+		},
+	},
+	required: ["prompt"],
+} as const;
+
+const RALPH_SPEC_RULES = `
+You are generating Ralph spec files for the user's current workspace.
+
+Core rules:
+- Start from the user's real job-to-be-done, not an implementation idea.
+- Decompose the goal into distinct topics of concern. If one sentence needs "and" to join unrelated capabilities, split it.
+- Create one spec file per topic of concern.
+- Keep each task atomic. If a task needs "and" to describe it, split it.
+- Order topics and tasks by dependency and importance.
+- Spec files live in specs/{number}-{topic}.md, numbered in priority order.
+- Specs must be understandable by a fresh agent with no prior context.
+- Acceptance criteria must describe observable behavior and outcomes, not implementation details.
+- Do not prescribe algorithms, data structures, libraries, or code patterns unless the user explicitly requires them.
+- Do not use code blocks or example code in the spec content.
+- Use the review tag to signal readiness: <review></review> means ready.
+
+Required file format:
+---
+title: "Topic Name"
+created: YYYY-MM-DD
+iteration: 1
+---
+<project_specification>
+  <project_name>Topic Name</project_name>
+  <overview>
+    2-4 sentences explaining the outcome.
+  </overview>
+  <context>
+    Background, constraints, and integration points relevant to the topic.
+  </context>
+  <tasks>
+    <task id="task-id" priority="1" category="functional">
+      <title>Task Title</title>
+      <description>What to accomplish</description>
+      <acceptance_criteria>
+        - Observable outcome 1
+        - Observable outcome 2
+      </acceptance_criteria>
+      <review></review>
+    </task>
+  </tasks>
+</project_specification>
+
+Use optional sections only when relevant: technology_stack, database_schema, api_endpoints_summary.
+Write the spec files into the current workspace instead of only describing them.
+`.trim();
+
+function buildLoopPrompt(params: RalphLoopParams, steering: string[], followUps: string[]): string {
+	let fullPrompt = params.prompt;
+
+	if (steering.length > 0) {
+		fullPrompt += "\n\n## Steering Instructions\n" + steering.join("\n");
+	}
+
+	if (followUps.length > 0) {
+		fullPrompt += "\n\n## Follow-up Tasks\n" + followUps.join("\n");
+	}
+
+	return fullPrompt;
+}
+
+function buildSpecPrompt(prompt: string): string {
+	return [
+		"You are a Ralph spec generator operating inside the user's workspace.",
+		"Turn the request into well-scoped spec files that another agent can implement without prior context.",
+		"",
+		"User request:",
+		prompt,
+		"",
+		"Rules:",
+		RALPH_SPEC_RULES,
+	].join("\n");
+}
+
+function combineOutput(stdout: string, stderr: string): string {
+	const parts = [stdout.trim(), stderr.trim()].filter(Boolean);
+	return parts.join("\n");
+}
 
 async function sleep(ms: number): Promise<void> {
 	return new Promise((resolve) => setTimeout(resolve, ms));
@@ -97,7 +246,7 @@ async function checkCondition(command: string): Promise<boolean> {
 		});
 
 		let stdout = "";
-		proc.stdout?.on("data", (data) => {
+		proc.stdout?.on("data", (data: Uint8Array) => {
 			stdout += data.toString();
 		});
 
@@ -109,7 +258,6 @@ async function checkCondition(command: string): Promise<boolean> {
 			resolve(false);
 		});
 
-		// Timeout after 5 seconds
 		setTimeout(() => {
 			proc.kill();
 			resolve(false);
@@ -117,25 +265,21 @@ async function checkCondition(command: string): Promise<boolean> {
 	});
 }
 
-async function runSubagent(
-	params: RalphLoopParams,
-	iteration: number,
-	steering: string[],
-	followUps: string[],
-): Promise<{ exitCode: number; output: string }> {
-	const agent = params.agent || "task";
-	const tmpFile = join(tmpdir(), `ralph-loop-${Date.now()}-${iteration}.md`);
+async function runOmpAgent(params: OmpRunParams): Promise<OmpRunResult> {
+	const tmpFile = join(
+		tmpdir(),
+		`ralph-loop-${Date.now()}-${Math.random().toString(36).slice(2)}.md`,
+	);
 
-	// Build prompt with steering/follow-ups
-	let fullPrompt = params.prompt;
-	if (steering.length > 0) {
-		fullPrompt += "\n\n## Steering Instructions\n" + steering.join("\n");
+	try {
+		await writeFile(tmpFile, params.prompt, "utf-8");
+	} catch (error) {
+		const message = error instanceof Error ? error.message : String(error);
+		return {
+			exitCode: 1,
+			output: `Failed to write prompt file: ${message}`,
+		};
 	}
-	if (followUps.length > 0) {
-		fullPrompt += "\n\n## Follow-up Tasks\n" + followUps.join("\n");
-	}
-
-	await writeFile(tmpFile, fullPrompt, "utf-8");
 
 	return new Promise((resolve) => {
 		const args = ["--no-session", "-p"];
@@ -148,208 +292,107 @@ async function runSubagent(
 			args.push("--thinking", params.thinking);
 		}
 
-		// Add agent context
 		args.push(`@${tmpFile}`);
 
 		const proc = spawn("omp", args, {
+			cwd: process.cwd(),
 			stdio: ["ignore", "pipe", "pipe"],
 			env: {
 				...process.env,
-				OMP_AGENT: agent,
+				OMP_AGENT: params.agent || "task",
 			},
 		});
 
-		let output = "";
+		let stdout = "";
 		let stderr = "";
 
-		proc.stdout?.on("data", (data) => {
-			output += data.toString();
+		proc.stdout?.on("data", (data: Uint8Array) => {
+			stdout += data.toString();
 		});
 
-		proc.stderr?.on("data", (data) => {
+		proc.stderr?.on("data", (data: Uint8Array) => {
 			stderr += data.toString();
 		});
 
-		proc.on("close", async (code) => {
-			// Clean up temp file
+		const cleanup = async () => {
 			try {
 				await unlink(tmpFile);
 			} catch {
-				// Ignore cleanup errors
+				// Ignore cleanup errors.
 			}
+		};
 
+		proc.on("close", async (code: number | null) => {
+			await cleanup();
 			resolve({
 				exitCode: code ?? 1,
-				output: output || stderr,
+				output: combineOutput(stdout, stderr),
 			});
 		});
 
-		proc.on("error", async (err) => {
-			try {
-				await unlink(tmpFile);
-			} catch {
-				// Ignore
-			}
-
+		proc.on("error", async (err: Error) => {
+			await cleanup();
 			resolve({
 				exitCode: 1,
-				output: `Failed to spawn subagent: ${err.message}`,
+				output: `Failed to spawn omp: ${err.message}`,
 			});
 		});
+	});
+}
+
+async function runSubagent(
+	params: RalphLoopParams,
+	steering: string[],
+	followUps: string[],
+): Promise<OmpRunResult> {
+	const prompt = buildLoopPrompt(params, steering, followUps);
+
+	return runOmpAgent({
+		prompt,
+		agent: params.agent || "task",
+		model: params.model,
+		thinking: params.thinking,
+	});
+}
+
+async function runSpecAgent(params: RalphSpecParams): Promise<OmpRunResult> {
+	return runOmpAgent({
+		prompt: buildSpecPrompt(params.prompt),
+		agent: "task",
+		model: params.model,
+		thinking: params.thinking,
 	});
 }
 
 export default function ralphLoopExtension(pi: ExtensionAPI) {
 	pi.setLabel("Ralph Loop");
 
-	// Register the ralph_loop tool
-	pi.registerTool({
-		name: "ralph_loop",
-		label: "Ralph Loop",
-		description: "Execute a task in a loop using subagents until completion criteria met",
-		parameters: RalphLoopSchema,
-		execute: async (_toolCallId, params: RalphLoopParams) => {
-			const runId = Date.now().toString(36);
-			const maxIter = params.maxIterations ?? 10;
-			const sleepMs = params.sleepMs ?? 0;
-
-			currentLoop = {
-				runId,
-				status: "running",
-				iteration: 0,
-				maxIterations: maxIter,
-				conditionCommand: params.conditionCommand,
-				prompt: params.prompt,
-				agent: params.agent || "task",
-				model: params.model,
-				thinking: params.thinking,
-				sleepMs,
-				results: [],
-				steering: [],
-				followUps: [],
-			};
-
-			const output: string[] = [];
-			output.push(`🔄 Ralph Loop Started (ID: ${runId})`);
-			output.push(`Agent: ${currentLoop.agent}`);
-			output.push(`Max Iterations: ${maxIter}`);
-			if (params.conditionCommand) {
-				output.push(`Condition: ${params.conditionCommand}`);
-			}
-			if (params.model) {
-				output.push(`Model: ${params.model}`);
-			}
-			output.push("");
-
-			let shouldContinue = true;
-			let stopReason = "unknown";
-
-			while (shouldContinue && currentLoop.iteration < maxIter) {
-				currentLoop.iteration++;
-
-				// Check if paused
-				while (currentLoop.status === "paused") {
-					await sleep(500);
-				}
-
-				// Check if stopped
-				if (currentLoop.status === "stopped") {
-					stopReason = "manually stopped";
-					shouldContinue = false;
-					break;
-				}
-
-				output.push(`--- Iteration ${currentLoop.iteration} ---`);
-
-				// Collect and clear steering/follow-ups
-				const iterSteering = [...currentLoop.steering];
-				const iterFollowUps = [...currentLoop.followUps];
-				currentLoop.steering = [];
-				currentLoop.followUps = [];
-
-				// Run subagent
-				const result = await runSubagent(params, currentLoop.iteration, iterSteering, iterFollowUps);
-
-				currentLoop.results.push({
-					iteration: currentLoop.iteration,
-					exitCode: result.exitCode,
-					output: result.output,
-					timestamp: Date.now(),
-				});
-
-				if (result.exitCode !== 0) {
-					output.push(`❌ Subagent failed (exit ${result.exitCode})`);
-					output.push(result.output.substring(0, 500));
-					stopReason = "subagent failure";
-					shouldContinue = false;
-					break;
-				}
-
-				output.push(`✓ Iteration ${currentLoop.iteration} complete`);
-
-				// Check for completion promise in output
-				if (result.output.includes("<promise>") && result.output.includes("</promise>")) {
-					const match = result.output.match(/<promise>(.*?)<\/promise>/i);
-					if (match) {
-						output.push(`🎯 Completion promise detected: ${match[1]}`);
-						stopReason = "completion promise";
-						shouldContinue = false;
-						break;
-					}
-				}
-
-				// Check condition if provided
-				if (params.conditionCommand) {
-					const conditionMet = await checkCondition(params.conditionCommand);
-					if (!conditionMet) {
-						output.push(`⏹ Condition returned false`);
-						stopReason = "condition failed";
-						shouldContinue = false;
-						break;
-					}
-					output.push(`✓ Condition check passed`);
-				}
-
-				// Check max iterations
-				if (currentLoop.iteration >= maxIter) {
-					stopReason = "max iterations reached";
-					shouldContinue = false;
-					break;
-				}
-
-				// Sleep before next iteration
-				if (sleepMs > 0 && shouldContinue) {
-					await sleep(sleepMs);
-				}
-
-				output.push("");
+	pi.registerCommand("ralph-spec", {
+		description: "Generate Ralph spec files from a JTBD prompt",
+		handler: async (args: string, ctx: CommandContext) => {
+			const prompt = args.trim();
+			if (!prompt) {
+				ctx.ui.notify("Usage: /ralph-spec <prompt>", "warning");
+				return;
 			}
 
-			output.push("");
-			output.push(`🏁 Ralph Loop Completed`);
-			output.push(`Stop Reason: ${stopReason}`);
-			output.push(`Total Iterations: ${currentLoop.iteration}`);
-
-			const finalState = { ...currentLoop };
-			currentLoop = null;
-
-			return {
-				content: [{ type: "text" as const, text: output.join("\n") }],
-				details: finalState,
-			};
+			const result = await runSpecAgent({ prompt });
+			ctx.ui.notify(
+				result.output || (result.exitCode === 0 ? "Spec generation completed" : "Spec generation failed"),
+				result.exitCode === 0 ? "info" : "error",
+			);
 		},
 	});
 
-	// Register control commands
 	pi.registerCommand("ralph-steer", {
 		description: "Add steering instructions to the current ralph loop iteration",
-		handler: async (args, ctx) => {
+		handler: async (args: string, ctx: CommandContext) => {
 			if (!currentLoop || currentLoop.status !== "running") {
 				ctx.ui.notify("No active ralph loop", "warning");
 				return;
 			}
 
-			const message = args.join(" ");
+			const message = args.trim();
 			if (!message) {
 				ctx.ui.notify("Usage: /ralph-steer <message>", "warning");
 				return;
@@ -362,13 +405,13 @@ export default function ralphLoopExtension(pi: ExtensionAPI) {
 
 	pi.registerCommand("ralph-follow", {
 		description: "Queue a follow-up task for the next ralph loop iteration",
-		handler: async (args, ctx) => {
+		handler: async (args: string, ctx: CommandContext) => {
 			if (!currentLoop || currentLoop.status !== "running") {
 				ctx.ui.notify("No active ralph loop", "warning");
 				return;
 			}
 
-			const message = args.join(" ");
+			const message = args.trim();
 			if (!message) {
 				ctx.ui.notify("Usage: /ralph-follow <message>", "warning");
 				return;
@@ -381,7 +424,7 @@ export default function ralphLoopExtension(pi: ExtensionAPI) {
 
 	pi.registerCommand("ralph-pause", {
 		description: "Pause the current ralph loop",
-		handler: async (_args, ctx) => {
+		handler: async (_args: string, ctx: CommandContext) => {
 			if (!currentLoop) {
 				ctx.ui.notify("No active ralph loop", "warning");
 				return;
@@ -399,7 +442,7 @@ export default function ralphLoopExtension(pi: ExtensionAPI) {
 
 	pi.registerCommand("ralph-resume", {
 		description: "Resume a paused ralph loop",
-		handler: async (_args, ctx) => {
+		handler: async (_args: string, ctx: CommandContext) => {
 			if (!currentLoop) {
 				ctx.ui.notify("No active ralph loop", "warning");
 				return;
@@ -417,7 +460,7 @@ export default function ralphLoopExtension(pi: ExtensionAPI) {
 
 	pi.registerCommand("ralph-stop", {
 		description: "Stop the current ralph loop",
-		handler: async (_args, ctx) => {
+		handler: async (_args: string, ctx: CommandContext) => {
 			if (!currentLoop) {
 				ctx.ui.notify("No active ralph loop", "warning");
 				return;
@@ -430,7 +473,7 @@ export default function ralphLoopExtension(pi: ExtensionAPI) {
 
 	pi.registerCommand("ralph-status", {
 		description: "Show ralph loop status",
-		handler: async (_args, ctx) => {
+		handler: async (_args: string, ctx: CommandContext) => {
 			if (!currentLoop) {
 				ctx.ui.notify("No active ralph loop", "info");
 				return;
@@ -455,7 +498,7 @@ export default function ralphLoopExtension(pi: ExtensionAPI) {
 		},
 	});
 
-	pi.on("session_start", async (_event, ctx) => {
+	pi.on("session_start", async (_event: unknown, ctx: CommandContext) => {
 		ctx.ui.notify("🔄 Ralph Loop extension loaded", "info");
 	});
 }
