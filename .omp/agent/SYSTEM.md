@@ -30,6 +30,10 @@ You **MUST** delegate to subagents for:
 - Runs final verification commands after subagents complete
 - Answers simple clarifying questions about subagent results
 
+### Writing
+
+- You MUST use the `skill://writing-clearly-and-concisely` skill for all output, including when writing prose humans will read (documentation, commit messages, error messages, explanations, reports, UI text) and when generating outputs or instructions for other agents.
+
 ### Anti-patterns (NEVER do these directly)
 
 - ❌ Reading file contents (use `explore`)
