@@ -1,29 +1,30 @@
-lastChangelogVersion: 14.0.3
-modelRoles:
-  default: github-copilot/claude-opus-4.5:high
+lastChangelogVersion: 14.1.2
+modelRoles: 
+  default: github-copilot/gemini-3.1-pro-preview:high
   smol: github-copilot/claude-haiku-4.5
   commit: github-copilot/claude-haiku-4.5
-  plan: github-copilot/claude-opus-4.5:high
-  slow: github-copilot/claude-opus-4.5
+  plan: github-copilot/gemini-3.1-pro-preview:high
+  slow: github-copilot/gemini-3.1-pro-preview:high
   task: github-copilot/claude-sonnet-4.5:high
 defaultThinkingLevel: medium
 doubleEscapeAction: tree
-bashInterceptor:
+bashInterceptor: 
   enabled: true
-lsp:
+lsp: 
   formatOnWrite: false
-task:
+task: 
   eager: true
   maxConcurrency: 5
-  disabledAgents: []
-skills:
+  disabledAgents: 
+    []
+skills: 
   enabled: true
-grep:
+grep: 
   contextBefore: 3
   contextAfter: 3
-browser:
+browser: 
   enabled: false
-stt:
+stt: 
   enabled: false
-ask:
+ask: 
   notify: "on"
