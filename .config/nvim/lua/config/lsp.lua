@@ -80,6 +80,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		if client.name == "obsidian-ls" then
 			client.server_capabilities.referencesProvider = false
+			vim.keymap.set("n", "<leader>ot", function()
+				vim.cmd({ cmd = "Obsidian", args = { "tags" } })
+			end, { silent = false })
 		end
 	end,
 })
