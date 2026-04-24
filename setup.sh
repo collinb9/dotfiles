@@ -328,6 +328,9 @@ install_core_configs() {
 
     # ruff
     safe_link "$DOTFILES_DIR/.config/ruff/" "$HOME/.config/ruff"
+
+    # tombi
+    safe_link "$DOTFILES_DIR/.config/tombi/" "$HOME/.config/tombi"
     
     # git
     safe_link "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
