@@ -186,4 +186,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 ################################### ocaml
 
-eval $(opam env --switch=default)
+# eval $(opam env --switch=default)
+
+################################### claude
+alias claude="claude --dangerously-skip-permissions"

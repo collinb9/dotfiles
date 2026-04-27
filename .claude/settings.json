@@ -1,1 +1,4 @@
-{}
+{
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "dark"
+}

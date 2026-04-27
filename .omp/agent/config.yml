@@ -1,11 +1,12 @@
-lastChangelogVersion: 14.1.2
+lastChangelogVersion: 14.2.1
 modelRoles: 
-  default: github-copilot/gemini-3.1-pro-preview:high
+  default: github-copilot/claude-sonnet-4.6:medium
   smol: github-copilot/claude-haiku-4.5
   commit: github-copilot/claude-haiku-4.5
   plan: github-copilot/gemini-3.1-pro-preview:high
   slow: github-copilot/gemini-3.1-pro-preview:high
   task: github-copilot/claude-sonnet-4.5:high
+  designer: github-copilot/gemini-3.1-pro-preview:high
 defaultThinkingLevel: medium
 doubleEscapeAction: tree
 bashInterceptor: 
@@ -28,3 +29,8 @@ stt:
   enabled: false
 ask: 
   notify: "on"
+disabledProviders: 
+  - opencode
+disabledExtensions: 
+  - skill:tech-digest
+  - skill:oh-my-pi-history-ingest

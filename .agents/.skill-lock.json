@@ -74,6 +74,24 @@
       "skillFolderHash": "81d96cec5008970ed8fbecb23f7fb48536102b84",
       "installedAt": "2026-03-22T17:38:38.002Z",
       "updatedAt": "2026-03-22T17:38:38.002Z"
+    },
+    "wiki-query": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Ar9av/obsidian-wiki.git",
+      "skillPath": ".skills/wiki-query/SKILL.md",
+      "skillFolderHash": "a8dbbf924f96077023db4641897ed97d66506ee1",
+      "installedAt": "2026-04-24T13:28:13.365Z",
+      "updatedAt": "2026-04-24T13:28:13.365Z"
+    },
+    "wiki-update": {
+      "source": "Ar9av/obsidian-wiki",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Ar9av/obsidian-wiki.git",
+      "skillPath": ".skills/wiki-update/SKILL.md",
+      "skillFolderHash": "90f2f5863ea7527646932376b31512097a7e1579",
+      "installedAt": "2026-04-24T13:28:13.377Z",
+      "updatedAt": "2026-04-24T13:28:13.377Z"
     }
   },
   "dismissed": {
@@ -91,6 +109,7 @@
     "github-copilot",
     "kimi-cli",
     "opencode",
-    "warp"
+    "warp",
+    "claude-code"
   ]
 }
