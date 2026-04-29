@@ -61,7 +61,6 @@ uv.toml
 .pi/agent/git
 auth.json
 .pi/logs/
-auth.json
 .omp/logs/
 .omp/agent/sessions
 .omp/agent/terminal-sessions
