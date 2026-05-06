@@ -110,6 +110,7 @@ vim.lsp.enable("ocamllsp")
 vim.lsp.config("markdown_oxide", {
 	-- Ensure that dynamicRegistration is enabled! This allows the LS to take into account actions like the
 	-- Create Unresolved File code action, resolving completions for unindexed code blocks, ...
+	root_markers = { ".obsidian" },
 	capabilities = vim.tbl_deep_extend("force", lsp_capabilities, {
 		workspace = {
 			didChangeWatchedFiles = {
