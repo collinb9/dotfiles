@@ -14,6 +14,10 @@ return {
 					name = "Agents",
 					path = "~/personal/obsidian/Agents",
 				},
+				{
+					name = "Personal",
+					path = "~/personal/obsidian/Personal",
+				},
 			},
 
 			daily_notes = {
