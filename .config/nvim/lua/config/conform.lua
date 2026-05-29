@@ -17,4 +17,4 @@ conform.setup({
 	},
 })
 
-vim.keymap.set("n", "<leader>b", conform.format)
+vim.keymap.set({ "n", "v" }, "<leader>b", conform.format)
