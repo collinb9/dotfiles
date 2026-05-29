@@ -41,6 +41,9 @@ luarocks
 nodejs
 npm
 
+# Mosh
+mosh
+
 # Note: ruff not in standard Debian repos for older versions
 # Will be installed via pipx during setup
 
