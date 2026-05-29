@@ -9,9 +9,6 @@ local opts = { noremap = true, silent = true }
 -- vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
 -- vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 
--- Better escape
-vim.keymap.set("i", "jk", "<ESC>", opts)
-
 -- Stay in visual mode when indenting
 vim.keymap.set("v", "<", "<gv", opts)
 vim.keymap.set("v", ">", ">gv", opts)
