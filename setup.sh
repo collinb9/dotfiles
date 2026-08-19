@@ -124,6 +124,9 @@ install_ohmyzsh() {
         return 0
     fi
 
+    log_info "Setting zsh as default shell"
+    chsh -s $(which zsh)
+
     log_info "Installing oh-my-zsh..."
     RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
         || { log_error "Failed to install oh-my-zsh"; return 1; }

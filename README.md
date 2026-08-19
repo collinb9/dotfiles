@@ -7,7 +7,7 @@ Personal dotfiles repository for Linux development environment with Neovim, tmux
 ### First-Time Installation
 
 ```bash
-git clone git@github:collinb9/dotfiles ~/.dotfiles
+git clone git@github.com:collinb9/dotfiles ~/.dotfiles
 chmod +x ~/.dotfiles/setup.sh
 ~/.dotfiles/setup.sh
 ```
