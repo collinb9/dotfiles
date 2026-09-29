@@ -1,10 +1,18 @@
 {
-  "lastChangelogVersion": "0.75.5",
+  "lastChangelogVersion": "0.87.1",
   "defaultProvider": "deepseek",
   "defaultModel": "deepseek-v4-flash",
   "doubleEscapeAction": "none",
   "theme": "dark",
   "defaultThinkingLevel": "high",
   "packages": [],
-  "hideThinkingBlock": false
+  "hideThinkingBlock": true,
+  "enabledModels": [
+    "github-copilot/gpt-6-astra",
+    "github-copilot/gpt-6-luna",
+    "github-copilot/gpt-6-sol"
+  ],
+  "extensions": [
+    "-extensions/pi-tmux-agents/src/index.ts"
+  ]
 }
