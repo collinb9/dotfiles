@@ -56,6 +56,9 @@ uv.toml
 .agents/skills/*
 !.agents/skills/tech-digest
 
+!/.pi/
+.pi/agent/trust.json
+.pi/agent/models-store.json
 .pi/agent/bin/
 .pi/agent/sessions
 .pi/agent/git

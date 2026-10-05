@@ -1,9 +1,10 @@
 {
-  "lastChangelogVersion": "0.99.1",
+  "lastChangelogVersion": "1.0.2",
   "defaultProvider": "deepseek",
   "defaultModel": "deepseek-v4-flash",
   "doubleEscapeAction": "none",
   "theme": "dark",
+  "tuiMode": "regular",
   "defaultThinkingLevel": "high",
   "packages": [],
   "hideThinkingBlock": true,

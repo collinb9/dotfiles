@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "ketch": {
+      "command": "npx",
+      "args": ["-y", "ketch-cli@0.18.1", "mcp", "serve"],
+      "env": {
+        "KETCH_MCP_TOOLS": "search,scrape"
+      },
+      "enabled": false,
+      "exposure": "codemode",
+      "description": "Search the web and fetch web pages as clean markdown for external research."
+    }
+  }
+}
