@@ -9,6 +9,22 @@
       "enabled": false,
       "exposure": "codemode",
       "description": "Search the web and fetch web pages as clean markdown for external research."
+    },
+    "azure-devops": {
+      "command": "npx",
+      "args": ["-y", "@azure-devops/mcp@2.10.0", "trackman", "--authentication", "pat", "-d", "core", "work-items", "search"],
+      "env": {
+        "PERSONAL_ACCESS_TOKEN": "${ADO_MCP_PAT}"
+      },
+      "exposure": "hidden",
+      "toolExposure": {
+        "core_list_projects": "codemode",
+        "core_list_project_teams": "codemode",
+        "wit_work_item": "codemode",
+        "wit_query": "codemode",
+        "search_workitem": "codemode"
+      },
+      "description": "Search and read Azure DevOps tickets, comments, history, and queries."
     }
   }
 }
