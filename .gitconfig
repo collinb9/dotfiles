@@ -4,3 +4,5 @@
     path = work.gitconfig
 [safe]
 	directory = /home/bco/Work/pitcher/local-tests
+[core]
+	excludesFile = /home/ubuntu/.config/git/ignore

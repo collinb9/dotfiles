@@ -190,3 +190,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 ################################### claude
 alias claude="claude --dangerously-skip-permissions"
+
+################################### pi
+alias pi="pi --approve"
+

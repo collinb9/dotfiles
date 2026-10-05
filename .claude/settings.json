@@ -1,4 +1,5 @@
 {
+  "syncClaudeAiSkills": false,
   "permissions": {
     "allow": [
       "Bash(*)",
@@ -6,9 +7,14 @@
       "Edit(*)"
     ]
   },
+  "model": "opus",
   "effortLevel": "medium",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "xhigh"
+    }
+  },
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
-  "syncClaudeAiSkills": false,
   "theme": "dark"
 }

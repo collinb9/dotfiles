@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.87.1",
+  "lastChangelogVersion": "0.99.1",
   "defaultProvider": "deepseek",
   "defaultModel": "deepseek-v4-flash",
   "doubleEscapeAction": "none",
@@ -10,7 +10,8 @@
   "enabledModels": [
     "github-copilot/gpt-6-astra",
     "github-copilot/gpt-6-luna",
-    "github-copilot/gpt-6-sol"
+    "github-copilot/gpt-6-sol",
+    "github-copilot/gpt-6.1-sol"
   ],
   "extensions": [
     "-extensions/pi-tmux-agents/src/index.ts"
