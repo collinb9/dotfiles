@@ -336,6 +336,7 @@ install_core_configs() {
     safe_link "$DOTFILES_DIR/.config/tombi/" "$HOME/.config/tombi"
     
     # git
+    safe_link "$DOTFILES_DIR/.config/git/" "$HOME/.config/git"
     safe_link "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
     safe_link "$DOTFILES_DIR/default.gitconfig" "$HOME/default.gitconfig"
     safe_link "$DOTFILES_DIR/work.gitconfig" "$HOME/work.gitconfig"

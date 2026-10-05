@@ -1,0 +1,13 @@
+**/.claude/settings.local.json
+.ralph/
+.claude/
+CLAUDE.md
+AGENTS.md
+TASK.md
+PLAN.md
+SDAR.md
+DATATYPES.txt
+specs/
+.env
+.pi/
+.data/
