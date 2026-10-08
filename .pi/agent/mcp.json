@@ -10,12 +10,27 @@
       "exposure": "codemode",
       "description": "Search the web and fetch web pages as clean markdown for external research."
     },
+    "confluence": {
+      "command": "uvx",
+      "args": ["mcp-atlassian==0.23.1"],
+      "env": {
+        "CONFLUENCE_URL": "https://trackman.atlassian.net/wiki",
+        "CONFLUENCE_USERNAME": "${CONFLUENCE_USERNAME}",
+        "CONFLUENCE_API_TOKEN": "${CONFLUENCE_API_TOKEN}",
+        "READ_ONLY_MODE": "true",
+        "ENABLED_TOOLS": "confluence_search,confluence_get_page,confluence_get_page_children,confluence_get_comments"
+      },
+      "enabled": false,
+      "exposure": "codemode",
+      "description": "Search and read Trackman Confluence pages and comments."
+    },
     "azure-devops": {
       "command": "npx",
       "args": ["-y", "@azure-devops/mcp@2.10.0", "trackman", "--authentication", "pat", "-d", "core", "work-items", "search"],
       "env": {
         "PERSONAL_ACCESS_TOKEN": "${ADO_MCP_PAT}"
       },
+      "enabled": false,
       "exposure": "hidden",
       "toolExposure": {
         "core_list_projects": "codemode",
@@ -25,6 +40,16 @@
         "search_workitem": "codemode"
       },
       "description": "Search and read Azure DevOps tickets, comments, history, and queries."
+    },
+    "aws-knowledge": {
+      "url": "https://knowledge-mcp.global.api.aws",
+      "enabled": false,
+      "exposure": "hidden",
+      "toolExposure": {
+        "aws___search_documentation": "codemode",
+        "aws___read_documentation": "codemode"
+      },
+      "description": "Search and read official AWS documentation without AWS credentials or account access."
     }
   }
 }

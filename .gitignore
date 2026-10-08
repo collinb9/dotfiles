@@ -58,6 +58,7 @@ uv.toml
 
 !/.pi/
 .pi/agent/trust.json
+.pi/agent/mcp-auth.json
 .pi/agent/models-store.json
 .pi/agent/bin/
 .pi/agent/sessions
